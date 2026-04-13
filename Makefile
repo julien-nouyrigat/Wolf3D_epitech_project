@@ -1,0 +1,66 @@
+##
+## EPITECH PROJECT, 2025
+## Makefile
+## File description:
+## Makefile
+##
+
+CC := epiclang
+
+CFLAGS = -Wall -Wextra
+
+CPPFLAGS = -iquote./include
+
+LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+
+MAIN = 		src/main.c
+
+SRC = 		$(MAIN)							\
+			src/flag_h.c					\
+			src/wolf.c						\
+
+SRC_TESTS = tests/unit_tests.c 				\
+			$(filter-out $(MAIN), $(SRC))
+
+NAME = wolf3d
+
+OBJ_FOLDER = obj
+
+OBJ = $(patsubst %.c, obj/%.o, $(SRC))
+
+all : $(NAME)
+
+$(NAME) : $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+$(OBJ_FOLDER)/%.o: %.c
+	@mkdir -p $(OBJ_FOLDER) $(@D)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+clean : RM += -R
+clean :
+	@$(RM) $(OBJ_FOLDER)
+
+fclean : clean
+	@$(RM) $(NAME)
+
+fclean_test :
+	@$(RM) *.gcno
+	@$(RM) *.gcda
+	@$(RM) unit_tests
+
+re : fclean all
+
+ll : $(NAME) re fclean
+
+debug : CFLAGS += -g3
+debug : $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+tests_run : CFLAGS += --coverage
+			LIBS += -lcriterion -lgcov
+tests_run : fclean fclean_test
+	$(CC) -o unit_tests $(SRC_TESTS) $(CFLAGS) $(CPPFLAGS) $(LIBS)
+	./unit_tests
+
+.PHONY : fclean fclean_test re debug tests_run ll

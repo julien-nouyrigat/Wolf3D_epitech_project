@@ -18,6 +18,7 @@ MAIN = 		src/main.c
 SRC = 		$(MAIN)							\
 			src/flag_h.c					\
 			src/wolf.c						\
+			src/destroy.c					\
 
 SRC_TESTS = tests/unit_tests.c 				\
 			$(filter-out $(MAIN), $(SRC))
@@ -31,7 +32,7 @@ OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -55,7 +56,7 @@ ll : $(NAME) re fclean
 
 debug : CFLAGS += -g3
 debug : $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 tests_run : CFLAGS += --coverage
 			LIBS += -lcriterion -lgcov

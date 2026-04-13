@@ -14,8 +14,11 @@ int main(int ac, char **av)
 {
     if (ac > 2)
         return EXIT_FAILURE;
-    if (strcmp(av[FLAG], FLAG_H) == 0)
-        return flag_h();
-    else
-        return wolf();
+    if (ac == 2) {
+        if (strcmp(av[FLAG], FLAG_H) == 0)
+            return flag_h();
+        else
+            return EXIT_FAILURE;
+    }
+    return wolf();
 }

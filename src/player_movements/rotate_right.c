@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2026
 ** wolf3d
 ** File description:
-** moove_left
+** rotate_right
 */
 
 #include "player.h"
 
-void moove_left(player_t *player)
+void rotate_right(player_t *player)
 {
-    player->x -= 5;
+    player->x += 5;
 }

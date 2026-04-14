@@ -24,8 +24,8 @@ SRC = 		$(MAIN)									\
 			src/inputs/manage_keyboard.c			\
 			src/player_movements/moove_forward.c	\
 			src/player_movements/moove_backward.c	\
-			src/player_movements/moove_left.c		\
-			src/player_movements/moove_right.c		\
+			src/player_movements/rotate_left.c		\
+			src/player_movements/rotate_right.c		\
 
 SRC_TESTS = tests/unit_tests.c 						\
 			$(filter-out $(MAIN), $(SRC))

@@ -27,7 +27,7 @@ void manage_keyboard(sfEvent *event, player_t *player);
 // player movements
 void moove_forward(player_t *player);
 void moove_backward(player_t *player);
-void moove_left(player_t *player);
-void moove_right(player_t *player);
+void rotate_left(player_t *player);
+void rotate_right(player_t *player);
 
 #endif /* WOLF_H_ */

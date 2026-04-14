@@ -8,6 +8,9 @@
 #ifndef MAP_H_
     #define MAP_H_
 
+    #define TILE_SIZE 64
+    #define MAP_SIDE 8
+
 typedef struct {
     sfRectangleShape *ceilling;
     sfTexture *floor;

@@ -8,9 +8,8 @@
 #ifndef PLAYER_H_
     #define PLAYER_H_
 
-    #define TILE_SIZE 64
-    #define MAP_WIDTH 8
-    #define MAP_HEIGHT 8
+    #define NB_RAYS 60
+    #define OFFSET 0.0001
 
 typedef struct {
     float x;

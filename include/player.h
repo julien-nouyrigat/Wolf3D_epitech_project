@@ -16,6 +16,8 @@ typedef struct {
     float x;
     float y;
     float angle;
+    float delta_x;
+    float delta_y;
 } player_t;
 
 #endif /* PLAYER_H_ */

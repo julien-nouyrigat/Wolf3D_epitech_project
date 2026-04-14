@@ -9,5 +9,6 @@
 
 void moove_forward(player_t *player)
 {
-    player->y -= 5;
+    player->x += player->delta_x;
+    player->y += player->delta_y;
 }

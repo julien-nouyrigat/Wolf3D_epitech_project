@@ -17,5 +17,7 @@ int init_player(player_t *player)
     player->x = 4;
     player->y = 4;
     player->angle = 0;
+    player->delta_x = cos(player->angle) * 5;
+    player->delta_y = sin(player->angle) * 5;
     return EXIT_SUCCESS;
 }

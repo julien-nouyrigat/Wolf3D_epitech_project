@@ -11,7 +11,7 @@ CFLAGS = -Wall -Wextra
 
 CPPFLAGS = -iquote./include
 
-LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 MAIN = 		src/main.c
 

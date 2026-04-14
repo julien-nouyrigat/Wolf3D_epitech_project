@@ -9,5 +9,9 @@
 
 void rotate_right(player_t *player)
 {
-    player->x += 5;
+    player->angle -= 0.1;
+    if (player->angle > 2 * M_PI)
+        player->angle = 0;
+    player->delta_x = cos(player->angle) * 5;
+    player->delta_y = sin(player->angle) * 5;
 }

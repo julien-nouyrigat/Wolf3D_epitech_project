@@ -9,11 +9,13 @@
 
 #include "wolf.h"
 
-
-static void manage_events(window_t *wolf_win)
+static void manage_events(window_t *wolf_win, player_t *player)
 {
     if (wolf_win->event.type == sfEvtClosed)
         sfRenderWindow_close(wolf_win->window);
+    if (wolf_win->event.type == sfEvtKeyPressed) {
+        manage_keyboard(&(wolf_win->event), player);
+    }
 }
 
 static int render_window(window_t *wolf_win)
@@ -23,26 +25,34 @@ static int render_window(window_t *wolf_win)
     return EXIT_SUCCESS;
 }
 
-int wolf(void)
+static int game_loop(window_t *wolf_win, player_t *player)
 {
-    window_t *wolf_win = malloc(sizeof(window_t));
-    sfVideoMode mode = {1920, 1080, 32};
-
-    if (!wolf_win)
-        return EXIT_FAILURE;
-    wolf_win->window = sfRenderWindow_create(mode, "Wolf3D",
-        sfResize | sfClose, NULL);
-    sfRenderWindow_setFramerateLimit(wolf_win->window, FRAMES_LIMIT);
-    if (!wolf_win->window)
-        return EXIT_FAILURE;
     while (sfRenderWindow_isOpen(wolf_win->window)){
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))
-            manage_events(wolf_win);
+            manage_events(wolf_win, player);
         if (render_window(wolf_win) == EXIT_FAILURE){
-            destroy_assets(wolf_win);
+            destroy_assets(wolf_win, player);
             return EXIT_FAILURE;
         }
     }
-    destroy_assets(wolf_win);
+    return EXIT_SUCCESS;
+}
+
+int wolf(void)
+{
+    window_t *wolf_win = malloc(sizeof(window_t));
+    player_t *player = NULL;
+
+    if (!wolf_win)
+        return EXIT_FAILURE;
+    if (init_player(player) == EXIT_FAILURE){
+        destroy_assets(wolf_win, player);
+        return EXIT_FAILURE;
+    }
+    if (init_window(wolf_win) == EXIT_FAILURE)
+        return EXIT_FAILURE;
+    if (game_loop(wolf_win, player) == EXIT_FAILURE)
+        return EXIT_FAILURE;
+    destroy_assets(wolf_win, player);
     return EXIT_SUCCESS;
 }

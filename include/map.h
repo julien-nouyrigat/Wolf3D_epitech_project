@@ -12,9 +12,21 @@
     #define MAP_SIDE 8
 
 typedef struct {
+    float angle;
+    float x;
+    float y;
+    float aTan;
+    float x_offset;
+    float y_offset;
+    float max_cast;
+} ray_t;
+
+typedef struct {
     sfRectangleShape *ceilling;
     sfTexture *floor;
-    int **map;
+    int x;
+    int y;
+    int **int_map;
 } map_t;
 
 #endif /* MAP_H_ */

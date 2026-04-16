@@ -26,6 +26,9 @@ SRC = 		$(MAIN)									\
 			src/player_movements/moove_backward.c	\
 			src/player_movements/rotate_left.c		\
 			src/player_movements/rotate_right.c		\
+			src/2d_raycasting/draw_2d_player.c		\
+			src/initialisation/init_map.c			\
+			src/2d_raycasting/draw_2d_map.c			\
 
 SRC_TESTS = tests/unit_tests.c 						\
 			$(filter-out $(MAIN), $(SRC))

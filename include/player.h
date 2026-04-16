@@ -8,13 +8,17 @@
 #ifndef PLAYER_H_
     #define PLAYER_H_
 
+    #include "window.h"
+
     #define NB_RAYS 60
     #define OFFSET 0.0001
+    #define PLAYER_SIZE 15
 
 typedef struct {
-    float x;
-    float y;
+    int pos_x;
+    int pos_y;
     float angle;
+    sfRectangleShape *hitbox;
     float delta_x;
     float delta_y;
 } player_t;

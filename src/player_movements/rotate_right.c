@@ -5,11 +5,13 @@
 ** rotate_right
 */
 
+#include <math.h>
+
 #include "player.h"
 
 void rotate_right(player_t *player)
 {
-    player->angle -= 0.1;
+    player->angle += 0.1;
     if (player->angle > 2 * M_PI)
         player->angle = 0;
     player->delta_x = cos(player->angle) * 5;

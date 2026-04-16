@@ -9,6 +9,6 @@
 
 void moove_backward(player_t *player)
 {
-    player->x -= player->delta_x;
-    player->y -= player->delta_y;
+    player->pos_x -= player->delta_x;
+    player->pos_y -= player->delta_y;
 }

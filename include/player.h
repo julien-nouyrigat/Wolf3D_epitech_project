@@ -8,10 +8,14 @@
 #ifndef PLAYER_H_
     #define PLAYER_H_
 
+    #include <stdbool.h>
+
     #include "window.h"
 
     #define OFFSET 0.0001
     #define PLAYER_SIZE 15
+    #define VERTICAL true
+    #define HORIZONTAL false
 
 typedef struct {
     float angle;
@@ -21,6 +25,8 @@ typedef struct {
     int y_step;
     float x_dist;
     float y_dist;
+    bool wall_face;
+    float dist;
 } ray_t;
 
 typedef struct {

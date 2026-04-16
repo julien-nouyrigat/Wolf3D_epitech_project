@@ -16,4 +16,6 @@ void init_ray(ray_t *ray)
     ray->y_step = 0;
     ray->x_dist = 0;
     ray->y_dist = 0;
+    ray->wall_face = VERTICAL;
+    ray->dist = 0;
 }

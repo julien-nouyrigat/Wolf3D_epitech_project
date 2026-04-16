@@ -29,6 +29,7 @@ SRC = 		$(MAIN)									\
 			src/2d_raycasting/draw_2d_player.c		\
 			src/initialisation/init_map.c			\
 			src/2d_raycasting/draw_2d_map.c			\
+			src/initialisation/init_ray.c			\
 
 SRC_TESTS = tests/unit_tests.c 						\
 			$(filter-out $(MAIN), $(SRC))

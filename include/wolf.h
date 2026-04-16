@@ -29,7 +29,7 @@ void moove_backward(player_t *player);
 void rotate_left(player_t *player);
 void rotate_right(player_t *player);
 int init_map(map_t **map);
-void init_ray(ray_t *ray, player_t *player);
+void init_ray(ray_t *ray);
 void draw_2d_player(window_t *wolf_win, player_t *player);
 void draw_2d_map(window_t *wolf_win, map_t *map);
 

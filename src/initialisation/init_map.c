@@ -19,6 +19,25 @@ static void fill_map_line(map_t **map, int i)
     }
 }
 
+static int get_int_map(map_t **map)
+{
+    for (int i = 0; i < (*map)->y; i++) {
+        (*map)->int_map[i] = malloc(sizeof(int) * (*map)->x);
+        if (!(*map)->int_map[i]) {
+            free((*map)->int_map);
+            free(*map);
+            return EXIT_FAILURE;
+        }
+        fill_map_line(map, i);
+    }
+    (*map)->int_map[1][5] = 1;
+    (*map)->int_map[2][5] = 1;
+    (*map)->int_map[3][5] = 1;
+    (*map)->int_map[4][1] = 1;
+    (*map)->int_map[4][2] = 1;
+    return EXIT_SUCCESS;
+}
+
 int init_map(map_t **map)
 {
     *map = malloc(sizeof(map_t));
@@ -31,14 +50,7 @@ int init_map(map_t **map)
         free(*map);
         return EXIT_FAILURE;
     }
-    for (int i = 0; i < (*map)->y; i++) {
-        (*map)->int_map[i] = malloc(sizeof(int) * (*map)->x);
-        if (!(*map)->int_map[i]) {
-            free((*map)->int_map);
-            free(*map);
-            return EXIT_FAILURE;
-        }
-        fill_map_line(map, i);
-    }
+    if (get_int_map(map) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }

@@ -12,16 +12,6 @@
     #define MAP_SIDE 8
 
 typedef struct {
-    float angle;
-    float x;
-    float y;
-    float aTan;
-    float x_offset;
-    float y_offset;
-    float max_cast;
-} ray_t;
-
-typedef struct {
     sfRectangleShape *ceilling;
     sfTexture *floor;
     int x;

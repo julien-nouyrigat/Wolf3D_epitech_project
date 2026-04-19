@@ -19,6 +19,9 @@ SRC = 		$(MAIN)							\
 			src/flag_h.c					\
 			src/wolf.c						\
 			src/destroy.c					\
+			src/generating/parsing_map.c 	\
+			src/generating/parsing_door.c 	\
+			src/generating/generating.c 	\
 
 SRC_TESTS = tests/unit_tests.c 				\
 			$(filter-out $(MAIN), $(SRC))

@@ -5,10 +5,17 @@
 ** moove_backward
 */
 
-#include "player.h"
+#include "wolf.h"
 
-void moove_backward(player_t *player)
+void moove_backward(player_t *player, map_t *map)
 {
-    player->pos_x -= player->delta_x;
-    player->pos_y -= player->delta_y;
+    int x_verif =
+        (int)(player->position.x - player->direction.x * player->mvt_speed);
+    int y_verif =
+        (int)(player->position.y - player->direction.y * player->mvt_speed);
+
+    if (map->int_map[x_verif][(int)player->position.y] == 0)
+        player->position.x -= player->direction.x * player->mvt_speed;
+    if (map->int_map[(int)player->position.x][y_verif] == 0)
+        player->position.y -= player->direction.y * player->mvt_speed;
 }

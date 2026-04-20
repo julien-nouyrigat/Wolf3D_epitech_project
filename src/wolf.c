@@ -9,20 +9,21 @@
 
 #include "wolf.h"
 
-static void manage_events(window_t *wolf_win, player_t *player)
+static void manage_events(window_t *wolf_win, player_t *player, map_t *map)
 {
     if (wolf_win->event.type == sfEvtClosed)
         sfRenderWindow_close(wolf_win->window);
     if (wolf_win->event.type == sfEvtKeyPressed) {
-        manage_keyboard(&(wolf_win->event), player);
+        manage_keyboard(&(wolf_win->event), player, map);
     }
 }
 
 static int render_window(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfRenderWindow_clear(wolf_win->window, wolf_win->bg_color);
-    draw_2d_map(wolf_win, map);
-    draw_2d_player(wolf_win, player);
+    //draw_2d_map(wolf_win, map);
+    //draw_2d_player(wolf_win, player);
+    dda_algorithm(player, map, wolf_win);
     sfRenderWindow_display(wolf_win->window);
     return EXIT_SUCCESS;
 }
@@ -31,7 +32,7 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     while (sfRenderWindow_isOpen(wolf_win->window)) {
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))
-            manage_events(wolf_win, player);
+            manage_events(wolf_win, player, map);
         if (render_window(wolf_win, player, map) == EXIT_FAILURE){
             destroy_assets(wolf_win, player);
             return EXIT_FAILURE;

@@ -7,13 +7,20 @@
 
 #include <math.h>
 
-#include "player.h"
+#include "wolf.h"
 
-void rotate_right(player_t *player)
+void rotate_right(player_t *player, map_t *map)
 {
-    player->angle += 0.1;
-    if (player->angle > 2 * M_PI)
-        player->angle = 0;
-    player->delta_x = cos(player->angle) * 5;
-    player->delta_y = sin(player->angle) * 5;
+    float old_dir_x = player->direction.x;
+    float old_plane_x = player->camera_plane.x;
+
+    (void)map;
+    player->direction.x = player->direction.x * cos(- ROTATION_SPEED) -
+        player->direction.y * sin(- ROTATION_SPEED);
+    player->direction.y = old_dir_x * sin(- ROTATION_SPEED) +
+        player->direction.y * cos(- ROTATION_SPEED);
+    player->camera_plane.x = player->camera_plane.x * cos(- ROTATION_SPEED) -
+        player->camera_plane.y * sin(- ROTATION_SPEED);
+    player->camera_plane.y = old_plane_x * sin(- ROTATION_SPEED) +
+        player->camera_plane.y * cos(- ROTATION_SPEED);
 }

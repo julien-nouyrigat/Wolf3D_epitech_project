@@ -23,14 +23,16 @@ int wolf(void);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);
-void manage_keyboard(sfEvent *event, player_t *player);
-void moove_forward(player_t *player);
-void moove_backward(player_t *player);
-void rotate_left(player_t *player);
-void rotate_right(player_t *player);
+void manage_keyboard(sfEvent *event, player_t *player, map_t *map);
+void moove_forward(player_t *player, map_t *map);
+void moove_backward(player_t *player, map_t *map);
+void rotate_left(player_t *player, map_t *map);
+void rotate_right(player_t *player, map_t *map);
 int init_map(map_t **map);
 void init_ray(ray_t *ray);
 void draw_2d_player(window_t *wolf_win, player_t *player);
 void draw_2d_map(window_t *wolf_win, map_t *map);
+void dda_algorithm(player_t *player, map_t *map, window_t *win);
+void draw_wall(ray_t *ray, window_t *win);
 
 #endif /* WOLF_H_ */

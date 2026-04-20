@@ -12,30 +12,31 @@
 
     #include "window.h"
 
-    #define OFFSET 0.0001
     #define PLAYER_SIZE 15
+    #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
+    #define ROTATION_SPEED 5
 
 typedef struct {
-    float angle;
-    float x_len;
-    float y_len;
-    int x_step;
-    int y_step;
-    float x_dist;
-    float y_dist;
-    bool wall_face;
-    float dist;
+    size_t screen_x;
+    sfVector2f direction;
+    sfVector2f side_dist;
+    sfVector2f delta_dist;
+    sfVector2i step;
+    float real_dist;
+    bool orientation;
 } ray_t;
 
 typedef struct {
-    int pos_x;
-    int pos_y;
-    float angle;
+    sfVector2f position;
+    sfVector2f direction;
+    sfVector2f camera_plane;
+    sfVector2f camera;
     sfRectangleShape *hitbox;
     float delta_x;
     float delta_y;
+    int mvt_speed;
 } player_t;
 
 #endif /* PLAYER_H_ */

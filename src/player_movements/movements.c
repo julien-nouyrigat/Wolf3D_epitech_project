@@ -5,6 +5,8 @@
 ** movements
 */
 
+#include <math.h>
+
 #include "wolf.h"
 
 void move_forward(player_t *player, map_t *map)
@@ -16,11 +18,11 @@ void move_forward(player_t *player, map_t *map)
         (int)((player->position.y + player->direction.y * player->mvt_speed) /
         TILE_SIZE);
 
-    if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] == 0) {
+    if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] != WALL) {
         player->position.x += player->direction.x * player->mvt_speed;
         player->pos_f.x = player->position.x / TILE_SIZE;
     }
-    if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] == 0) {
+    if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] != WALL) {
         player->position.y += player->direction.y * player->mvt_speed;
         player->pos_f.y = player->position.y / TILE_SIZE;
     }
@@ -35,12 +37,50 @@ void move_backward(player_t *player, map_t *map)
         (int)((player->position.y - player->direction.y * player->mvt_speed) /
         TILE_SIZE);
 
-    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] == 0) {
+    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
         player->position.x -= player->direction.x * player->mvt_speed;
         player->pos_f.x = player->position.x / TILE_SIZE;
     }
-    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] == 0) {
+    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
         player->position.y -= player->direction.y * player->mvt_speed;
+        player->pos_f.y = player->position.y / TILE_SIZE;
+    }
+}
+
+void move_right(player_t *player, map_t *map)
+{
+    int x_verif =
+        (int)((player->position.x +
+            fabsf(player->direction.x * player->mvt_speed)) / TILE_SIZE);
+    int y_verif =
+        (int)((player->position.y +
+            fabsf(player->direction.y * player->mvt_speed)) / TILE_SIZE);
+
+    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
+        player->position.x += fabsf(player->direction.y * player->mvt_speed);
+        player->pos_f.x = player->position.x / TILE_SIZE;
+    }
+    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
+        player->position.y += fabsf(player->direction.x * player->mvt_speed);
+        player->pos_f.y = player->position.y / TILE_SIZE;
+    }
+}
+
+void move_left(player_t *player, map_t *map)
+{
+    int x_verif =
+        (int)((player->position.x -
+            fabsf(player->direction.x * player->mvt_speed)) / TILE_SIZE);
+    int y_verif =
+        (int)((player->position.y -
+            fabsf(player->direction.y * player->mvt_speed)) / TILE_SIZE);
+
+    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
+        player->position.x -= fabsf(player->direction.y * player->mvt_speed);
+        player->pos_f.x = player->position.x / TILE_SIZE;
+    }
+    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
+        player->position.y -= fabsf(player->direction.x * player->mvt_speed);
         player->pos_f.y = player->position.y / TILE_SIZE;
     }
 }

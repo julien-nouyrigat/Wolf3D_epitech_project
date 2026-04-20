@@ -18,6 +18,8 @@
     #define EXIT_SUCCESS 0
     #define EXIT_FAILURE 84
 
+    #define WALL 1
+
 int flag_h(void);
 int wolf(void);
 void destroy_assets(window_t *wolf_win, player_t *player);
@@ -26,6 +28,8 @@ int init_player(player_t **player);
 void manage_keyboard(sfEvent *event, player_t *player, map_t *map);
 void move_forward(player_t *player, map_t *map);
 void move_backward(player_t *player, map_t *map);
+void move_left(player_t *player, map_t *map);
+void move_right(player_t *player, map_t *map);
 void rotate_left(player_t *player, map_t *map);
 void rotate_right(player_t *player, map_t *map);
 int init_map(map_t **map);

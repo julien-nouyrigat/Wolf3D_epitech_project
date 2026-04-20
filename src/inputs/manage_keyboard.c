@@ -12,9 +12,11 @@
 
 const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyZ, &move_forward},
-    {sfKeyQ, &rotate_left},
     {sfKeyS, &move_backward},
-    {sfKeyD, &rotate_right},
+    {sfKeyQ, &move_left},
+    {sfKeyD, &move_right},
+    {sfKeyLeft, &rotate_left},
+    {sfKeyRight, &rotate_right},
     {sfKeyUnknown, NULL}
 };
 

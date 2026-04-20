@@ -13,7 +13,8 @@ void destroy_assets(window_t *wolf_win, player_t *player)
 {
     if (wolf_win) {
         sfRenderWindow_destroy(wolf_win->window);
-        free(wolf_win);
+        sfSprite_destroy(wolf_win->background);
+        sfTexture_destroy(wolf_win->texture);
     }
     if (player)
         free(player);

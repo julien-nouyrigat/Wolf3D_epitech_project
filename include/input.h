@@ -14,7 +14,7 @@ typedef void(*function_t)(player_t *player);
 
 typedef struct keyboard_fpt_s {
     sfKeyCode code;
-    function_t function;
+    input_enum_t input;
 } keyboard_fpt_t;
 
 #endif /* INPUT_H_ */

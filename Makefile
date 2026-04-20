@@ -15,35 +15,52 @@ LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 MAIN = 		src/main.c
 
-SRC = 		$(MAIN)									\
-			src/flag_h.c							\
-			src/wolf.c								\
-			src/destroy.c							\
-			src/initialisation/init_window.c		\
-			src/initialisation/init_player.c		\
-			src/inputs/manage_keyboard.c			\
-			src/player_movements/moove_forward.c	\
-			src/player_movements/moove_backward.c	\
-			src/player_movements/rotate_left.c		\
-			src/player_movements/rotate_right.c		\
-			src/2d_raycasting/draw_2d_player.c		\
-			src/initialisation/init_map.c			\
-			src/2d_raycasting/draw_2d_map.c			\
-			src/initialisation/init_ray.c			\
+SRC_SERV =	Server/run_serv.c							\
+			Server/udp.c								\
+			src/initialisation/init_map.c				\
+			Server/main.c								\
+
+SRC_CLIENT	=	Client/main.c							\
+				Client/client_udp.c						\
+				src/flag_h.c							\
+				src/wolf.c								\
+				src/destroy.c							\
+				src/initialisation/init_window.c		\
+				src/initialisation/init_player.c		\
+				src/inputs/manage_keyboard.c			\
+				src/player_movements/moove_forward.c	\
+				src/player_movements/moove_backward.c	\
+				src/player_movements/rotate_left.c		\
+				src/player_movements/rotate_right.c		\
+				src/2d_raycasting/draw_2d_player.c		\
+				src/initialisation/init_map.c			\
+				src/2d_raycasting/draw_2d_map.c			\
+				src/initialisation/init_ray.c			\
+				src/window/window_ip.c					\
+				src/window/window_pseudo.c				\
+				src/window/display_ip.c					\
+				src/window/display_pseudo.c				\
 
 SRC_TESTS = tests/unit_tests.c 						\
 			$(filter-out $(MAIN), $(SRC))
 
-NAME = wolf3d
+NAME_SERV = server
+
+NAME_CLIENT = wolf3d
 
 OBJ_FOLDER = obj
 
-OBJ = $(patsubst %.c, obj/%.o, $(SRC))
+OBJ_SERV = $(patsubst %.c, obj/%.o, $(SRC_SERV))
 
-all : $(NAME)
+OBJ_CLIENT = $(patsubst %.c, obj/%.o, $(SRC_CLIENT))
 
-$(NAME) : $(OBJ)
-	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+all : $(NAME_SERV) $(NAME_CLIENT)
+
+$(NAME_SERV) : $(OBJ_SERV)
+	$(CC) $(OBJ_SERV) -o $(NAME_SERV) $(LIBS)
+
+$(NAME_CLIENT) : $(OBJ_CLIENT)
+	$(CC) $(OBJ_CLIENT) -o $(NAME_CLIENT) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -54,7 +71,7 @@ clean :
 	@$(RM) $(OBJ_FOLDER)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME_SERV) $(NAME_CLIENT)
 
 fclean_test :
 	@$(RM) *.gcno
@@ -63,11 +80,11 @@ fclean_test :
 
 re : fclean all
 
-ll : $(NAME) re fclean
+ll : $(NAME_SERV) $(NAME_CLIENT) re fclean
 
 debug : CFLAGS += -g3
-debug : $(OBJ)
-	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+debug : $(OBJ) $(OBJ_SERV)
+	$(CC) $(OBJ_SERV) -o $(NAME_SERV) $(LIBS) $(CC) $(OBJ_CLIENT) -o $(NAME_CLIENT) $(LIBS)
 
 tests_run : CFLAGS += --coverage
 			LIBS += -lcriterion -lgcov

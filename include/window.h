@@ -17,6 +17,7 @@
     #include <SFML/Graphics/Transform.h>
     #include <SFML/Graphics/Types.h>
     #include <SFML/System/Vector2.h>
+    #include <stdbool.h>
     #include <SFML/Audio.h>
 
     #define FRAMES_LIMIT 60
@@ -26,9 +27,35 @@
     #define LINE_SIZE 3
 
 typedef struct {
+    char pseudo[BUFSIZ];
+    int index_pseudo;
+    sfText *text;
+    sfText *start;
+    sfText *title;
+    sfRectangleShape *rect;
+    sfRectangleShape *butt;
+} pseudo_t;
+
+typedef struct {
+    char ip[BUFSIZ];
+    int index_ip;
+    sfText *text;
+    sfText *start;
+    sfRectangleShape *rect;
+    sfRectangleShape *butt;
+} ip_t;
+
+typedef struct {
     sfRenderWindow *window;
     sfEvent event;
     sfColor bg_color;
+    bool is_pseudo;
+    bool is_connect;
+    bool launch_game;
+    pseudo_t *pseudo;
+    ip_t *ip;
+    sfTexture *texture;
+    sfSprite *background;
 } window_t;
 
 #endif /* WINDOW_H_ */

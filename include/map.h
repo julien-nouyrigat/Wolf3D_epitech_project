@@ -10,6 +10,7 @@
 
     #define TILE_SIZE 64
     #define MAP_SIDE 8
+    #include <SFML/Graphics.h>
 
 typedef struct {
     sfRectangleShape *ceilling;

@@ -8,20 +8,25 @@
 #include <stddef.h>
 
 #include "input.h"
+#include "client.h"
+#include "server.h"
 #include "wolf.h"
 
 const struct keyboard_fpt_s keyboard_input [] = {
-    {sfKeyZ, &moove_forward},
-    {sfKeyQ, &rotate_left},
-    {sfKeyS, &moove_backward},
-    {sfKeyD, &rotate_right},
-    {sfKeyUnknown, NULL}
+    {sfKeyZ, MOVE_Z},
+    {sfKeyQ, MOVE_Q},
+    {sfKeyS, MOVE_S},
+    {sfKeyD, MOVE_D},
+    {sfKeyUnknown, -1}
 };
 
-void manage_keyboard(sfEvent *event, player_t *player)
+bool manage_keyboard(sfEvent *event, input_enum_t *input)
 {
-    for (size_t i = 0; keyboard_input[i].function != NULL; i++) {
-        if (event->key.code == keyboard_input[i].code)
-            keyboard_input[i].function(player);
+    for (int i = 0; (int)keyboard_input[i].input != -1; i++) {
+        if (event->key.code == keyboard_input[i].code) {
+            *input = keyboard_input[i].input;
+            return true;
+        }
     }
+    return false;
 }

@@ -30,6 +30,7 @@ typedef struct {
     sfRectangleShape *hitbox;
     float delta_x;
     float delta_y;
+    char pseudo[67];
 } player_t;
 
 #endif /* PLAYER_H_ */

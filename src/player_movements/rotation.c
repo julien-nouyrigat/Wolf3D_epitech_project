@@ -9,7 +9,7 @@
 
 #include "wolf.h"
 
-void rotate_right(player_t *player, map_t *map)
+void rotate_left(player_t *player, map_t *map)
 {
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;
@@ -25,7 +25,7 @@ void rotate_right(player_t *player, map_t *map)
         player->camera_plane.y * cos(ROTATION_SPEED);
 }
 
-void rotate_left(player_t *player, map_t *map)
+void rotate_right(player_t *player, map_t *map)
 {
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;

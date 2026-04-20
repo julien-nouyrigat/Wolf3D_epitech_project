@@ -48,20 +48,20 @@ static void init_raycasting(ray_t *ray, player_t *player, sfVector2i *map_pos)
 {
     if (ray->direction.x < 0) {
         ray->step.x = -1;
-        ray->side_dist.x = (player->position.x - map_pos->x) *
+        ray->side_dist.x = (player->position.x - (map_pos->x * TILE_SIZE)) *
             ray->delta_dist.x;
     } else {
         ray->step.x = 1;
-        ray->side_dist.x = (map_pos->x + 1 - player->position.x) *
+        ray->side_dist.x = ((map_pos->x * TILE_SIZE + 1) - player->position.x) *
             ray->delta_dist.x;
     }
     if (ray->direction.y < 0) {
         ray->step.y = -1;
-        ray->side_dist.y = (player->position.y - map_pos->y) *
+        ray->side_dist.y = (player->position.y - (map_pos->y * TILE_SIZE)) *
             ray->delta_dist.y;
     } else {
         ray->step.y = 1;
-        ray->side_dist.y = (map_pos->y + 1 - player->position.y) *
+        ray->side_dist.y = ((map_pos->y * TILE_SIZE) + 1 - player->position.y) *
             ray->delta_dist.y;
     }
 }
@@ -84,7 +84,7 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
     ray_t ray = {0};
 
     for (size_t screen_col = 0; screen_col < WIN_WIDTH; screen_col++) {
-        player->camera.x = 2 * screen_col / WIN_WIDTH - 1;
+        player->camera.x = 2 * screen_col / (WIN_WIDTH - 1);
         ray.screen_x = screen_col;
         ray.direction.x = player->direction.x + player->camera_plane.x *
             player->camera.x;

@@ -20,10 +20,15 @@
     #include <SFML/Audio.h>
 
     #define FRAMES_LIMIT 60
+    #define WIN_WIDTH 1980
+    #define WIN_HEIGHT 1080
+    #define WIN_BPP 32
+    #define LINE_SIZE 3
 
 typedef struct {
     sfRenderWindow *window;
     sfEvent event;
+    sfColor bg_color;
 } window_t;
 
 #endif /* WINDOW_H_ */

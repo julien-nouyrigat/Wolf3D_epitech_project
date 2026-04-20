@@ -29,6 +29,8 @@ int init_player(player_t **player)
     if (!*player)
         return EXIT_FAILURE;
     (*player)->position = (sfVector2f){4 * TILE_SIZE, 4 * TILE_SIZE};
+    (*player)->pos_f.x = (*player)->position.x / TILE_SIZE;
+    (*player)->pos_f.y = (*player)->position.y / TILE_SIZE;
     (*player)->direction = (sfVector2f){-1, 0};
     (*player)->camera_plane = (sfVector2f){0, 0.66};
     (*player)->camera = (sfVector2f){0, 0};

@@ -48,28 +48,26 @@ static void init_raycasting(ray_t *ray, player_t *player, sfVector2i *map_pos)
 {
     if (ray->direction.x < 0) {
         ray->step.x = -1;
-        ray->side_dist.x = (player->position.x - (map_pos->x * TILE_SIZE)) *
-            ray->delta_dist.x;
+        ray->side_dist.x = (player->pos_f.x - map_pos->x) * ray->delta_dist.x;
     } else {
         ray->step.x = 1;
-        ray->side_dist.x = ((map_pos->x * TILE_SIZE + 1) - player->position.x) *
+        ray->side_dist.x = (map_pos->x + 1 - player->pos_f.x) *
             ray->delta_dist.x;
     }
     if (ray->direction.y < 0) {
         ray->step.y = -1;
-        ray->side_dist.y = (player->position.y - (map_pos->y * TILE_SIZE)) *
-            ray->delta_dist.y;
+        ray->side_dist.y = (player->pos_f.y - map_pos->y) * ray->delta_dist.y;
     } else {
         ray->step.y = 1;
-        ray->side_dist.y = ((map_pos->y * TILE_SIZE) + 1 - player->position.y) *
+        ray->side_dist.y = (map_pos->y + 1 - player->pos_f.y) *
             ray->delta_dist.y;
     }
 }
 
 static void init_dda(player_t *player, ray_t *ray, map_t *map, window_t *win)
 {
-    sfVector2i map_pos = (sfVector2i){(int)(player->position.x / TILE_SIZE),
-        (int)(player->position.y / TILE_SIZE)};
+    sfVector2i map_pos = (sfVector2i){(int)(player->pos_f.x),
+        (int)(player->pos_f.y)};
 
     ray->delta_dist.x =
         (ray->direction.x == 0) ? ZERO_INV : fabsf(1 / ray->direction.x);

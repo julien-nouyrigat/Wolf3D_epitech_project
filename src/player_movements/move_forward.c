@@ -14,8 +14,12 @@ void move_forward(player_t *player, map_t *map)
     int y_verif =
         (int)((player->position.y + player->direction.y * player->mvt_speed) / TILE_SIZE);
 
-    if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] == 0)
+    if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] == 0) {
         player->position.x += player->direction.x * player->mvt_speed;
-    if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] == 0)
+        player->pos_f.x = player->position.x / TILE_SIZE;
+    }
+    if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] == 0) {
         player->position.y += player->direction.y * player->mvt_speed;
+        player->pos_f.y = player->position.y / TILE_SIZE;
+    }
 }

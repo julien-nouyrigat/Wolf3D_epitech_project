@@ -16,7 +16,7 @@
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
-    #define ROTATION_SPEED (M_PI / 100)
+    #define ROTATION_SPEED (M_PI / 50)
 
 typedef struct {
     size_t screen_x;
@@ -31,6 +31,7 @@ typedef struct {
 
 typedef struct {
     sfVector2f position;
+    sfVector2f pos_f;
     sfVector2f direction;
     sfVector2f camera_plane;
     sfVector2f camera;

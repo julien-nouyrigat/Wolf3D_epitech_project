@@ -16,7 +16,7 @@
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
-    #define ROTATION_SPEED 1
+    #define ROTATION_SPEED (M_PI / 100)
 
 typedef struct {
     size_t screen_x;

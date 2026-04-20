@@ -11,8 +11,8 @@
 
 static void fill_map_line(map_t **map, int i)
 {
-    for (int j = 0; j < (*map)->x; j++) {
-        if (i == 0 || i == (*map)->y - 1 || j == 0 || j == (*map)->x - 1)
+    for (int j = 0; j < (*map)->y; j++) {
+        if (i == 0 || i == (*map)->x - 1 || j == 0 || j == (*map)->y - 1)
             (*map)->int_map[i][j] = 1;
         else
             (*map)->int_map[i][j] = 0;
@@ -21,8 +21,8 @@ static void fill_map_line(map_t **map, int i)
 
 static int get_int_map(map_t **map)
 {
-    for (int i = 0; i < (*map)->y; i++) {
-        (*map)->int_map[i] = malloc(sizeof(int) * (*map)->x);
+    for (int i = 0; i < (*map)->x; i++) {
+        (*map)->int_map[i] = malloc(sizeof(int) * (*map)->y);
         if (!(*map)->int_map[i]) {
             free((*map)->int_map);
             free(*map);

@@ -67,7 +67,7 @@ re : fclean all
 ll : $(NAME) re fclean
 
 debug : CFLAGS += -g3
-debug : $(OBJ)
+debug : clean $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 tests_run : CFLAGS += --coverage

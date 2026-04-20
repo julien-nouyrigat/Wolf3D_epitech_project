@@ -30,8 +30,8 @@ void draw_2d_map(window_t *wolf_win, map_t *map)
     sfVector2i tile_coordinates;
 
     sfRectangleShape_setSize(tile, tile_size);
-    for (int i = 0; i < map->y; i++) {
-        for (int j = 0; j < map->x; j++) {
+    for (int i = 0; i < map->x; i++) {
+        for (int j = 0; j < map->y; j++) {
             tile_coordinates = (sfVector2i){i, j};
             draw_tile(wolf_win, map, &tile_coordinates, tile);
         }

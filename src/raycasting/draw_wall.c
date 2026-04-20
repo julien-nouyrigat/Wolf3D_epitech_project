@@ -9,7 +9,7 @@
 
 void draw_wall(ray_t *ray, window_t *win)
 {
-    int wall_height = (int)(WIN_HEIGHT / (ray->real_dist * TILE_SIZE));
+    int wall_height = (int)(WIN_HEIGHT / ray->real_dist);
     int draw_start = (WIN_HEIGHT / 2) - (wall_height / 2);
     int draw_end = (WIN_HEIGHT / 2) + (wall_height / 2);
     sfVertexArray *wall_line = sfVertexArray_create();

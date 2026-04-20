@@ -23,7 +23,7 @@ static void project_wall(ray_t *ray, window_t *win)
 
 static bool is_wall(sfVector2i *map_pos, map_t *map)
 {
-    if (map->int_map[map_pos->x][map_pos->y] == 1)
+    if (map->int_map[map_pos->y][map_pos->x] == 1)
         return true;
     return false;
 }
@@ -82,7 +82,7 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
     ray_t ray = {0};
 
     for (size_t screen_col = 0; screen_col < WIN_WIDTH; screen_col++) {
-        player->camera.x = 2 * screen_col / (WIN_WIDTH - 1);
+        player->camera.x = 2 * screen_col / (WIN_WIDTH - 1) - 1;
         ray.screen_x = screen_col;
         ray.direction.x = player->direction.x + player->camera_plane.x *
             player->camera.x;

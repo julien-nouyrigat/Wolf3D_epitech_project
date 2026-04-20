@@ -11,9 +11,9 @@
 #include "wolf.h"
 
 const struct keyboard_fpt_s keyboard_input [] = {
-    {sfKeyZ, &moove_forward},
+    {sfKeyZ, &move_forward},
     {sfKeyQ, &rotate_left},
-    {sfKeyS, &moove_backward},
+    {sfKeyS, &move_backward},
     {sfKeyD, &rotate_right},
     {sfKeyUnknown, NULL}
 };

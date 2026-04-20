@@ -16,7 +16,7 @@
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
-    #define ROTATION_SPEED 5
+    #define ROTATION_SPEED 1
 
 typedef struct {
     size_t screen_x;
@@ -26,6 +26,7 @@ typedef struct {
     sfVector2i step;
     float real_dist;
     bool orientation;
+    sfColor color;
 } ray_t;
 
 typedef struct {

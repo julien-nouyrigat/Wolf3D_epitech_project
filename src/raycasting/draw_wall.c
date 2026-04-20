@@ -12,19 +12,13 @@ void draw_wall(ray_t *ray, window_t *win)
     int wall_height = (int)(WIN_HEIGHT / ray->real_dist);
     int draw_start = (WIN_HEIGHT / 2) - (wall_height / 2);
     int draw_end = (WIN_HEIGHT / 2) + (wall_height / 2);
-    sfRectangleShape *pixel = sfRectangleShape_create();
+    sfVertexArray *wall_line = sfVertexArray_create();
+    sfVertex bottom = {.position = {ray->screen_x, draw_start}, .color = ray->color};
+    sfVertex top = {.position = {ray->screen_x, draw_end}, .color = ray->color};
 
-    sfRectangleShape_setSize(pixel, (sfVector2f){1, 1});
-    if (draw_start < 0)
-        draw_start = 0;
-    if (draw_end >= WIN_HEIGHT)
-        draw_end = WIN_HEIGHT - 1;
-    for (int y = draw_start; y <= draw_end; y++) {
-        sfRectangleShape_setPosition(pixel, (sfVector2f){ray->screen_x, y});
-        if (ray->orientation == VERTICAL)
-            sfRectangleShape_setFillColor(pixel, sfColor_fromRGB(0, 128, 255));
-        else
-            sfRectangleShape_setFillColor(pixel, sfColor_fromRGB(0, 102, 204));
-        sfRenderWindow_drawRectangleShape(win->window, pixel, NULL);
-    }
+    sfVertexArray_append(wall_line, bottom);
+    sfVertexArray_append(wall_line, top);
+    sfVertexArray_setPrimitiveType(wall_line, sfLines);
+    sfRenderWindow_drawVertexArray(win->window, wall_line, NULL);
+    sfVertexArray_destroy(wall_line);
 }

@@ -7,12 +7,12 @@
 
 #include "wolf.h"
 
-void moove_backward(player_t *player, map_t *map)
+void move_backward(player_t *player, map_t *map)
 {
     int x_verif =
-        (int)(player->position.x - player->direction.x * player->mvt_speed);
+        (int)(player->position.x - player->direction.x * player->mvt_speed) / TILE_SIZE;
     int y_verif =
-        (int)(player->position.y - player->direction.y * player->mvt_speed);
+        (int)(player->position.y - player->direction.y * player->mvt_speed) / TILE_SIZE;
 
     if (map->int_map[x_verif][(int)player->position.y] == 0)
         player->position.x -= player->direction.x * player->mvt_speed;

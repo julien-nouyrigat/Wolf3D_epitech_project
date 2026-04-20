@@ -22,10 +22,8 @@ SRC = 		$(MAIN)									\
 			src/initialisation/init_window.c		\
 			src/initialisation/init_player.c		\
 			src/inputs/manage_keyboard.c			\
-			src/player_movements/move_forward.c	\
-			src/player_movements/move_backward.c	\
-			src/player_movements/rotate_left.c		\
-			src/player_movements/rotate_right.c		\
+			src/player_movements/movements.c		\
+			src/player_movements/rotation.c			\
 			src/raycasting/draw_2d_player.c			\
 			src/initialisation/init_map.c			\
 			src/raycasting/draw_2d_map.c			\

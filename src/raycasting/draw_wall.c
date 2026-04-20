@@ -13,7 +13,8 @@ void draw_wall(ray_t *ray, window_t *win)
     int draw_start = (WIN_HEIGHT / 2) - (wall_height / 2);
     int draw_end = (WIN_HEIGHT / 2) + (wall_height / 2);
     sfVertexArray *wall_line = sfVertexArray_create();
-    sfVertex bottom = {.position = {ray->screen_x, draw_start}, .color = ray->color};
+    sfVertex bottom = {.position = {ray->screen_x, draw_start},
+        .color = ray->color};
     sfVertex top = {.position = {ray->screen_x, draw_end}, .color = ray->color};
 
     sfVertexArray_append(wall_line, bottom);

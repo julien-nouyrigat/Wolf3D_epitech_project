@@ -19,13 +19,13 @@ SRC = 		$(MAIN)									\
 			src/flag_h.c							\
 			src/wolf.c								\
 			src/destroy.c							\
-			src/initialisation/init_window.c		\
-			src/initialisation/init_player.c		\
+			src/initialization/init_window.c		\
+			src/initialization/init_player.c		\
 			src/inputs/manage_keyboard.c			\
 			src/player_movements/movements.c		\
 			src/player_movements/rotation.c			\
 			src/raycasting/draw_2d_player.c			\
-			src/initialisation/init_map.c			\
+			src/initialization/init_map.c			\
 			src/raycasting/draw_2d_map.c			\
 			src/raycasting/algorithm.c				\
 			src/raycasting/draw_wall.c				\

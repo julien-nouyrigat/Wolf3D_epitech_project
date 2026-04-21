@@ -28,6 +28,7 @@
 typedef struct {
     sfRenderWindow *window;
     sfEvent event;
+    sfVector2u size;
     sfColor bg_color;
 } window_t;
 

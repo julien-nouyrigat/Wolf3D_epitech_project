@@ -13,6 +13,8 @@ static void manage_events(window_t *wolf_win, player_t *player, map_t *map)
 {
     if (wolf_win->event.type == sfEvtClosed)
         sfRenderWindow_close(wolf_win->window);
+    if (wolf_win->event.type == sfEvtResized)
+        wolf_win->size = sfRenderWindow_getSize(wolf_win->window);
     if (wolf_win->event.type == sfEvtKeyPressed) {
         manage_keyboard(&(wolf_win->event), player, map);
     }

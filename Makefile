@@ -15,23 +15,26 @@ LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 MAIN = 		src/main.c
 
-SRC = 		$(MAIN)									\
-			src/flag_h.c							\
-			src/wolf.c								\
-			src/destroy.c							\
-			src/initialization/init_window.c		\
-			src/initialization/init_player.c		\
-			src/events/inputs/manage_keyboard.c		\
-			src/events/window_events/window_evts.c	\
-			src/player_movements/movements.c		\
-			src/player_movements/rotation.c			\
-			src/raycasting/draw_2d_player.c			\
-			src/initialization/init_map.c			\
-			src/raycasting/draw_2d_map.c			\
-			src/raycasting/algorithm.c				\
-			src/raycasting/draw_wall.c				\
+SRC = 		$(MAIN)										\
+			src/flag_h.c								\
+			src/wolf.c									\
+			src/destroy.c								\
+			src/initialization/init_window.c			\
+			src/initialization/init_player.c			\
+			src/events/inputs/manage_keyboard.c			\
+			src/events/window_events/window_evts.c		\
+			src/player_movements/movements.c			\
+			src/player_movements/rotation.c				\
+			src/raycasting/draw_2d_player.c				\
+			src/initialization/init_map.c				\
+			src/raycasting/draw_2d_map.c				\
+			src/raycasting/algorithm.c					\
+			src/raycasting/draw_wall.c					\
+			src/window/init/init_menu.c					\
+			src/window/sprite_sheet/background_menu.c	\
+			src/window/menu.c							\
 
-SRC_TESTS = tests/unit_tests.c 						\
+SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d

@@ -25,10 +25,19 @@
     #define WIN_HEIGHT 1080
     #define WIN_BPP 32
     #define LINE_SIZE 3
+    #define COL_BG 29
+    #define LINE_BG 28
+    #define LAST_LINE_BG 6
+    #define SIZE_X_BG (9280 / COL_BG)
+    #define SIZE_Y_BG (5040 / LINE_BG)
+    #define IPS_BG (1.0 / 24)
 
 typedef struct {
     sfTexture *t_bg;
     sfSprite *s_bg;
+    sfIntRect rect_bg;
+    int line_ss_bg;
+    int col_ss_bg;
     sfTexture *t_title;
     sfSprite *s_title;
     sfText *host;
@@ -69,15 +78,24 @@ typedef struct {
 } lobby_t;
 
 typedef struct {
+    sfClock *clock;
+    sfTime time;
+    float elapsed_time_bg;
+} win_clock_t;
+
+typedef struct {
     sfRenderWindow *window;
     menu_t menu;
     lobby_t lobby;
     sfEvent event;
     sfVector2u size;
     sfColor bg_color;
+    win_clock_t clock;
     bool is_menu;
     bool is_lobby;
     bool is_game;
+    bool is_single;
+    bool is_param;
 } window_t;
 
 #endif /* WINDOW_H_ */

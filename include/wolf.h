@@ -41,5 +41,9 @@ void draw_2d_player(window_t *wolf_win, player_t *player);
 void draw_2d_map(window_t *wolf_win, map_t *map);
 void dda_algorithm(player_t *player, map_t *map, window_t *win);
 void draw_wall(ray_t *ray, window_t *win);
+int init_brackground_menu(window_t *win);
+void display_background_menu(window_t *win);
+int init_menu(window_t *win);
+void display_menu(window_t *win);
 
 #endif /* WOLF_H_ */

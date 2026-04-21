@@ -24,12 +24,24 @@ static void manage_events(window_t *win, player_t *player, map_t *map)
     }
 }
 
+static void manage_window(window_t *win, player_t *player, map_t *map)
+{
+    if (win->is_menu == true)
+        display_menu(win);
+    if (win->is_single == true) {
+        dda_algorithm(player, map, win);
+        draw_2d_map(win, map);
+        draw_2d_player(win, player);
+    }
+}
+
 static int render_window(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfRenderWindow_clear(wolf_win->window, wolf_win->bg_color);
-    dda_algorithm(player, map, wolf_win);
-    draw_2d_map(wolf_win, map);
-    draw_2d_player(wolf_win, player);
+    wolf_win->clock.time = sfClock_restart(wolf_win->clock.clock);
+    wolf_win->clock.elapsed_time_bg += wolf_win->clock.time.microseconds /
+        1000000.0;
+    manage_window(wolf_win, player, map);
     sfRenderWindow_display(wolf_win->window);
     return EXIT_SUCCESS;
 }

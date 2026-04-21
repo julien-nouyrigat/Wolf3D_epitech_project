@@ -12,7 +12,6 @@
 const struct evt_pfs_s events[] = {
     {sfEvtClosed, &close_window},
     {sfEvtResized, &resize_window},
-    {sfEvtKeyPressed, &manage_keyboard},
     {END, NULL}
 };
 
@@ -24,13 +23,14 @@ static void manage_events(window_t *win, player_t *player, map_t *map)
     }
 }
 
-static int render_window(window_t *wolf_win, player_t *player, map_t *map)
+static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    sfRenderWindow_clear(wolf_win->window, wolf_win->bg_color);
-    dda_algorithm(player, map, wolf_win);
-    draw_2d_map(wolf_win, map);
-    draw_2d_player(wolf_win, player);
-    sfRenderWindow_display(wolf_win->window);
+    sfRenderWindow_clear(win->window, win->bg_color);
+    manage_keyboard(player, map);
+    dda_algorithm(player, map, win);
+    draw_2d_map(win, map);
+    draw_2d_player(win, player);
+    sfRenderWindow_display(win->window);
     return EXIT_SUCCESS;
 }
 

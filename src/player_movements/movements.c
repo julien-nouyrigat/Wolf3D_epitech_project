@@ -9,78 +9,57 @@
 
 #include "wolf.h"
 
-void move_forward(player_t *player, map_t *map)
+static void move(player_t *player, map_t *map, sfVector2f *movement_dir)
 {
     int x_verif =
-        (int)((player->position.x + player->direction.x * player->mvt_speed) /
+        (int)((player->position.x + movement_dir->x * player->mvt_speed) /
         TILE_SIZE);
     int y_verif =
-        (int)((player->position.y + player->direction.y * player->mvt_speed) /
+        (int)((player->position.y + movement_dir->y * player->mvt_speed) /
         TILE_SIZE);
 
     if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] != WALL) {
-        player->position.x += player->direction.x * player->mvt_speed;
+        player->position.x += movement_dir->x * player->mvt_speed;
         player->pos_f.x = player->position.x / TILE_SIZE;
     }
     if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] != WALL) {
-        player->position.y += player->direction.y * player->mvt_speed;
+        player->position.y += movement_dir->y * player->mvt_speed;
         player->pos_f.y = player->position.y / TILE_SIZE;
     }
+}
+
+void move_forward(player_t *player, map_t *map)
+{
+    sfVector2f movement_dir = {0};
+
+    movement_dir.x = player->direction.x * (player->mvt_speed / M_PI);
+    movement_dir.y = player->direction.y * (player->mvt_speed / M_PI);
+    move(player, map, &movement_dir);
 }
 
 void move_backward(player_t *player, map_t *map)
 {
-    int x_verif =
-        (int)((player->position.x - player->direction.x * player->mvt_speed) /
-        TILE_SIZE);
-    int y_verif =
-        (int)((player->position.y - player->direction.y * player->mvt_speed) /
-        TILE_SIZE);
+    sfVector2f movement_dir = {0};
 
-    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
-        player->position.x -= player->direction.x * player->mvt_speed;
-        player->pos_f.x = player->position.x / TILE_SIZE;
-    }
-    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
-        player->position.y -= player->direction.y * player->mvt_speed;
-        player->pos_f.y = player->position.y / TILE_SIZE;
-    }
+    movement_dir.x = - player->direction.x * (player->mvt_speed / M_PI);
+    movement_dir.y = - player->direction.y * (player->mvt_speed / M_PI);
+    move(player, map, &movement_dir);
 }
 
 void move_right(player_t *player, map_t *map)
 {
-    int x_verif =
-        (int)((player->position.x +
-            fabsf(player->direction.x * player->mvt_speed)) / TILE_SIZE);
-    int y_verif =
-        (int)((player->position.y +
-            fabsf(player->direction.y * player->mvt_speed)) / TILE_SIZE);
+    sfVector2f movement_dir = {0};
 
-    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
-        player->position.x += fabsf(player->direction.y * player->mvt_speed);
-        player->pos_f.x = player->position.x / TILE_SIZE;
-    }
-    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
-        player->position.y += fabsf(player->direction.x * player->mvt_speed);
-        player->pos_f.y = player->position.y / TILE_SIZE;
-    }
+    movement_dir.x = - player->direction.y * sin(player->mvt_speed);
+    movement_dir.y = - player->direction.x * cos(player->mvt_speed);
+    move(player, map, &movement_dir);
 }
 
 void move_left(player_t *player, map_t *map)
 {
-    int x_verif =
-        (int)((player->position.x -
-            fabsf(player->direction.x * player->mvt_speed)) / TILE_SIZE);
-    int y_verif =
-        (int)((player->position.y -
-            fabsf(player->direction.y * player->mvt_speed)) / TILE_SIZE);
+    sfVector2f movement_dir = {0};
 
-    if (map->int_map[(int)player->position.y / TILE_SIZE][x_verif] != WALL) {
-        player->position.x -= fabsf(player->direction.y * player->mvt_speed);
-        player->pos_f.x = player->position.x / TILE_SIZE;
-    }
-    if (map->int_map[y_verif][(int)player->position.x / TILE_SIZE] != WALL) {
-        player->position.y -= fabsf(player->direction.x * player->mvt_speed);
-        player->pos_f.y = player->position.y / TILE_SIZE;
-    }
+    movement_dir.x = player->direction.y * sin(player->mvt_speed);
+    movement_dir.y = player->direction.x * cos(player->mvt_speed);
+    move(player, map, &movement_dir);
 }

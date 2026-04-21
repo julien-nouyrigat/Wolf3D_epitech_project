@@ -16,6 +16,7 @@ int init_window(window_t *wolf_win)
     sfRenderWindow_setFramerateLimit(wolf_win->window, FRAMES_LIMIT);
     if (!wolf_win->window)
         return EXIT_FAILURE;
+    wolf_win->size = sfRenderWindow_getSize(wolf_win->window);
     wolf_win->bg_color = sfColor_fromRGB(96, 96, 96);
     return EXIT_SUCCESS;
 }

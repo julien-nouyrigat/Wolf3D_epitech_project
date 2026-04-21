@@ -21,7 +21,8 @@ SRC = 		$(MAIN)									\
 			src/destroy.c							\
 			src/initialization/init_window.c		\
 			src/initialization/init_player.c		\
-			src/inputs/manage_keyboard.c			\
+			src/events/inputs/manage_keyboard.c		\
+			src/events/window_events/window_evts.c	\
 			src/player_movements/movements.c		\
 			src/player_movements/rotation.c			\
 			src/raycasting/draw_2d_player.c			\

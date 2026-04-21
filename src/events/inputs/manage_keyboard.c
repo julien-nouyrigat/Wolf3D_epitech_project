@@ -20,10 +20,10 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyUnknown, NULL}
 };
 
-void manage_keyboard(sfEvent *event, player_t *player, map_t *map)
+void manage_keyboard(window_t *win, player_t *player, map_t *map)
 {
     for (size_t i = 0; keyboard_input[i].function != NULL; i++) {
-        if (event->key.code == keyboard_input[i].code)
+        if (win->event.key.code == keyboard_input[i].code)
             keyboard_input[i].function(player, map);
     }
 }

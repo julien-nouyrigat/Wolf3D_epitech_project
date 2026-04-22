@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 
+#include "room.h"
 #include "wolf.h"
 
 static void fill_map_line(map_t **map, int i)
@@ -43,14 +44,8 @@ int init_map(map_t **map)
     *map = malloc(sizeof(map_t));
     if (!*map)
         return EXIT_FAILURE;
-    (*map)->x = 8;
-    (*map)->y = 8;
-    (*map)->int_map = malloc(sizeof(int *) * (*map)->y);
-    if (!(*map)->int_map) {
-        free(*map);
-        return EXIT_FAILURE;
-    }
-    if (get_int_map(map) == EXIT_FAILURE)
-        return EXIT_FAILURE;
+    (*map)->x = SIZE_MAP;
+    (*map)->y = SIZE_MAP;
+    (*map)->int_map = create_map(20);
     return EXIT_SUCCESS;
 }

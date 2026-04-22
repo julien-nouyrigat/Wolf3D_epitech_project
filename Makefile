@@ -7,7 +7,7 @@
 
 CC := epiclang
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g
 
 CPPFLAGS = -iquote./include
 
@@ -15,11 +15,18 @@ LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 MAIN = 		src/main.c
 
-SRC = 		$(MAIN)									\
-			src/flag_h.c							\
-			src/wolf.c								\
-			src/destroy.c							\
-			src/initialization/init_window.c		\
+SRC = 		$(MAIN)							\
+			src/flag_h.c					\
+			src/wolf.c						\
+			src/destroy.c					\
+			src/generating/parsing_map.c 	\
+			src/generating/parsing_door.c 	\
+			src/generating/generating.c 	\
+			src/generating/create_map.c 	\
+			src/generating/free_tools.c 	\
+			lib/str_to_wa.c 				\
+			lib/free_array.c				\
+      src/initialization/init_window.c		\
 			src/initialization/init_player.c		\
 			src/events/inputs/manage_keyboard.c		\
 			src/events/window_events/window_evts.c	\

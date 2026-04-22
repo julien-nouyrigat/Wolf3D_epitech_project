@@ -38,8 +38,6 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
         display_menu(win);
     if (win->is_single == true) {
         dda_algorithm(player, map, win);
-        draw_2d_map(win, map);
-        draw_2d_player(win, player);
     }
 }
 

@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 
+#include "textures.h"
 #include "room.h"
 #include "wolf.h"
 
@@ -18,5 +19,6 @@ int init_map(map_t **map)
     (*map)->x = SIZE_MAP;
     (*map)->y = SIZE_MAP;
     (*map)->int_map = create_map(20);
+    (*map)->type = CASTLE;
     return EXIT_SUCCESS;
 }

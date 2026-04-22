@@ -42,6 +42,7 @@ SRC = 		$(MAIN)										\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
 			src/window/draw_mouse.c						\
+			src/initialization/create_textures.c		\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

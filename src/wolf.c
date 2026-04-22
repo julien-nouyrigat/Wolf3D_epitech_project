@@ -45,12 +45,12 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    sfRenderWindow_clear(wolf_win->window, wolf_win->bg_color);
-    wolf_win->clock.time = sfClock_restart(wolf_win->clock.clock);
-    wolf_win->clock.elapsed_time_bg += wolf_win->clock.time.microseconds /
+    sfRenderWindow_clear(win->window, win->bg_color);
+    win->clock.time = sfClock_restart(win->clock.clock);
+    win->clock.elapsed_time_bg += win->clock.time.microseconds /
         1000000.0;
-    manage_window(wolf_win, player, map);
-    sfRenderWindow_display(wolf_win->window);
+    manage_window(win, player, map);
+    sfRenderWindow_display(win->window);
     return EXIT_SUCCESS;
 }
 

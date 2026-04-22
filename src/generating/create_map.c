@@ -19,7 +19,7 @@ static void free_map(int **map, size_t i)
     free(map);
 }
 
-int **init_map(void)
+int **init_big_map(void)
 {
     int **map = malloc(sizeof(int *) * SIZE_MAP);
 
@@ -114,7 +114,7 @@ void close_doors(int **map)
 
 int **create_big_map(int **smap, rooms_t *rooms)
 {
-    int **map = init_map();
+    int **map = init_big_map();
 
     if (map == NULL)
         return NULL;

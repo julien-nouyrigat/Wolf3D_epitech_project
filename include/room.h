@@ -32,7 +32,7 @@ typedef enum dir {
 
 typedef enum tiles {
     EMPTY,
-    WALL,
+    WALLS,
     DOOR
 } tiles_t;
 
@@ -65,6 +65,7 @@ typedef struct ctx {
     rooms_t *rooms;
 } ctx_t;
 
+int **create_map(size_t nb_rooms);
 void free_mtrx(int **mtrx, size_t size);
 void free_rooms(rooms_t *rooms);
 void free_array(char **line);

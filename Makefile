@@ -7,7 +7,7 @@
 
 CC := epiclang
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -g
 
 CPPFLAGS = -iquote./include
 
@@ -22,6 +22,10 @@ SRC = 		$(MAIN)							\
 			src/generating/parsing_map.c 	\
 			src/generating/parsing_door.c 	\
 			src/generating/generating.c 	\
+			src/generating/create_map.c 	\
+			src/generating/free_tools.c 	\
+			lib/str_to_wa.c 				\
+			lib/free_array.c				\
 
 SRC_TESTS = tests/unit_tests.c 				\
 			$(filter-out $(MAIN), $(SRC))

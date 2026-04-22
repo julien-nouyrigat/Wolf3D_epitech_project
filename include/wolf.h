@@ -26,7 +26,7 @@ int wolf(void);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);
-void manage_keyboard(window_t *win, player_t *player, map_t *map);
+void manage_keyboard(player_t *player, map_t *map);
 void close_window(window_t *win, player_t *player, map_t *map);
 void resize_window(window_t *win, player_t *player, map_t *map);
 void move_forward(player_t *player, map_t *map);

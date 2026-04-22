@@ -32,4 +32,4 @@ static const textures_t textures[END_TEXTS - TEXT_TYPES] = {
     {"./assets/rooms/castle_ceilling.png"},
 };
 
-#endif
+#endif /* TEXTURES_H_ */

@@ -4,7 +4,7 @@
 ** File description:
 ** generating
 */
-
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <stdbool.h>
@@ -18,18 +18,20 @@ int is_door(room_t *room, int j, int i)
     return 0;
 }
 
-void get_door(room_t *room, size_t *j, size_t y, int **doors)
+bool get_door(room_t *room, size_t *j, size_t y, int **doors)
 {
     for (size_t k = 0; k < room->size_w; k++){
-        if (is_door(room, y, k) == 1){
-            doors[*j] = malloc(sizeof(int) * 2);
-            doors[*j][0] = y;
-            doors[*j][1] = k;
-            (*j)++;
-        }
+        if (is_door(room, y, k) != 1)
+            continue;
+        doors[*j] = malloc(sizeof(int) * 2);
+        if (!doors[*j])
+            return false;
+        doors[*j][0] = y;
+        doors[*j][1] = k;
+        (*j)++;
     }
+    return true;
 }
-//verif le malloc
 
 size_t nb_doors(room_t *room)
 {
@@ -53,7 +55,8 @@ int **get_all_doors(room_t *room)
     if (!doors)
         return NULL;
     for (size_t y = 0; y < room->size_h; y++){
-        get_door(room, &j, y, doors);
+        if (get_door(room, &j, y, doors) == false)
+            return NULL;
     }
     room->nb_doors = nb;
     return doors;

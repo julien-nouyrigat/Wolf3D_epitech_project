@@ -125,7 +125,7 @@ int **create_big_map(int **smap, rooms_t *rooms)
     return map;
 }
 
-int **create_map(void)
+int **create_map(size_t nb_rooms)
 {
     rooms_t *rooms = malloc(sizeof(rooms_t));
     int **smap = NULL;
@@ -133,7 +133,7 @@ int **create_map(void)
 
     rooms = pars_map(rooms);
     parsing_door(rooms);
-    smap = genrating_map(rooms, 20);
+    smap = genrating_map(rooms, nb_rooms);
     map = create_big_map(smap, rooms);
     if (smap == NULL)
         return NULL;

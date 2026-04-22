@@ -59,6 +59,7 @@ typedef struct {
     sfFloatRect quit_bound;
     sfSprite *s_mouse;
     sfTexture *t_mouse;
+    sfMusic *music;
 } menu_t;
 
 typedef struct player_lst_s {

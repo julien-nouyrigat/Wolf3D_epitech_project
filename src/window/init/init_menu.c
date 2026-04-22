@@ -134,5 +134,7 @@ int init_menu(window_t *win)
     set_color(win);
     init_title(win);
     init_cursor(win);
+    win->menu.music = sfMusic_createFromFile(
+        "./assets/sounds/01_Main_Menu.mp3");
     return EXIT_SUCCESS;
 }

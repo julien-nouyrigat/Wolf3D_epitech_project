@@ -59,6 +59,7 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfVector2i mouse_pos;
 
+    sfMusic_play(wolf_win->menu.music);
     while (sfRenderWindow_isOpen(wolf_win->window)) {
         mouse_pos = sfMouse_getPositionRenderWindow(wolf_win->window);
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))

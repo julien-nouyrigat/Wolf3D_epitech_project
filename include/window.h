@@ -59,6 +59,8 @@ typedef struct {
     sfFloatRect quit_bound;
     sfSprite *s_mouse;
     sfTexture *t_mouse;
+    sfSprite *s_rect_back;
+    sfTexture *t_rect_back;
     sfMusic *music;
 } menu_t;
 

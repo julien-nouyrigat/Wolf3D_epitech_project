@@ -34,17 +34,17 @@ static void display_title(window_t *win)
 static void change_color_action(window_t *win, sfVector2i *mp, sfColor *grey)
 {
     if (sfFloatRect_contains(&(win->menu.settings_bound), mp->x, mp->y)) {
-        sfRectangleShape_setFillColor(win->menu.settings_rect, sfBlue);
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 775});
+        sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.12, 1.2});
         sfText_setColor(win->menu.settings, sfWhite);
     } else {
-        sfRectangleShape_setFillColor(win->menu.settings_rect, sfTransparent);
         sfText_setColor(win->menu.settings, *grey);
     }
     if (sfFloatRect_contains(&(win->menu.quit_bound), mp->x, mp->y)) {
-        sfRectangleShape_setFillColor(win->menu.quit_rect, sfBlue);
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 895});
+        sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.24, 1.2});
         sfText_setColor(win->menu.quit, sfWhite);
     } else {
-        sfRectangleShape_setFillColor(win->menu.quit_rect, sfTransparent);
         sfText_setColor(win->menu.quit, *grey);
     }
 }
@@ -52,12 +52,18 @@ static void change_color_action(window_t *win, sfVector2i *mp, sfColor *grey)
 static void change_color_solo(window_t *win, sfVector2i *mp, sfColor *grey)
 {
     if (sfFloatRect_contains(&(win->menu.single_bound), mp->x, mp->y)) {
-        sfRectangleShape_setFillColor(win->menu.single_rect, sfBlue);
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 655});
+        sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.62, 1.2});
         sfText_setColor(win->menu.single, sfWhite);
     } else {
-        sfRectangleShape_setFillColor(win->menu.single_rect, sfTransparent);
         sfText_setColor(win->menu.single, *grey);
     }
+    if (!sfFloatRect_contains(&(win->menu.host_bound), mp->x, mp->y) &&
+        !sfFloatRect_contains(&(win->menu.join_bound), mp->x, mp->y) &&
+        !sfFloatRect_contains(&(win->menu.single_bound), mp->x, mp->y) &&
+        !sfFloatRect_contains(&(win->menu.settings_bound), mp->x, mp->y) &&
+        !sfFloatRect_contains(&(win->menu.quit_bound), mp->x, mp->y))
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){-1000, -1000});
 }
 
 static void change_color_multi(window_t *win, sfVector2i *mp)
@@ -65,19 +71,17 @@ static void change_color_multi(window_t *win, sfVector2i *mp)
     sfColor grey = sfColor_fromRGB(143, 143, 143);
 
     if (sfFloatRect_contains(&(win->menu.host_bound), mp->x, mp->y)) {
-        sfRectangleShape_setFillColor(win->menu.host_rect, sfBlue);
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 415});
+        sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.32, 1.2});
         sfText_setColor(win->menu.host, sfWhite);
-    } else {
-        sfRectangleShape_setFillColor(win->menu.host_rect, sfTransparent);
+    } else
         sfText_setColor(win->menu.host, grey);
-    }
     if (sfFloatRect_contains(&(win->menu.join_bound), mp->x, mp->y)) {
-        sfRectangleShape_setFillColor(win->menu.join_rect, sfBlue);
+        sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 535});
+        sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.27, 1.2});
         sfText_setColor(win->menu.join, sfWhite);
-    } else {
-        sfRectangleShape_setFillColor(win->menu.join_rect, sfTransparent);
+    } else
         sfText_setColor(win->menu.join, grey);
-    }
     change_color_solo(win, mp, &grey);
     change_color_action(win, mp, &grey);
 }
@@ -93,6 +97,7 @@ static void display_rect(window_t *win)
     sfRenderWindow_drawRectangleShape(win->window, win->menu.settings_rect,
         NULL);
     sfRenderWindow_drawRectangleShape(win->window, win->menu.quit_rect, NULL);
+    sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
 }
 
 void display_menu(window_t *win)

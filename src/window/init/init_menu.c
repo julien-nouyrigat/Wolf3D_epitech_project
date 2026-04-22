@@ -118,6 +118,15 @@ static void init_title(window_t *win)
     sfSprite_setPosition(win->menu.s_point, (sfVector2f){278, 230});
 }
 
+void init_rect_back(window_t *win)
+{
+    win->menu.s_rect_back = sfSprite_create();
+    win->menu.t_rect_back = sfTexture_createFromFile(
+        "./assets/image/rect_butt.png", NULL);
+    sfSprite_setTexture(win->menu.s_rect_back, win->menu.t_rect_back, sfTrue);
+    sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){-1000, -1000});
+}
+
 int init_menu(window_t *win)
 {
     sfColor grey = sfColor_fromRGB(143, 143, 143);
@@ -131,6 +140,7 @@ int init_menu(window_t *win)
     init_text_menu(win, &grey);
     set_font_size(win);
     init_rect_menu(win);
+    init_rect_back(win);
     set_color(win);
     init_title(win);
     init_cursor(win);

@@ -16,12 +16,21 @@ const struct evt_pfs_s events[] = {
     {END, NULL}
 };
 
-static void manage_events(window_t *win, player_t *player, map_t *map)
+static void manage_events(window_t *win, player_t *player, map_t *map,
+    sfVector2i *mp)
 {
     for (size_t i = 0; events[i].type != END; i++) {
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
+    if (win->event.type == sfEvtMouseButtonPressed)
+        if (sfFloatRect_contains(&win->menu.quit_bound, mp->x, mp->y))
+            close_window(win, player, map);
+    if (win->event.type == sfEvtMouseButtonPressed)
+        if (sfFloatRect_contains(&win->menu.single_bound, mp->x, mp->y)) {
+            win->is_menu = false;
+            win->is_single = true;
+        }
 }
 
 static void manage_window(window_t *win, player_t *player, map_t *map)
@@ -48,9 +57,12 @@ static int render_window(window_t *wolf_win, player_t *player, map_t *map)
 
 static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
+    sfVector2i mouse_pos;
+
     while (sfRenderWindow_isOpen(wolf_win->window)) {
+        mouse_pos = sfMouse_getPositionRenderWindow(wolf_win->window);
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))
-            manage_events(wolf_win, player, map);
+            manage_events(wolf_win, player, map, &mouse_pos);
         if (render_window(wolf_win, player, map) == EXIT_FAILURE){
             destroy_assets(wolf_win, player);
             return EXIT_FAILURE;

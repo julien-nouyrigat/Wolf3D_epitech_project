@@ -45,5 +45,7 @@ int init_brackground_menu(window_t *win);
 void display_background_menu(window_t *win);
 int init_menu(window_t *win);
 void display_menu(window_t *win);
+void display_cursor(window_t *win);
+void init_cursor(window_t *win);
 
 #endif /* WOLF_H_ */

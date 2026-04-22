@@ -40,6 +40,8 @@ typedef struct {
     int col_ss_bg;
     sfTexture *t_title;
     sfSprite *s_title;
+    sfTexture *t_point;
+    sfSprite *s_point;
     sfText *host;
     sfRectangleShape *host_rect;
     sfFloatRect host_bound;
@@ -55,6 +57,8 @@ typedef struct {
     sfText *quit;
     sfRectangleShape *quit_rect;
     sfFloatRect quit_bound;
+    sfSprite *s_mouse;
+    sfTexture *t_mouse;
 } menu_t;
 
 typedef struct player_lst_s {

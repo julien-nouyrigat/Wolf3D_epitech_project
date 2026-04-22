@@ -31,8 +31,10 @@ SRC = 		$(MAIN)										\
 			src/raycasting/algorithm.c					\
 			src/raycasting/draw_wall.c					\
 			src/window/init/init_menu.c					\
+			src/window/init/init_cursor.c				\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
+			src/window/draw_mouse.c						\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

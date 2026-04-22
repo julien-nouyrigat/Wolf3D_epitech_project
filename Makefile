@@ -11,7 +11,7 @@ CFLAGS = -Wall -Wextra -g
 
 CPPFLAGS = -iquote./include
 
-LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
+LIBS = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
 
 MAIN = 		src/main.c
 
@@ -26,8 +26,19 @@ SRC = 		$(MAIN)							\
 			src/generating/free_tools.c 	\
 			lib/str_to_wa.c 				\
 			lib/free_array.c				\
+      src/initialization/init_window.c		\
+			src/initialization/init_player.c		\
+			src/events/inputs/manage_keyboard.c		\
+			src/events/window_events/window_evts.c	\
+			src/player_movements/movements.c		\
+			src/player_movements/rotation.c			\
+			src/raycasting/draw_2d_player.c			\
+			src/initialization/init_map.c			\
+			src/raycasting/draw_2d_map.c			\
+			src/raycasting/algorithm.c				\
+			src/raycasting/draw_wall.c				\
 
-SRC_TESTS = tests/unit_tests.c 				\
+SRC_TESTS = tests/unit_tests.c 						\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d
@@ -62,7 +73,7 @@ re : fclean all
 ll : $(NAME) re fclean
 
 debug : CFLAGS += -g3
-debug : $(OBJ)
+debug : clean $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 tests_run : CFLAGS += --coverage

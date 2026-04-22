@@ -9,8 +9,12 @@
 
 #include "wolf.h"
 
-void destroy_assets(window_t *wolf_win)
+void destroy_assets(window_t *wolf_win, player_t *player)
 {
-    sfRenderWindow_destroy(wolf_win->window);
-    free(wolf_win);
+    if (wolf_win) {
+        sfRenderWindow_destroy(wolf_win->window);
+        free(wolf_win);
+    }
+    if (player)
+        free(player);
 }

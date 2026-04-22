@@ -12,7 +12,6 @@
 const struct evt_pfs_s events[] = {
     {sfEvtClosed, &close_window},
     {sfEvtResized, &resize_window},
-    {sfEvtKeyPressed, &manage_keyboard},
     {END, NULL}
 };
 
@@ -44,7 +43,7 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
     }
 }
 
-static int render_window(window_t *wolf_win, player_t *player, map_t *map)
+static int render_window(window_t *win, player_t *player, map_t *map)
 {
     sfRenderWindow_clear(wolf_win->window, wolf_win->bg_color);
     wolf_win->clock.time = sfClock_restart(wolf_win->clock.clock);

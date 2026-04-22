@@ -32,8 +32,8 @@ void move_forward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = player->direction.x * (player->mvt_speed / M_PI);
-    movement_dir.y = player->direction.y * (player->mvt_speed / M_PI);
+    movement_dir.x = player->direction.x * (player->mvt_speed / (3 * M_PI));
+    movement_dir.y = player->direction.y * (player->mvt_speed / (3 * M_PI));
     move(player, map, &movement_dir);
 }
 
@@ -41,8 +41,8 @@ void move_backward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = - player->direction.x * (player->mvt_speed / M_PI);
-    movement_dir.y = - player->direction.y * (player->mvt_speed / M_PI);
+    movement_dir.x = - player->direction.x * (player->mvt_speed / (3 * M_PI));
+    movement_dir.y = - player->direction.y * (player->mvt_speed / (3 * M_PI));
     move(player, map, &movement_dir);
 }
 

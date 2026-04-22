@@ -12,7 +12,7 @@
 #include "wolf.h"
 #include "room.h"
 
-void free_map(int **map, size_t i)
+static void free_map(int **map, size_t i)
 {
     for (size_t k = 0; k < i; k++)
         free(map[k]);
@@ -112,7 +112,7 @@ void close_doors(int **map)
         close_doors_loop(map, i);
 }
 
-int **create_map(int **smap, rooms_t *rooms)
+int **create_big_map(int **smap, rooms_t *rooms)
 {
     int **map = init_map();
 
@@ -122,6 +122,21 @@ int **create_map(int **smap, rooms_t *rooms)
     free_mtrx(smap, SIZE_SMAP);
     free_rooms(rooms);
     close_doors(map);
+    return map;
+}
+
+int **create_map(void)
+{
+    rooms_t *rooms = malloc(sizeof(rooms_t));
+    int **smap = NULL;
+    int **map = NULL;
+
+    rooms = pars_map(rooms);
+    parsing_door(rooms);
+    smap = genrating_map(rooms, 20);
+    map = create_big_map(smap, rooms);
+    if (smap == NULL)
+        return NULL;
     return map;
 }
 

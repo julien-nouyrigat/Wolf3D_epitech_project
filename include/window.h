@@ -61,6 +61,7 @@ typedef struct {
     sfTexture *t_mouse;
     sfSprite *s_rect_back;
     sfTexture *t_rect_back;
+    sfMusic *music;
 } menu_t;
 
 typedef struct player_lst_s {

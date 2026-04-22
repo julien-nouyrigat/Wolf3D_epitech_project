@@ -17,6 +17,7 @@ typedef struct {
     int x;
     int y;
     int **int_map;
+    int type;
 } map_t;
 
 #endif /* MAP_H_ */

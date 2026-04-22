@@ -96,6 +96,7 @@ typedef struct {
     bool is_game;
     bool is_single;
     bool is_param;
+    sfTexture **textures;
 } window_t;
 
 #endif /* WINDOW_H_ */

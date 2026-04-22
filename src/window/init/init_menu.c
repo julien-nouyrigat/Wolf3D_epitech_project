@@ -12,94 +12,64 @@ static void set_font_size(window_t *win)
 {
     sfFont *teko = sfFont_createFromFile("./assets/fonts/teko.ttf");
 
-    sfText_setFont(win->menu.host, teko);
-    sfText_setFont(win->menu.join, teko);
-    sfText_setFont(win->menu.single, teko);
-    sfText_setFont(win->menu.settings, teko);
-    sfText_setFont(win->menu.quit, teko);
-    sfText_setCharacterSize(win->menu.host, 100);
-    sfText_setCharacterSize(win->menu.join, 100);
-    sfText_setCharacterSize(win->menu.single, 100);
-    sfText_setCharacterSize(win->menu.settings, 100);
-    sfText_setCharacterSize(win->menu.quit, 100);
+    for (int i = 0; i < NB_TAB_MENU; i++) {
+        sfText_setFont(win->menu.tab[i].text, teko);
+        sfText_setCharacterSize(win->menu.tab[i].text, 100);
+    }
 }
 
 static void set_color(window_t *win)
 {
-    sfRectangleShape_setFillColor(win->menu.host_rect, sfTransparent);
-    sfRectangleShape_setFillColor(win->menu.join_rect, sfTransparent);
-    sfRectangleShape_setFillColor(win->menu.single_rect, sfTransparent);
-    sfRectangleShape_setFillColor(win->menu.settings_rect, sfTransparent);
-    sfRectangleShape_setFillColor(win->menu.quit_rect, sfTransparent);
-    sfRectangleShape_setOutlineColor(win->menu.host_rect, sfTransparent);
-    sfRectangleShape_setOutlineColor(win->menu.join_rect, sfTransparent);
-    sfRectangleShape_setOutlineColor(win->menu.single_rect, sfTransparent);
-    sfRectangleShape_setOutlineColor(win->menu.settings_rect, sfTransparent);
-    sfRectangleShape_setOutlineColor(win->menu.quit_rect, sfTransparent);
-    sfRectangleShape_setOutlineThickness(win->menu.host_rect, 1.0);
-    sfRectangleShape_setOutlineThickness(win->menu.join_rect, 1.0);
-    sfRectangleShape_setOutlineThickness(win->menu.single_rect, 1.0);
-    sfRectangleShape_setOutlineThickness(win->menu.settings_rect, 1.0);
-    sfRectangleShape_setOutlineThickness(win->menu.quit_rect, 1.0);
+    for (int i = 0; i < NB_TAB_MENU; i++) {
+        sfRectangleShape_setFillColor(win->menu.tab[i].rect, sfTransparent);
+        sfRectangleShape_setOutlineColor(win->menu.tab[i].rect, sfTransparent);
+        sfRectangleShape_setOutlineThickness(win->menu.tab[i].rect, 1.0);
+    }
 }
 
 void get_bound_rect(window_t *win)
 {
-    win->menu.host_bound = sfRectangleShape_getGlobalBounds(
-        win->menu.host_rect);
-    win->menu.join_bound = sfRectangleShape_getGlobalBounds(
-        win->menu.join_rect);
-    win->menu.single_bound = sfRectangleShape_getGlobalBounds(
-        win->menu.single_rect);
-    win->menu.settings_bound = sfRectangleShape_getGlobalBounds(
-        win->menu.settings_rect);
-    win->menu.quit_bound = sfRectangleShape_getGlobalBounds(
-        win->menu.quit_rect);
+    for (int i = 0; i < NB_TAB_MENU; i++)
+        win->menu.tab[i].bound = sfRectangleShape_getGlobalBounds(
+            win->menu.tab[i].rect);
 }
 
 static void init_rect_menu(window_t *win)
 {
-    win->menu.host_rect = sfRectangleShape_create();
-    win->menu.join_rect = sfRectangleShape_create();
-    win->menu.single_rect = sfRectangleShape_create();
-    win->menu.settings_rect = sfRectangleShape_create();
-    win->menu.quit_rect = sfRectangleShape_create();
-    sfRectangleShape_setSize(win->menu.host_rect, (sfVector2f){320, 100});
-    sfRectangleShape_setSize(win->menu.join_rect, (sfVector2f){310, 100});
-    sfRectangleShape_setSize(win->menu.single_rect, (sfVector2f){400, 100});
-    sfRectangleShape_setSize(win->menu.settings_rect, (sfVector2f){275, 100});
-    sfRectangleShape_setSize(win->menu.quit_rect, (sfVector2f){310, 100});
-    sfRectangleShape_setPosition(win->menu.host_rect, (sfVector2f){110, 415});
-    sfRectangleShape_setPosition(win->menu.join_rect, (sfVector2f){110, 535});
-    sfRectangleShape_setPosition(win->menu.single_rect, (sfVector2f){110, 655});
-    sfRectangleShape_setPosition(win->menu.settings_rect,
+    for (int i = 0; i < NB_TAB_MENU; i++) {
+        win->menu.tab[i].rect = sfRectangleShape_create();
+    }
+    sfRectangleShape_setSize(win->menu.tab[0].rect, (sfVector2f){320, 100});
+    sfRectangleShape_setSize(win->menu.tab[1].rect, (sfVector2f){310, 100});
+    sfRectangleShape_setSize(win->menu.tab[2].rect, (sfVector2f){400, 100});
+    sfRectangleShape_setSize(win->menu.tab[3].rect, (sfVector2f){275, 100});
+    sfRectangleShape_setSize(win->menu.tab[4].rect, (sfVector2f){310, 100});
+    sfRectangleShape_setPosition(win->menu.tab[0].rect, (sfVector2f){110, 415});
+    sfRectangleShape_setPosition(win->menu.tab[1].rect, (sfVector2f){110, 535});
+    sfRectangleShape_setPosition(win->menu.tab[2].rect, (sfVector2f){110, 655});
+    sfRectangleShape_setPosition(win->menu.tab[3].rect,
         (sfVector2f){110, 775});
-    sfRectangleShape_setPosition(win->menu.quit_rect, (sfVector2f){110, 895});
+    sfRectangleShape_setPosition(win->menu.tab[4].rect, (sfVector2f){110, 895});
     get_bound_rect(win);
 }
 
 static void init_text_menu(window_t *win, sfColor *grey)
 {
-    win->menu.host = sfText_create();
-    win->menu.join = sfText_create();
-    win->menu.single = sfText_create();
-    win->menu.settings = sfText_create();
-    win->menu.quit = sfText_create();
-    sfText_setString(win->menu.host, "HOST GAME");
-    sfText_setString(win->menu.join, "JOIN GAME");
-    sfText_setString(win->menu.single, "SINGLEPLAYER");
-    sfText_setString(win->menu.settings, "SETTINGS");
-    sfText_setString(win->menu.quit, "QUIT GAME");
-    sfText_setPosition(win->menu.host, (sfVector2f){120, 400});
-    sfText_setPosition(win->menu.join, (sfVector2f){120, 520});
-    sfText_setPosition(win->menu.single, (sfVector2f){120, 640});
-    sfText_setPosition(win->menu.settings, (sfVector2f){120, 760});
-    sfText_setPosition(win->menu.quit, (sfVector2f){120, 880});
-    sfText_setColor(win->menu.host, *grey);
-    sfText_setColor(win->menu.join, *grey);
-    sfText_setColor(win->menu.single, *grey);
-    sfText_setColor(win->menu.settings, *grey);
-    sfText_setColor(win->menu.quit, *grey);
+    int y_rect = 400;
+
+    for (int i = 0; i < NB_TAB_MENU; i++)
+        win->menu.tab[i].text = sfText_create();
+    sfText_setString(win->menu.tab[0].text, "HOST GAME");
+    sfText_setString(win->menu.tab[1].text, "JOIN GAME");
+    sfText_setString(win->menu.tab[2].text, "SINGLEPLAYER");
+    sfText_setString(win->menu.tab[3].text, "SETTINGS");
+    sfText_setString(win->menu.tab[4].text, "QUIT GAME");
+    for (int i = 0; i < NB_TAB_MENU; i++) {
+        sfText_setPosition(win->menu.tab[i].text, (sfVector2f){120, y_rect});
+        y_rect += 120;
+    }
+    for (int i = 0; i < NB_TAB_MENU; i++)
+        sfText_setColor(win->menu.tab[i].text, *grey);
 }
 
 static void init_title(window_t *win)
@@ -124,7 +94,6 @@ void init_rect_back(window_t *win)
     win->menu.t_rect_back = sfTexture_createFromFile(
         "./assets/image/rect_butt.png", NULL);
     sfSprite_setTexture(win->menu.s_rect_back, win->menu.t_rect_back, sfTrue);
-    sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){-1000, -1000});
 }
 
 int init_menu(window_t *win)

@@ -23,10 +23,10 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
             events[i].function(win, player, map);
     }
     if (win->event.type == sfEvtMouseButtonPressed)
-        if (sfFloatRect_contains(&win->menu.quit_bound, mp->x, mp->y))
+        if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
     if (win->event.type == sfEvtMouseButtonPressed)
-        if (sfFloatRect_contains(&win->menu.single_bound, mp->x, mp->y)) {
+        if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
             win->is_single = true;
         }

@@ -31,6 +31,13 @@
     #define SIZE_X_BG (9280 / COL_BG)
     #define SIZE_Y_BG (5040 / LINE_BG)
     #define IPS_BG (1.0 / 24)
+    #define NB_TAB_MENU 5
+
+typedef struct {
+    sfText *text;
+    sfRectangleShape *rect;
+    sfFloatRect bound;
+} tab_t;
 
 typedef struct {
     sfTexture *t_bg;
@@ -42,21 +49,7 @@ typedef struct {
     sfSprite *s_title;
     sfTexture *t_point;
     sfSprite *s_point;
-    sfText *host;
-    sfRectangleShape *host_rect;
-    sfFloatRect host_bound;
-    sfText *join;
-    sfRectangleShape *join_rect;
-    sfFloatRect join_bound;
-    sfText *single;
-    sfRectangleShape *single_rect;
-    sfFloatRect single_bound;
-    sfText *settings;
-    sfRectangleShape *settings_rect;
-    sfFloatRect settings_bound;
-    sfText *quit;
-    sfRectangleShape *quit_rect;
-    sfFloatRect quit_bound;
+    tab_t tab[NB_TAB_MENU];
     sfSprite *s_mouse;
     sfTexture *t_mouse;
     sfSprite *s_rect_back;

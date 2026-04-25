@@ -20,5 +20,6 @@ int init_map(map_t **map)
     (*map)->y = SIZE_MAP;
     (*map)->int_map = create_map(20);
     (*map)->type = CASTLE;
+    (*map)->map_pos = (sfVector2i){0, 0};
     return EXIT_SUCCESS;
 }

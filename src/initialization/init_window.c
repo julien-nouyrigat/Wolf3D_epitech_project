@@ -22,7 +22,7 @@ int init_window(window_t *wolf_win)
     wolf_win->clock.elapsed_time_bg = 0.0f;
     init_brackground_menu(wolf_win);
     init_menu(wolf_win);
-    if (create_decors(wolf_win) == EXIT_FAILURE)
+    if (create_textures(wolf_win) == EXIT_FAILURE)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;
 }

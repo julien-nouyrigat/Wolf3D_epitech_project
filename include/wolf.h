@@ -47,6 +47,6 @@ int init_menu(window_t *win);
 void display_menu(window_t *win);
 void display_cursor(window_t *win);
 void init_cursor(window_t *win);
-int create_decors(window_t *win);
+int create_textures(window_t *win);
 
 #endif /* WOLF_H_ */

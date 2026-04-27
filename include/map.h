@@ -18,6 +18,7 @@ typedef struct {
     int y;
     int **int_map;
     int type;
+    sfVector2i map_pos;
 } map_t;
 
 #endif /* MAP_H_ */

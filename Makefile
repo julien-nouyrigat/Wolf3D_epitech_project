@@ -7,7 +7,7 @@
 
 CC := epiclang
 
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra
 
 CPPFLAGS = -iquote./include
 

@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-#include "textures.h"
+#include "decors.h"
 #include "room.h"
 #include "wolf.h"
 

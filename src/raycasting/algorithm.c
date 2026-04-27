@@ -9,7 +9,8 @@
 
 #include "wolf.h"
 
-static void project_wall(ray_t *ray, window_t *win, map_t *map)
+static void project_wall(ray_t *ray, window_t *win, map_t *map,
+    player_t *player)
 {
     if (ray->orientation == VERTICAL) {
         ray->real_dist = ray->side_dist.x - ray->delta_dist.x;
@@ -18,7 +19,7 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map)
         ray->real_dist = ray->side_dist.y - ray->delta_dist.y;
         ray->color = sfColor_fromRGB(0, 128, 255);
     }
-    draw_wall(ray, win, map);
+    draw_wall(ray, win, map, player);
 }
 
 static bool is_wall(map_t *map)
@@ -28,7 +29,7 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static void dda_loop(ray_t *ray, map_t *map, window_t *win)
+static void dda_loop(ray_t *ray, map_t *map, window_t *win, player_t *player)
 {
     while (!is_wall(map)) {
         if (ray->side_dist.x < ray->side_dist.y) {
@@ -41,7 +42,7 @@ static void dda_loop(ray_t *ray, map_t *map, window_t *win)
             ray->orientation = HORIZONTAL;
         }
     }
-    project_wall(ray, win, map);
+    project_wall(ray, win, map, player);
 }
 
 static void init_raycasting(ray_t *ray, player_t *player, map_t *map)
@@ -75,7 +76,7 @@ static void init_dda(player_t *player, ray_t *ray, map_t *map, window_t *win)
     ray->delta_dist.y =
         (ray->direction.y == 0) ? ZERO_INV : fabsf(1 / ray->direction.y);
     init_raycasting(ray, player, map);
-    dda_loop(ray, map, win);
+    dda_loop(ray, map, win, player);
 }
 
 void dda_algorithm(player_t *player, map_t *map, window_t *win)

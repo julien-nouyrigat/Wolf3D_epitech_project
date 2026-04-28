@@ -43,6 +43,7 @@ SRC = 		$(MAIN)										\
 			src/window/menu.c							\
 			src/window/draw_mouse.c						\
 			src/initialization/create_textures.c		\
+			src/raycasting/draw_floor.c					\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

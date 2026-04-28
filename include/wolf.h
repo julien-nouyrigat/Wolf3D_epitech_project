@@ -48,5 +48,6 @@ void display_menu(window_t *win);
 void display_cursor(window_t *win);
 void init_cursor(window_t *win);
 int create_textures(window_t *win);
+void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 
 #endif /* WOLF_H_ */

@@ -80,6 +80,7 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
 {
     ray_t ray = {0};
 
+    draw_floor(&ray, win, map, player);
     for (float screen_col = 0.0; screen_col < win->size.x; screen_col += 1.0) {
         player->camera.x = (2 * screen_col / (win->size.x - 1) - 1);
         ray.screen_x = screen_col;

@@ -19,6 +19,20 @@
     #define ROTATION_SPEED (M_PI / 50)
 
 typedef struct {
+    float x0;
+    float y0;
+    float x1;
+    float y1;
+    int pos;
+    float pos_z;
+    float row_dist;
+    float step_x;
+    float step_y;
+    float floor_x;
+    float floor_y;
+} floor_ray_t;
+
+typedef struct {
     size_t screen_x;
     sfVector2f direction;
     sfVector2f side_dist;

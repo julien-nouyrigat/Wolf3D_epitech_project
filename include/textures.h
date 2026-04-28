@@ -30,7 +30,7 @@ enum text_enum {
     LAB_CEILLING,
     MANOR_WALL,
     MANOR_FLOOR,
-    MANNOR_CEILLING,
+    MANOR_CEILLING,
     END_TEXTS
 };
 

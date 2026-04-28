@@ -10,8 +10,12 @@
 
     #define FILE_TEXT(file) sfTexture_createFromFile(file, NULL)
     #define TEXT_TYPES 3
-    #define CASTLE 1
-    #define NB_MAPS 1
+    #define NB_MAPS 2
+
+enum types_of_maps {
+    CASTLE = 1,
+    LAB,
+};
 
 enum text_enum {
     WALL,
@@ -20,6 +24,7 @@ enum text_enum {
     CASTLE_WALL,
     CASTLE_FLOOR,
     CASTLE_CEILLING,
+    LAB_WALL,
     END_TEXTS
 };
 
@@ -31,6 +36,7 @@ static const textures_t textures[END_TEXTS - TEXT_TYPES] = {
     {"./assets/rooms/castle_wall.jpg"},
     {"./assets/rooms/castle_floor.jpg"},
     {"./assets/rooms/castle_ceilling.png"},
+    {"./assets/rooms/lab_wall.jpg"},
 };
 
 #endif /* TEXTURES_H_ */

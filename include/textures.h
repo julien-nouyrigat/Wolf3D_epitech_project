@@ -11,6 +11,7 @@
     #define FILE_TEXT(file) sfTexture_createFromFile(file, NULL)
     #define TEXT_TYPES 3
     #define CASTLE 1
+    #define NB_MAPS 1
 
 enum text_enum {
     WALL,

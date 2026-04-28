@@ -25,6 +25,8 @@ enum text_enum {
     CASTLE_FLOOR,
     CASTLE_CEILLING,
     LAB_WALL,
+    LAB_FLOOR,
+    LAB_CEILLING,
     END_TEXTS
 };
 
@@ -37,6 +39,8 @@ static const textures_t textures[END_TEXTS - TEXT_TYPES] = {
     {"./assets/rooms/castle_floor.jpg"},
     {"./assets/rooms/castle_ceilling.png"},
     {"./assets/rooms/lab_wall.jpg"},
+    {"./assets/rooms/lab_floor.jpg"},
+    {"./assets/rooms/lab_ceilling.jpg"},
 };
 
 #endif /* TEXTURES_H_ */

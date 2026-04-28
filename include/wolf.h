@@ -23,6 +23,8 @@
 
 int flag_h(void);
 int wolf(void);
+void init_lamp(window_t *wolf_win);
+void display_lamp(window_t *win);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);

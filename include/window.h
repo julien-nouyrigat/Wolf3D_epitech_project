@@ -84,17 +84,16 @@ typedef struct {
 } win_clock_t;
 
 typedef struct {
-    sfText *life;
-    sfText *max_life;
-    sfText *stamina;
-    sfText *max_stamina;
-    sfSprite *cross;
-    sfSprite *lightning;
-} hud_t;
+    sfTexture *t_lamp;
+    sfTexture *t_dark;
+    sfSprite *lamp;
+    sfSprite *dark;
+} game_t;
 
 typedef struct {
     sfRenderWindow *window;
     menu_t menu;
+    game_t game;
     lobby_t lobby;
     sfEvent event;
     sfVector2u size;

@@ -34,9 +34,16 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 
 static void manage_window(window_t *win, player_t *player, map_t *map)
 {
-    if (win->is_menu == true)
+    if (win->is_menu == true){
         display_menu(win);
+        if (win->menu.music_started == false){
+            sfMusic_play(win->menu.music);
+            sfMusic_setLoop(win->menu.music, sfTrue);
+            win->menu.music_started = true;
+        }
+    }
     if (win->is_single == true) {
+        sfMusic_pause(win->menu.music);
         dda_algorithm(player, map, win);
         display_lamp(win);
     }
@@ -58,8 +65,6 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfVector2i mouse_pos;
 
-    sfMusic_play(wolf_win->menu.music);
-    sfMusic_setLoop(wolf_win->menu.music, sfTrue);
     while (sfRenderWindow_isOpen(wolf_win->window)) {
         mouse_pos = sfMouse_getPositionRenderWindow(wolf_win->window);
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))

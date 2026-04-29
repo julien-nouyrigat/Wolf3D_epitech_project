@@ -46,6 +46,7 @@ int init_player(player_t **player)
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
     (*player)->mvt_speed = 5;
+    (*player)->sprint = false;
     init_life_and_stamina(player);
     return EXIT_SUCCESS;
 }

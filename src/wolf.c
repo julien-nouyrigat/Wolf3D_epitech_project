@@ -12,6 +12,7 @@
 const struct evt_pfs_s events[] = {
     {sfEvtClosed, &close_window},
     {sfEvtResized, &resize_window},
+    {sfEvtKeyReleased, &stop_sprint},
     {END, NULL}
 };
 

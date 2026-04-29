@@ -49,6 +49,7 @@ SRC = 		$(MAIN)										\
 			src/raycasting/draw_floor.c					\
 			src/hud/create_hud.c						\
 			src/hud/display_hud.c						\
+			src/player_movements/sprint.c				\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

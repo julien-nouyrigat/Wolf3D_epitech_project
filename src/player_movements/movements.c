@@ -12,18 +12,20 @@
 static void move(player_t *player, map_t *map, sfVector2f *movement_dir)
 {
     int x_verif =
-        (int)((player->position.x + movement_dir->x * player->mvt_speed) /
-        TILE_SIZE);
+        (int)((player->position.x + movement_dir->x *
+            (player->mvt_speed + SPRINT * player->sprint)) / TILE_SIZE);
     int y_verif =
-        (int)((player->position.y + movement_dir->y * player->mvt_speed) /
-        TILE_SIZE);
+        (int)((player->position.y + movement_dir->y *
+            (player->mvt_speed + SPRINT * player->sprint)) / TILE_SIZE);
 
     if (map->int_map[(int)(player->position.y / TILE_SIZE)][x_verif] != WALL) {
-        player->position.x += movement_dir->x * player->mvt_speed;
+        player->position.x += movement_dir->x *
+            (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.x = player->position.x / TILE_SIZE;
     }
     if (map->int_map[y_verif][(int)(player->position.x / TILE_SIZE)] != WALL) {
-        player->position.y += movement_dir->y * player->mvt_speed;
+        player->position.y += movement_dir->y *
+            (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.y = player->position.y / TILE_SIZE;
     }
 }

@@ -19,6 +19,7 @@
     #define ROTATION_SPEED (M_PI / 50)
     #define LIFE_START 100
     #define STAM_START 40
+    #define SPRINT 5
 
 typedef struct {
     float x0;
@@ -59,6 +60,7 @@ typedef struct {
     size_t max_life;
     size_t stamina;
     size_t max_stamina;
+    bool sprint;
 } player_t;
 
 #endif /* PLAYER_H_ */

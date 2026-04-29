@@ -17,6 +17,8 @@
     #define VERTICAL true
     #define HORIZONTAL false
     #define ROTATION_SPEED (M_PI / 50)
+    #define LIFE_START 100
+    #define STAM_START 40
 
 typedef struct {
     float x0;
@@ -53,6 +55,10 @@ typedef struct {
     float delta_x;
     float delta_y;
     int mvt_speed;
+    size_t life;
+    size_t max_life;
+    size_t stamina;
+    size_t max_stamina;
 } player_t;
 
 #endif /* PLAYER_H_ */

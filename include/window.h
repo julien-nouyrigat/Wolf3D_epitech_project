@@ -84,6 +84,15 @@ typedef struct {
 } win_clock_t;
 
 typedef struct {
+    sfText *life;
+    sfText *max_life;
+    sfText *stamina;
+    sfText *max_stamina;
+    sfSprite *cross;
+    sfSprite *lightning;
+} hud_t;
+
+typedef struct {
     sfRenderWindow *window;
     menu_t menu;
     lobby_t lobby;
@@ -97,6 +106,8 @@ typedef struct {
     bool is_single;
     bool is_param;
     sfTexture **textures;
+    sfFont *font;
+    hud_t hud;
 } window_t;
 
 #endif /* WINDOW_H_ */

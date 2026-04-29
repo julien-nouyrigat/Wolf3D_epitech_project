@@ -39,6 +39,7 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
     if (win->is_single == true) {
         sfMusic_stop(win->menu.music);
         dda_algorithm(player, map, win);
+        display_hud(win, player);
     }
 }
 
@@ -58,6 +59,7 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfVector2i mouse_pos;
 
+    create_hud(wolf_win);
     sfMusic_play(wolf_win->menu.music);
     sfMusic_setLoop(wolf_win->menu.music, sfTrue);
     while (sfRenderWindow_isOpen(wolf_win->window)) {

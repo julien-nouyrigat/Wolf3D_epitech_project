@@ -12,11 +12,12 @@
     #define TEXT_TYPES 3
     #define NB_MAPS 3
     #define ELEMENTS 2
+    #define TOTAL_TEXTURES (END_TEXTS - TEXT_TYPES)
 
 enum types_of_maps {
     CASTLE = 1,
     LAB,
-    MANOR,
+    MANOR
 };
 
 enum text_enum {
@@ -32,8 +33,8 @@ enum text_enum {
     MANOR_WALL,
     MANOR_FLOOR,
     MANOR_CEILLING,
-    HEALTH_CROSS,
-    STAMINA_LIGHTNING,
+    HEALTH_ICON,
+    STAMINA_ICON,
     END_TEXTS
 };
 
@@ -41,7 +42,7 @@ typedef struct textures_s {
     char *texture;
 }textures_t;
 
-static const textures_t textures[END_TEXTS - TEXT_TYPES + ELEMENTS] = {
+static const textures_t textures[TOTAL_TEXTURES] = {
     {"./assets/rooms/castle_wall.jpg"},
     {"./assets/rooms/castle_floor.jpg"},
     {"./assets/rooms/castle_ceilling.png"},

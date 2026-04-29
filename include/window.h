@@ -32,6 +32,9 @@
     #define SIZE_Y_BG (5040 / LINE_BG)
     #define IPS_BG (1.0 / 24)
     #define NB_TAB_MENU 5
+    #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
+    #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
+    #define HUD_TEXT_SIZE 55
 
 typedef struct {
     sfText *text;
@@ -92,9 +95,7 @@ typedef struct {
 
 typedef struct {
     sfText *life;
-    sfText *max_life;
     sfText *stamina;
-    sfText *max_stamina;
     sfSprite *cross;
     sfSprite *lightning;
 } hud_t;

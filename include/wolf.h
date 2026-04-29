@@ -53,6 +53,6 @@ int create_textures(window_t *win);
 void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 char *my_itoa(int nb);
 void create_hud(window_t *win);
-void display_hud(window_t *win, player_t *player);
+int display_hud(window_t *win, player_t *player);
 
 #endif /* WOLF_H_ */

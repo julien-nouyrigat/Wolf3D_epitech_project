@@ -26,6 +26,7 @@ SRC = 		$(MAIN)										\
 			src/generating/free_tools.c 				\
 			lib/str_to_wa.c 							\
 			lib/free_array.c							\
+			lib/my_itoa.c								\
 			src/initialization/init_window.c			\
 			src/initialization/init_player.c			\
 			src/events/inputs/manage_keyboard.c			\
@@ -45,6 +46,9 @@ SRC = 		$(MAIN)										\
 			src/window/draw_mouse.c						\
 			src/window/draw_lamp.c						\
 			src/initialization/create_textures.c		\
+			src/raycasting/draw_floor.c					\
+			src/hud/create_hud.c						\
+			src/hud/display_hud.c						\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

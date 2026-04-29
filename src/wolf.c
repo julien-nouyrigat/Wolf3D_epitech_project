@@ -32,14 +32,18 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         }
 }
 
-static void manage_window(window_t *win, player_t *player, map_t *map)
+static int manage_window(window_t *win, player_t *player, map_t *map)
 {
     if (win->is_menu == true)
         display_menu(win);
     if (win->is_single == true) {
+        sfMusic_stop(win->menu.music);
         dda_algorithm(player, map, win);
         display_lamp(win);
+        if (display_hud(win, player) == EXIT_FAILURE)
+            return EXIT_FAILURE;
     }
+    return EXIT_SUCCESS;
 }
 
 static int render_window(window_t *win, player_t *player, map_t *map)
@@ -49,7 +53,8 @@ static int render_window(window_t *win, player_t *player, map_t *map)
     win->clock.time = sfClock_restart(win->clock.clock);
     win->clock.elapsed_time_bg += win->clock.time.microseconds /
         1000000.0;
-    manage_window(win, player, map);
+    if (manage_window(win, player, map) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     sfRenderWindow_display(win->window);
     return EXIT_SUCCESS;
 }
@@ -58,6 +63,7 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfVector2i mouse_pos;
 
+    create_hud(wolf_win);
     sfMusic_play(wolf_win->menu.music);
     sfMusic_setLoop(wolf_win->menu.music, sfTrue);
     while (sfRenderWindow_isOpen(wolf_win->window)) {

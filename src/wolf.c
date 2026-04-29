@@ -39,6 +39,7 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
     if (win->is_single == true) {
         sfMusic_stop(win->menu.music);
         dda_algorithm(player, map, win);
+        display_lamp(win);
         display_hud(win, player);
     }
 }

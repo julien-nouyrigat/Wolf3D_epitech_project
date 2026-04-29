@@ -91,6 +91,15 @@ typedef struct {
 } game_t;
 
 typedef struct {
+    sfText *life;
+    sfText *max_life;
+    sfText *stamina;
+    sfText *max_stamina;
+    sfSprite *cross;
+    sfSprite *lightning;
+} hud_t;
+
+typedef struct {
     sfRenderWindow *window;
     menu_t menu;
     game_t game;

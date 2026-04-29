@@ -20,9 +20,10 @@ int init_window(window_t *wolf_win)
     wolf_win->bg_color = sfColor_fromRGB(96, 96, 96);
     wolf_win->clock.clock = sfClock_create();
     wolf_win->clock.elapsed_time_bg = 0.0f;
+    wolf_win->font = sfFont_createFromFile("./assets/fonts/teko.ttf");
     init_brackground_menu(wolf_win);
     init_menu(wolf_win);
-    wolf_win->font = sfFont_createFromFile("./assets/fonts/teko.ttf");
+    init_lamp(wolf_win);
     if (create_textures(wolf_win) == EXIT_FAILURE)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;

@@ -16,14 +16,16 @@ static void create_and_set_icons(window_t *win)
         win->textures[HEALTH_ICON - TEXT_TYPES], true);
     sfSprite_setTexture(win->hud.lightning,
         win->textures[STAMINA_ICON - TEXT_TYPES], true);
-    sfSprite_setScale(win->hud.cross, (sfVector2f){2, 2});
-    sfSprite_setPosition(win->hud.cross, (sfVector2f){250, 250});
+    sfSprite_setScale(win->hud.cross, (sfVector2f){0.1, 0.1});
+    sfSprite_setPosition(win->hud.cross, (sfVector2f){5, 25});
+    sfSprite_setScale(win->hud.lightning, (sfVector2f){0.12, 0.12});
+    sfSprite_setPosition(win->hud.lightning, (sfVector2f){5, 80});
 }
 
 static void set_text_pos(window_t *win)
 {
-    sfText_setPosition(win->hud.life, (sfVector2f){7, 7});
-    sfText_setPosition(win->hud.stamina, (sfVector2f){7, 65});
+    sfText_setPosition(win->hud.life, (sfVector2f){50, 7});
+    sfText_setPosition(win->hud.stamina, (sfVector2f){50, 65});
 }
 
 void create_hud(window_t *win)

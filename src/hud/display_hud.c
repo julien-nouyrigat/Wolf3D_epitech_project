@@ -28,6 +28,7 @@ int display_hud(window_t *win, player_t *player)
     sfRenderWindow_drawText(win->window, win->hud.life, NULL);
     sfRenderWindow_drawText(win->window, win->hud.stamina, NULL);
     sfRenderWindow_drawSprite(win->window, win->hud.cross, NULL);
+    sfRenderWindow_drawSprite(win->window, win->hud.lightning, NULL);
     free(life);
     free(stamina);
     return EXIT_SUCCESS;

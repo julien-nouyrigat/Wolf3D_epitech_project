@@ -22,14 +22,18 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
-    if (win->event.type == sfEvtMouseButtonPressed)
+    if (win->event.type == sfEvtMouseButtonPressed) {
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
-    if (win->event.type == sfEvtMouseButtonPressed)
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
             win->is_single = true;
         }
+        if (sfFloatRect_contains(&win->menu.tab[0].bound, mp->x, mp->y)) {
+            win->is_menu = false;
+            win->is_host_game = true;
+        }
+    }
 }
 
 static void manage_window(window_t *win, player_t *player, map_t *map)
@@ -38,6 +42,12 @@ static void manage_window(window_t *win, player_t *player, map_t *map)
         display_menu(win);
     if (win->is_single == true) {
         dda_algorithm(player, map, win);
+    }
+    if (win->is_host_game == true) {
+        display_host(win);
+    }
+    if (win->is_lobby == true) {
+        display_lobby(win);
     }
 }
 
@@ -57,9 +67,8 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
 {
     sfVector2i mouse_pos;
 
-    sfMusic_play(wolf_win->menu.music);
-    sfMusic_setLoop(wolf_win->menu.music, sfTrue);
     while (sfRenderWindow_isOpen(wolf_win->window)) {
+        recv_rooms(wolf_win->client);
         mouse_pos = sfMouse_getPositionRenderWindow(wolf_win->window);
         while (sfRenderWindow_pollEvent(wolf_win->window, &(wolf_win->event)))
             manage_events(wolf_win, player, map, &mouse_pos);
@@ -71,7 +80,22 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-int wolf(void)
+static int check_init(window_t *wolf_win, player_t **player, map_t **map)
+{
+    if (init_player(player) == EXIT_FAILURE) {
+        destroy_assets(wolf_win, *player);
+        return EXIT_FAILURE;
+    }
+    if (init_map(map) == EXIT_FAILURE) {
+        destroy_assets(wolf_win, *player);
+        return EXIT_FAILURE;
+    }
+    if (init_window(wolf_win) == EXIT_FAILURE)
+        return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
+int wolf(char *ip)
 {
     window_t *wolf_win = malloc(sizeof(window_t));
     player_t *player = NULL;
@@ -79,15 +103,12 @@ int wolf(void)
 
     if (!wolf_win)
         return EXIT_FAILURE;
-    if (init_player(&player) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, player);
+    wolf_win->client = malloc(sizeof(client_info_t));
+    wolf_win->client->sock_tcp = -1;
+    wolf_win->client->rooms = NULL;
+    if (connect_to_server(wolf_win->client, ip) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    }
-    if (init_map(&map) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, player);
-        return EXIT_FAILURE;
-    }
-    if (init_window(wolf_win) == EXIT_FAILURE)
+    if (check_init(wolf_win, &player, &map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     if (game_loop(wolf_win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;

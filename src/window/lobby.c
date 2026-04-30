@@ -8,6 +8,7 @@
 #include "window.h"
 #include "wolf.h"
 
-void display_lobby(void)
+void display_lobby(window_t *win)
 {
+    sfRenderWindow_drawText(win->window, win->lobby.lobby, NULL);
 }

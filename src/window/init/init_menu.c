@@ -106,6 +106,8 @@ int init_menu(window_t *win)
     win->is_game = false;
     win->is_param = false;
     win->is_single = false;
+    win->is_host_game = false;
+    win->is_join_game = false;
     init_text_menu(win, &grey);
     set_font_size(win);
     init_rect_menu(win);

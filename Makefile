@@ -38,25 +38,53 @@ SRC = 		$(MAIN)										\
 			src/raycasting/algorithm.c					\
 			src/raycasting/draw_wall.c					\
 			src/window/init/init_menu.c					\
+			src/window/init/init_host.c					\
 			src/window/init/init_cursor.c				\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
 			src/window/draw_mouse.c						\
+			src/window/host.c							\
 			src/initialization/create_textures.c		\
+			src/connect_to_server.c						\
+			src/recv_rooms.c							\
+			src/window/join_window/add_party.c			\
+			src/window/lobby.c							\
+			src/window/init/init_lobby.c				\
+
+SRC_SERVER	=	Server/main.c							\
+				Server/display_ip.c						\
+				Server/init/init_server.c				\
+				Server/init/init_tcp.c					\
+				Server/init/init_rooms.c				\
+				Server/init/init_epoll.c				\
+				Server/loop_serv.c						\
+				Server/broadcast.c						\
+				Server/add_room.c						\
+				Server/manage_client.c					\
+				Server/send_rooms.c						\
+				Server/free_lst.c						\
+
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d
 
+NAME_SERVER = server
+
 OBJ_FOLDER = obj
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
-all : $(NAME)
+OBJ_SERVER = $(patsubst %.c, obj/%.o, $(SRC_SERVER))
+
+all : $(NAME) $(NAME_SERVER)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+
+$(NAME_SERVER) : $(OBJ_SERVER)
+	$(CC) $(OBJ_SERVER) -o $(NAME_SERVER)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -67,7 +95,7 @@ clean :
 	@$(RM) $(OBJ_FOLDER)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_SERVER)
 
 fclean_test :
 	@$(RM) *.gcno

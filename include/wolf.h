@@ -22,7 +22,7 @@
     #define WALL 1
 
 int flag_h(void);
-int wolf(void);
+int wolf(char *ip);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);
@@ -48,5 +48,12 @@ void display_menu(window_t *win);
 void display_cursor(window_t *win);
 void init_cursor(window_t *win);
 int create_textures(window_t *win);
+int init_host(window_t *win);
+void display_host(window_t *win);
+int connect_to_server(client_info_t *client, char *ip);
+void manage_update_room(lst_room_t **rooms, room_recv_t *room_recv);
+void recv_rooms(client_info_t *client);
+void display_lobby(window_t *win);
+int init_lobby(window_t *win);
 
 #endif /* WOLF_H_ */

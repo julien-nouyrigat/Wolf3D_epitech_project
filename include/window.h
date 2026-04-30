@@ -19,6 +19,7 @@
     #include <SFML/System/Vector2.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
+    #include <stdint.h>
 
     #define FRAMES_LIMIT 60
     #define WIN_WIDTH 1980
@@ -32,12 +33,56 @@
     #define SIZE_Y_BG (5040 / LINE_BG)
     #define IPS_BG (1.0 / 24)
     #define NB_TAB_MENU 5
+    #define SIZE_ID 6
+    #define USERNAME_SIZE 67
 
 typedef struct {
     sfText *text;
     sfRectangleShape *rect;
     sfFloatRect bound;
 } tab_t;
+
+typedef struct {
+    char id_room[SIZE_ID + 1];
+    char host_name[USERNAME_SIZE];
+    uint8_t nb_players;
+    bool is_launch;
+} room_recv_t;
+
+typedef struct lst_room_s {
+    char id_room[SIZE_ID];
+    char host_name[USERNAME_SIZE];
+    uint8_t nb_players;
+    bool is_launch;
+    struct lst_room_s *next;
+} lst_room_t;
+
+typedef struct {
+    sfText *title;
+    sfSprite *s_back;
+    sfTexture *t_back;
+    lst_room_t *lst_room;
+} join_window_t;
+
+typedef struct {
+    int sock_tcp;
+    lst_room_t *rooms;
+    char pseudo[USERNAME_SIZE];
+    bool in_room;
+    char id_room[SIZE_ID + 1];
+} client_info_t;
+
+typedef struct {
+    sfText *back;
+    sfFloatRect back_bound;
+    sfText *new;
+    sfFloatRect new_bound;
+    sfText *title;
+    sfSprite *s_back;
+    sfTexture *t_back;
+    sfRectangleShape *black_rect;
+    sfText *txt;
+} host_window_t;
 
 typedef struct {
     sfTexture *t_bg;
@@ -86,6 +131,7 @@ typedef struct {
 typedef struct {
     sfRenderWindow *window;
     menu_t menu;
+    host_window_t host;
     lobby_t lobby;
     sfEvent event;
     sfVector2u size;
@@ -96,7 +142,10 @@ typedef struct {
     bool is_game;
     bool is_single;
     bool is_param;
+    bool is_host_game;
+    bool is_join_game;
     sfTexture **textures;
+    client_info_t *client;
 } window_t;
 
 #endif /* WINDOW_H_ */

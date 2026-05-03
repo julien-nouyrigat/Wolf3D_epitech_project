@@ -12,10 +12,10 @@
 
 int main(int ac, char **av)
 {
-    if (ac > 2)
+    if (ac != 2) {
+        printf("USAGE: ./wolf3d <ip>\n");
         return EXIT_FAILURE;
-    if (ac != 2)
-        return EXIT_FAILURE;
+    }
     if (strcmp(av[FLAG], FLAG_H) == 0)
         return flag_h();
     return wolf(av[1]);

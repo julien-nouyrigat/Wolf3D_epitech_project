@@ -120,6 +120,8 @@ typedef struct {
     sfText *settings;
     sfRectangleShape *settings_rect;
     sfFloatRect settings_bound;
+    sfSprite *s_back;
+    sfTexture *t_back;
 } lobby_t;
 
 typedef struct {

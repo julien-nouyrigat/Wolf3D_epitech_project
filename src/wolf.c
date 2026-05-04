@@ -34,9 +34,16 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 
 static int manage_window(window_t *win, player_t *player, map_t *map)
 {
-    if (win->is_menu == true)
+    if (win->is_menu == true){
         display_menu(win);
+        if (win->menu.music_started == false){
+            sfMusic_play(win->menu.music);
+            sfMusic_setLoop(win->menu.music, sfTrue);
+            win->menu.music_started = true;
+        }
+    }
     if (win->is_single == true) {
+        sfMusic_pause(win->menu.music);
         sfMusic_stop(win->menu.music);
         dda_algorithm(player, map, win);
         display_lamp(win);

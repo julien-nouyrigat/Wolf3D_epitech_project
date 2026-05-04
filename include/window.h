@@ -58,6 +58,7 @@ typedef struct {
     sfSprite *s_rect_back;
     sfTexture *t_rect_back;
     sfMusic *music;
+    bool music_started;
 } menu_t;
 
 typedef struct player_lst_s {

@@ -23,6 +23,14 @@ static void set_hitbox(player_t **player)
     sfRectangleShape_setFillColor((*player)->hitbox, p_color);
 }
 
+static void init_life_and_stamina(player_t **player)
+{
+    (*player)->life = LIFE_START;
+    (*player)->max_life = LIFE_START;
+    (*player)->stamina = STAM_START;
+    (*player)->max_stamina = STAM_START;
+}
+
 int init_player(player_t **player)
 {
     *player = malloc(sizeof(player_t));
@@ -38,5 +46,6 @@ int init_player(player_t **player)
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
     (*player)->mvt_speed = 5;
+    init_life_and_stamina(player);
     return EXIT_SUCCESS;
 }

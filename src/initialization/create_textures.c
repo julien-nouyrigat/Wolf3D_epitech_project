@@ -12,10 +12,10 @@
 
 int create_textures(window_t *win)
 {
-    win->textures = malloc(sizeof(sfTexture *) * (END_TEXTS - TEXT_TYPES));
+    win->textures = malloc(sizeof(sfTexture *) * (TOTAL_TEXTURES));
     if (!win->textures)
         return EXIT_FAILURE;
-    for (int i = 0; i < (END_TEXTS - TEXT_TYPES); i++) {
+    for (int i = 0; i < (TOTAL_TEXTURES); i++) {
         win->textures[i] = FILE_TEXT(textures[i].texture);
     }
     return EXIT_SUCCESS;

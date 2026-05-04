@@ -17,6 +17,22 @@
     #define VERTICAL true
     #define HORIZONTAL false
     #define ROTATION_SPEED (M_PI / 50)
+    #define LIFE_START 100
+    #define STAM_START 40
+
+typedef struct {
+    float x0;
+    float y0;
+    float x1;
+    float y1;
+    int pos;
+    float pos_z;
+    float row_dist;
+    float step_x;
+    float step_y;
+    float floor_x;
+    float floor_y;
+} floor_ray_t;
 
 typedef struct {
     size_t screen_x;
@@ -39,6 +55,10 @@ typedef struct {
     float delta_x;
     float delta_y;
     int mvt_speed;
+    size_t life;
+    size_t max_life;
+    size_t stamina;
+    size_t max_stamina;
 } player_t;
 
 #endif /* PLAYER_H_ */

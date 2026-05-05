@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "wolf.h"
 
@@ -48,6 +49,8 @@ int init_player(player_t **player)
     (*player)->delta_y = 0;
     (*player)->mvt_speed = 5;
     (*player)->sprint = false;
+    (*player)->is_moving = false;
     init_life_and_stamina(player);
+    (*player)->p_clock = sfClock_create();
     return EXIT_SUCCESS;
 }

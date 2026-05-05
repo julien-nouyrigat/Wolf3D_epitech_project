@@ -22,6 +22,8 @@
     #define STAM_START 40
     #define SPRINT 5
     #define FOV 2 * atan(0.66 / 1.0)
+    #define LIFE_LEN 7
+    #define STAM_LEN 7
 
 typedef struct {
     float x0;
@@ -63,7 +65,9 @@ typedef struct {
     size_t stamina;
     size_t max_stamina;
     bool sprint;
+    bool is_moving;
     float y_camera;
+    sfClock *p_clock;
 } player_t;
 
 #endif /* PLAYER_H_ */

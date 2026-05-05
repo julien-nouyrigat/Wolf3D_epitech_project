@@ -20,6 +20,9 @@
     #define EXIT_FAILURE 84
 
     #define WALL 1
+    #define SECOND 1000000.0
+    #define HALF_SEC 0.5
+    #define FULL_SEC 0.0
 
 int flag_h(void);
 int wolf(void);

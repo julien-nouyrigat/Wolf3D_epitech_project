@@ -62,6 +62,7 @@ OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
+	unzip wolf.zip
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
@@ -81,6 +82,10 @@ fclean_test :
 	@$(RM) unit_tests
 
 re : fclean all
+
+zip : fclean
+	zip -r wolf.zip assets
+	rm -r assets
 
 ll : $(NAME) re fclean
 

@@ -9,6 +9,7 @@
     #define PLAYER_H_
 
     #include <stdbool.h>
+    #include <math.h>
 
     #include "window.h"
 
@@ -20,6 +21,7 @@
     #define LIFE_START 100
     #define STAM_START 40
     #define SPRINT 5
+    #define FOV 2 * atan(0.66 / 1.0)
 
 typedef struct {
     float x0;
@@ -61,6 +63,7 @@ typedef struct {
     size_t stamina;
     size_t max_stamina;
     bool sprint;
+    float y_camera;
 } player_t;
 
 #endif /* PLAYER_H_ */

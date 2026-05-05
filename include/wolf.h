@@ -20,6 +20,9 @@
     #define EXIT_FAILURE 84
 
     #define WALL 1
+    #define SECOND 1000000.0
+    #define HALF_SEC 0.5
+    #define FULL_SEC 0.0
 
 int flag_h(void);
 int wolf(void);
@@ -54,5 +57,8 @@ void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 char *my_itoa(int nb);
 void create_hud(window_t *win);
 int display_hud(window_t *win, player_t *player);
+void sprint(player_t *player, map_t *map);
+void stop_sprint(window_t *win, player_t *player, map_t *map);
+void stamina_regen(player_t *player);
 
 #endif /* WOLF_H_ */

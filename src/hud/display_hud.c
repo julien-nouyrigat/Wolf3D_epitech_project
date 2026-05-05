@@ -12,17 +12,13 @@
 
 int display_hud(window_t *win, player_t *player)
 {
-    char *life = malloc(sizeof(char) * (strlen(my_itoa(player->life)) +
-            strlen(my_itoa(player->max_life)) + 2));
-    char *stamina = malloc(sizeof(char) * (strlen(my_itoa(player->life) +
-                strlen(my_itoa(player->max_life)) + 2)));
+    char *life = calloc(sizeof(char), LIFE_LEN + 1);
+    char *stamina = calloc(sizeof(char), STAM_LEN + 1);
 
     if (!life || !stamina)
         return EXIT_FAILURE;
-    life = strcat(my_itoa(player->life), "/");
-    life = strcat(life, my_itoa(player->max_life));
-    stamina = strcat(my_itoa(player->stamina), "/");
-    stamina = strcat(stamina, my_itoa(player->max_stamina));
+    sprintf(life, "%zu/%zu", player->life, player->max_life);
+    sprintf(stamina, "%zu/%zu", player->stamina, player->max_stamina);
     sfText_setString(win->hud.life, life);
     sfText_setString(win->hud.stamina, stamina);
     sfRenderWindow_drawText(win->window, win->hud.life, NULL);

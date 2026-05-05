@@ -12,6 +12,7 @@
 const struct evt_pfs_s events[] = {
     {sfEvtClosed, &close_window},
     {sfEvtResized, &resize_window},
+    {sfEvtKeyReleased, &stop_sprint},
     {END, NULL}
 };
 
@@ -56,6 +57,8 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
     manage_keyboard(player, map);
+    player->is_moving = false;
+    stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);
     win->clock.time = sfClock_restart(win->clock.clock);
     win->clock.elapsed_time_bg += win->clock.time.microseconds /

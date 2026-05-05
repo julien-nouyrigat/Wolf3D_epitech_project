@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "wolf.h"
 
@@ -40,12 +41,16 @@ int init_player(player_t **player)
     (*player)->pos_f.x = (*player)->position.x / TILE_SIZE;
     (*player)->pos_f.y = (*player)->position.y / TILE_SIZE;
     (*player)->direction = (sfVector2f){-1, 0};
-    (*player)->camera_plane = (sfVector2f){0, 0.66};
+    (*player)->camera_plane = (sfVector2f){0, FOV};
+    (*player)->y_camera = FOV;
     (*player)->camera = (sfVector2f){0, 0};
     set_hitbox(player);
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
     (*player)->mvt_speed = 5;
+    (*player)->sprint = false;
+    (*player)->is_moving = false;
     init_life_and_stamina(player);
+    (*player)->p_clock = sfClock_create();
     return EXIT_SUCCESS;
 }

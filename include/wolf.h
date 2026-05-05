@@ -59,5 +59,6 @@ void create_hud(window_t *win);
 int display_hud(window_t *win, player_t *player);
 void sprint(player_t *player, map_t *map);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
+void stamina_regen(player_t *player);
 
 #endif /* WOLF_H_ */

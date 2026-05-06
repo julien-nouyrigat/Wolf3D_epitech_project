@@ -21,7 +21,7 @@
     #define LIFE_START 100
     #define STAM_START 40
     #define SPRINT 5
-    #define FOV 2 * atan(0.66 / 1.0)
+    #define FOV 0.66
     #define LIFE_LEN 7
     #define STAM_LEN 7
 

@@ -24,6 +24,7 @@
     #define FOV 0.66
     #define LIFE_LEN 7
     #define STAM_LEN 7
+    #define SHADOW sfColor_fromRGB(160, 160, 160)
 
 typedef struct {
     float x0;
@@ -38,6 +39,13 @@ typedef struct {
     float floor_x;
     float floor_y;
 } floor_ray_t;
+
+typedef struct {
+    sfVertex top_left;
+    sfVertex top_right;
+    sfVertex bottom_right;
+    sfVertex bottom_left;
+} quad_vert_t;
 
 typedef struct {
     size_t screen_x;

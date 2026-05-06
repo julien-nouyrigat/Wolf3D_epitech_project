@@ -12,10 +12,13 @@
 static void project_wall(ray_t *ray, window_t *win, map_t *map,
     player_t *player)
 {
-    if (ray->orientation == VERTICAL)
+    if (ray->orientation == VERTICAL) {
         ray->real_dist = ray->side_dist.x - ray->delta_dist.x;
-    else
+        ray->color = sfWhite;
+    } else {
         ray->real_dist = ray->side_dist.y - ray->delta_dist.y;
+        ray->color = SHADOW;
+    }
     draw_wall(ray, win, map, player);
 }
 

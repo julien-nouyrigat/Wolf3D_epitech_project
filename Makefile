@@ -50,20 +50,34 @@ SRC = 		$(MAIN)										\
 			src/hud/create_hud.c						\
 			src/hud/display_hud.c						\
 
+SRC_SERV =	Server/main.c								\
+			Server/init_tcp.c							\
+			Server/init_epoll.c							\
+			Server/get_ip.c								\
+			Server/server_loop.c						\
+			Server/manage_stdin.c						\
+			Server/manage_client.c						\
+
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d
 
+NAME_SERV = server
+
 OBJ_FOLDER = obj
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
-all : $(NAME)
+OBJ_SERV = $(patsubst %.c, obj/%.o, $(SRC_SERV))
+
+all : $(NAME) $(NAME_SERV)
 
 $(NAME) : $(OBJ)
-	unzip wolf.zip
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+
+$(NAME_SERV) : $(OBJ_SERV)
+	$(CC) $(OBJ_SERV) -o $(NAME_SERV)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -71,10 +85,10 @@ $(OBJ_FOLDER)/%.o: %.c
 
 clean : RM += -R
 clean :
-	@$(RM) $(OBJ_FOLDER)
+	@$(RM) $(OBJ_FOLDER) $(OBJ_SERV)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_SERV)
 
 fclean_test :
 	@$(RM) *.gcno
@@ -82,10 +96,6 @@ fclean_test :
 	@$(RM) unit_tests
 
 re : fclean all
-
-zip : fclean
-	zip -r wolf.zip assets
-	rm -r assets
 
 ll : $(NAME) re fclean
 

@@ -64,7 +64,6 @@ OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	rm -r assets
 	wget https://github.com/julien-nouyrigat/Asset-Wolf3d/archive/main.zip
 	unzip main.zip -d assets
 	mv assets/Asset-Wolf3d-main/rooms assets

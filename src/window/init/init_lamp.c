@@ -18,5 +18,5 @@ void init_lamp(window_t *win)
     win->game.t_dark = sfTexture_createFromFile("./assets/image/dl.png",
         NULL);
     sfSprite_setTexture(win->game.dark, win->game.t_dark, sfTrue);
-    sfSprite_setScale(win->game.dark, (sfVector2f){1.3, 1.3});
+    sfSprite_setScale(win->game.dark, (sfVector2f){1.6, 1.6});
 }

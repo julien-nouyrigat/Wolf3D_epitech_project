@@ -64,14 +64,6 @@ OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	wget https://github.com/julien-nouyrigat/Asset-Wolf3d/archive/main.zip
-	unzip main.zip -d assets
-	mv assets/Asset-Wolf3d-main/rooms assets
-	mv assets/Asset-Wolf3d-main/image assets
-	mv assets/Asset-Wolf3d-main/sounds assets
-	mv assets/Asset-Wolf3d-main/sprite_sheet assets
-	mv assets/Asset-Wolf3d-main/fonts assets
-	rm main.zip
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
@@ -90,6 +82,16 @@ fclean_test :
 	@$(RM) *.gcda
 	@$(RM) unit_tests
 
+asset:
+	wget https://github.com/julien-nouyrigat/Asset-Wolf3d/archive/main.zip
+	unzip main.zip -d assets
+	mv assets/Asset-Wolf3d-main/rooms assets
+	mv assets/Asset-Wolf3d-main/image assets
+	mv assets/Asset-Wolf3d-main/sounds assets
+	mv assets/Asset-Wolf3d-main/sprite_sheet assets
+	mv assets/Asset-Wolf3d-main/fonts assets
+	rm main.zip
+
 re : fclean all
 
 ll : $(NAME) re fclean
@@ -104,4 +106,4 @@ tests_run : fclean fclean_test
 	$(CC) -o unit_tests $(SRC_TESTS) $(CFLAGS) $(CPPFLAGS) $(LIBS)
 	./unit_tests
 
-.PHONY : fclean fclean_test re debug tests_run ll
+.PHONY : fclean fclean_test re debug tests_run ll asset

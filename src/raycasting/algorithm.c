@@ -12,13 +12,21 @@
 static void project_wall(ray_t *ray, window_t *win, map_t *map,
     player_t *player)
 {
+    sfColor wall_color = {0};
+    float fog_value = 0;
+
+    if (fog_value < 50)
+        fog_value = 50;
     if (ray->orientation == VERTICAL) {
         ray->real_dist = ray->side_dist.x - ray->delta_dist.x;
-        ray->color = sfWhite;
+        fog_value = LIGHT / (1 + ray->real_dist * FOG);
+        wall_color = sfColor_fromRGB(fog_value, fog_value, fog_value);
     } else {
         ray->real_dist = ray->side_dist.y - ray->delta_dist.y;
-        ray->color = SHADOW;
+        fog_value = SHADOW / (1 + ray->real_dist * FOG);
+        wall_color = sfColor_fromRGB(fog_value, fog_value, fog_value);
     }
+    ray->color = wall_color;
     draw_wall(ray, win, map, player);
 }
 

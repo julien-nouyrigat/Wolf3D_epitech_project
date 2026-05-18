@@ -17,7 +17,7 @@ int init_window(window_t *wolf_win)
     if (!wolf_win->window)
         return EXIT_FAILURE;
     wolf_win->size = sfRenderWindow_getSize(wolf_win->window);
-    wolf_win->bg_color = sfColor_fromRGB(96, 96, 96);
+    wolf_win->bg_color = sfBlack;
     wolf_win->clock.clock = sfClock_create();
     wolf_win->clock.elapsed_time_bg = 0.0f;
     wolf_win->font = sfFont_createFromFile("./assets/fonts/teko.ttf");

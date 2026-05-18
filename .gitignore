@@ -6,3 +6,4 @@ obj/
 wolf3d
 test.c
 *.out
+assets

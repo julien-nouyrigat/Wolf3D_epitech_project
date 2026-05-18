@@ -15,8 +15,6 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map,
     sfColor wall_color = {0};
     float fog_value = 0;
 
-    if (fog_value < 50)
-        fog_value = 50;
     if (ray->orientation == VERTICAL) {
         ray->real_dist = ray->side_dist.x - ray->delta_dist.x;
         fog_value = LIGHT / (1 + ray->real_dist * FOG);

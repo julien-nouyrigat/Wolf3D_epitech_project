@@ -50,6 +50,7 @@ int init_player(player_t **player)
     (*player)->mvt_speed = 5;
     (*player)->sprint = false;
     (*player)->is_moving = false;
+    (*player)->bobing = 0;
     init_life_and_stamina(player);
     (*player)->p_clock = sfClock_create();
     return EXIT_SUCCESS;

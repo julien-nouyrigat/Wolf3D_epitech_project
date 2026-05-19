@@ -34,6 +34,8 @@ SRC = 		$(MAIN)										\
 			src/player_movements/movements.c			\
 			src/player_movements/rotation.c				\
 			src/raycasting/draw_2d_player.c				\
+			src/window/init/init_lobby.c				\
+			src/window/lobby.c							\
 			src/initialization/init_map.c				\
 			src/raycasting/draw_2d_map.c				\
 			src/raycasting/algorithm.c					\

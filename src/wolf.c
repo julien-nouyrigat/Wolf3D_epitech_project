@@ -56,6 +56,9 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
         if (display_hud(win, player) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
+    if (win->is_lobby == true) {
+        display_lobby(win);
+    }
     return EXIT_SUCCESS;
 }
 

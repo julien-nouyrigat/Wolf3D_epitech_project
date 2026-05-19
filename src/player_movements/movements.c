@@ -36,7 +36,7 @@ void move_forward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    player->bobing += 0.3f;
+    player->bobing += BOBING_COEF * (player->sprint + 1);
     movement_dir.x = player->direction.x * ((player->mvt_speed) / (3 * M_PI));
     movement_dir.y = player->direction.y * ((player->mvt_speed) / (3 * M_PI));
     move(player, map, &movement_dir);
@@ -46,7 +46,7 @@ void move_backward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    player->bobing += 0.3f;
+    player->bobing += BOBING_COEF * (player->sprint + 1);
     movement_dir.x = - player->direction.x * ((player->mvt_speed) / (3 * M_PI));
     movement_dir.y = - player->direction.y * ((player->mvt_speed) / (3 * M_PI));
     move(player, map, &movement_dir);
@@ -56,7 +56,7 @@ void move_right(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    player->bobing += 0.3f;
+    player->bobing += BOBING_COEF * (player->sprint + 1);
     movement_dir.x = - player->direction.y * sin((player->mvt_speed));
     movement_dir.y = - player->direction.x * cos((player->mvt_speed));
     move(player, map, &movement_dir);
@@ -66,7 +66,7 @@ void move_left(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    player->bobing += 0.3f;
+    player->bobing += BOBING_COEF * (player->sprint + 1);
     movement_dir.x = player->direction.y * sin((player->mvt_speed));
     movement_dir.y = player->direction.x * cos((player->mvt_speed));
     move(player, map, &movement_dir);

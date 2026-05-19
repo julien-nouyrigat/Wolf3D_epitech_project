@@ -60,7 +60,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-static int render_window(window_t *win, player_t *player, map_t *map)
+static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
 {
     manage_client_network(win, player, map);
     if (win->is_game == true) {
@@ -82,6 +82,11 @@ static int render_window(window_t *win, player_t *player, map_t *map)
         }
     } else
         manage_keyboard(player, map);
+}
+
+static int render_window(window_t *win, player_t *player, map_t *map)
+{
+    check_keyboard_net(win, player, map);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);
@@ -114,24 +119,31 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-int wolf(void)
+static int init_all(window_t *wolf_win, map_t **map, player_t **player)
 {
-    window_t *wolf_win = malloc(sizeof(window_t));
-    player_t *player = NULL;
-    map_t *map = NULL;
-
     wolf_win->client = NULL;
     if (!wolf_win)
         return EXIT_FAILURE;
-    if (init_player(&player) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, player);
+    if (init_player(player) == EXIT_FAILURE) {
+        destroy_assets(wolf_win, *player);
         return EXIT_FAILURE;
     }
-    if (init_map(&map) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, player);
+    if (init_map(map) == EXIT_FAILURE) {
+        destroy_assets(wolf_win, *player);
         return EXIT_FAILURE;
     }
     if (init_window(wolf_win) == EXIT_FAILURE)
+        return EXIT_FAILURE;
+    return EXIT_SUCCESS;
+}
+
+int wolf(void)
+{
+    window_t *wolf_win = malloc(sizeof(window_t));
+    player_t *player = malloc(sizeof(*player));
+    map_t *map = NULL;
+
+    if (init_all(wolf_win, &map, &player) == EXIT_FAILURE)
         return EXIT_FAILURE;
     if (game_loop(wolf_win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;

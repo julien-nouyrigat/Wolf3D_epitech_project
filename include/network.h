@@ -53,6 +53,10 @@ typedef struct {
 } map_network_t;
 
 typedef struct {
+    int id;
+} client_info_start_t;
+
+typedef struct {
     int fd_tcp;
     struct sockaddr_in sa_in;
     struct sockaddr_in sa_in_udp;

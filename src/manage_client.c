@@ -18,6 +18,13 @@ void send_key_move(key_enum_t key, window_t *win)
         sizeof(win->client->sa_in_udp));
 }
 
+static void set_state_win(window_t *win)
+{
+    win->is_lobby = false;
+    win->is_game = true;
+    win->is_single = true;
+}
+
 static void recv_map_tcp(window_t *win, map_t *map)
 {
     map_network_t net_map = {0};
@@ -38,9 +45,7 @@ static void recv_map_tcp(window_t *win, map_t *map)
             map->int_map[i][j] = net_map.map[i][j];
         }
     }
-    win->is_lobby = false;
-    win->is_game = true;
-    win->is_single = true;
+    set_state_win(win);
     total_bytes = 0;
 }
 

@@ -13,6 +13,8 @@
 
     #include "window.h"
 
+    #undef M_PI
+    #define M_PI 3.14159265358979323
     #define PLAYER_SIZE 15
     #define ZERO_INV 1e30
     #define VERTICAL true

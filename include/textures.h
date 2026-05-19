@@ -11,7 +11,6 @@
     #define FILE_TEXT(file) sfTexture_createFromFile(file, NULL)
     #define TEXT_TYPES 3
     #define NB_MAPS 3
-    #define ELEMENTS 2
     #define TOTAL_TEXTURES (END_TEXTS - TEXT_TYPES)
 
 enum types_of_maps {

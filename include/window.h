@@ -35,12 +35,25 @@
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
     #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
     #define HUD_TEXT_SIZE 55
+    #define LEN_IP 16
 
 typedef struct {
     sfText *text;
     sfRectangleShape *rect;
     sfFloatRect bound;
 } tab_t;
+
+typedef struct {
+    char ip_buff[BUFSIZ];
+    sfText *ip;
+    size_t index;
+    sfText *connect;
+    sfFloatRect connect_bound;
+    sfText *back;
+    sfFloatRect back_bound;
+    sfSprite *s_bg;
+    sfTexture *t_bg;
+} get_ip_t;
 
 typedef struct {
     sfTexture *t_bg;

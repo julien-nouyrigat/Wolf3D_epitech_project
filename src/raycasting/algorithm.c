@@ -98,5 +98,6 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
         ray.direction.y = player->direction.y + player->camera_plane.y *
             player->camera.x;
         init_dda(player, &ray, map, win);
+        display_enemies(player, map, win, ray);
     }
 }

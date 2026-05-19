@@ -14,6 +14,7 @@
     #include "window.h"
 
     #define PLAYER_SIZE 15
+    #define BOBING_COEF 0.3f
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false

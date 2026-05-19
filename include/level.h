@@ -8,11 +8,13 @@
 #ifndef LEVEL_H_
     #define LEVEL_H_
 
-    #include "map.h"
+    #include "enemies.h"
 
-typedef struct {
-    size_t id;
-    struct map_t *map;
+    #define FIRST_LEVEL 1
+    #define INIT_NB_MOBS 2
+
+typedef struct level_s {
+    size_t lvl;
     size_t nb_mobs;
     struct enemy_t *enemies;
 } level_t;

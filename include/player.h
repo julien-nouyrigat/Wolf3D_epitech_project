@@ -29,6 +29,9 @@
     #define SHADOW 160
     #define FOG 0.4
     #define MOVEMENT_SPEED 4
+    #define UP_MAX 1500
+    #define DOWN_MAX -1500
+    #define UP_DOWN_MVT 50
 
 typedef struct {
     float x0;

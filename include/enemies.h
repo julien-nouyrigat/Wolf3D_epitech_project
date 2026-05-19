@@ -14,7 +14,8 @@ typedef enum {
     HEADMAN,
     WITCH,
     CYCLOP,
-    CHEF
+    CHEF,
+    ENDERMAN
 } monster_type_t;
 
 typedef struct monster_s {

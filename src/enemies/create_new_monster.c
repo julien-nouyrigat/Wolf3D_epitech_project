@@ -18,6 +18,7 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->speed = mob_data[(*mob)->type].speed;
     (*mob)->monster->cooldown = mob_data[(*mob)->type].cooldown;
     (*mob)->monster->loot_value = mob_data[(*mob)->type].loot_value;
+    (*mob)->monster->can_attack = false;
     (*mob)->monster->sprite = sfSprite_create();
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);

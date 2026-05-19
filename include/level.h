@@ -18,7 +18,7 @@ typedef struct level_s {
     size_t lvl;
     size_t nb_mobs;
     sfTexture **mob_texts;
-    struct enemy_t *enemies;
+    struct enemy_s *enemies;
 } level_t;
 
 #endif /* LEVEL_H_ */

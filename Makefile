@@ -51,20 +51,51 @@ SRC = 		$(MAIN)										\
 			src/hud/display_hud.c						\
 			src/player_movements/sprint.c				\
 			src/player_movements/stamina_regen.c		\
+			src/initialization/init_client.c			\
+			src/manage_client.c							\
+
+SRC_SERV = 	server/main.c								\
+			server/init/init_epoll.c					\
+			server/init/init_tcp.c						\
+			server/manage/manage_map.c					\
+			server/manage/manage_client.c				\
+			server/manage/manage_pos.c					\
+			server/manage/manage_stdin.c				\
+			server/get_ip.c								\
+			server/init/init_udp.c						\
+			server/server_loop.c						\
+			src/initialization/init_map.c				\
+			src/generating/parsing_map.c 				\
+			src/generating/parsing_door.c 				\
+			src/generating/generating.c 				\
+			src/generating/create_map.c 				\
+			src/generating/free_tools.c 				\
+			lib/free_array.c							\
+			lib/str_to_wa.c 							\
+			src/player_movements/movements.c			\
+			src/player_movements/rotation.c				\
+
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d
 
+NAME_SERV = serv
+
 OBJ_FOLDER = obj
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
-all : $(NAME)
+OBJ_SERV = $(patsubst %.c, obj/%.o, $(SRC_SERV))
+
+all : $(NAME) $(NAME_SERV)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+
+$(NAME_SERV) : $(OBJ_SERV)
+	$(CC) $(OBJ_SERV) -o $(NAME_SERV) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -75,7 +106,7 @@ clean :
 	@$(RM) $(OBJ_FOLDER)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_SERV)
 
 fclean_test :
 	@$(RM) *.gcno

@@ -8,6 +8,8 @@
 #ifndef ENEMIES_H_
     #define ENEMIES_H_
 
+    #include "wolf.h"
+
 typedef enum {
     CLOWN,
     NUN,

@@ -8,6 +8,8 @@
 #ifndef MAP_H_
     #define MAP_H_
 
+    #include "level.h"
+
     #define TILE_SIZE 64
     #define MAP_SIDE 8
 
@@ -19,6 +21,7 @@ typedef struct {
     int **int_map;
     int type;
     sfVector2i map_pos;
+    struct level_s *level;
 } map_t;
 
 #endif /* MAP_H_ */

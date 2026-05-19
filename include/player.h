@@ -27,6 +27,7 @@
     #define LIGHT 255
     #define SHADOW 160
     #define FOG 0.4
+    #define MOVEMENT_SPEED 4
 
 typedef struct {
     float x0;

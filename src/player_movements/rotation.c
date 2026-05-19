@@ -44,15 +44,15 @@ void rotate_right(player_t *player, map_t *map)
 void up_cam(player_t *player, map_t *map)
 {
     (void)map;
-    player->y_camera += 50;
-    if (player->y_camera > 1500)
-        player->y_camera = 1500;
+    player->y_camera += UP_DOWN_MVT;
+    if (player->y_camera > UP_MAX)
+        player->y_camera = UP_MAX;
 }
 
 void down_cam(player_t *player, map_t *map)
 {
     (void)map;
-    player->y_camera += -50;
-    if (player->y_camera < -1500)
-        player->y_camera = -1500;
+    player->y_camera -= UP_DOWN_MVT;
+    if (player->y_camera < DOWN_MAX)
+        player->y_camera = DOWN_MAX;
 }

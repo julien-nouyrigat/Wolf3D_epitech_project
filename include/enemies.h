@@ -49,6 +49,7 @@ typedef struct monster_s {
     size_t speed;
     float cooldown;
     size_t loot_value;
+    bool can_attack;
     sfVector2f position;
     sfSprite *sprite;
 } monster_t;

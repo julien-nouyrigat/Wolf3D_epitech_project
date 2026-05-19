@@ -26,6 +26,8 @@
 
 int flag_h(void);
 int wolf(void);
+void down_cam(player_t *player, map_t *map);
+void up_cam(player_t *player, map_t *map);
 void init_lamp(window_t *wolf_win);
 void display_lamp(window_t *win);
 void destroy_assets(window_t *wolf_win, player_t *player);

@@ -79,6 +79,7 @@ typedef struct {
     bool is_moving;
     float y_camera;
     sfClock *p_clock;
+    float bobing;
 } player_t;
 
 #endif /* PLAYER_H_ */

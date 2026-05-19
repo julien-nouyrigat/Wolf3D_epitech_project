@@ -11,6 +11,16 @@
     #include "textures.h"
     #include "wolf.h"
 
+    #define INFINITE_RANGE 10000
+
+    #define SMALL_LOOT 2000
+    #define MEDIUM_LOOT 4000
+    #define LARGE_LOOT 6000
+
+    #define MEDIUM_HEALTH 150
+    #define LARGE_HEALTH 250
+    #define VERY_LARGE_HEALTH 500
+
 typedef enum {
     CLOWN,
     NUN,
@@ -33,19 +43,40 @@ static const textures_t mob_textures[NB_ENEMIES] = {
 };
 
 typedef struct monster_s {
-    size_t life;
+    size_t health;
     size_t damage;
     size_t range;
     size_t speed;
+    float cooldown;
+    size_t loot_value;
     sfVector2f position;
-    sfVector2f direction;
     sfSprite *sprite;
 } monster_t;
 
 typedef struct enemy_s {
     size_t type;
-    struct monster_t *monster;
+    monster_t *monster;
     struct enemy_s *next;
 } enemy_t;
+
+typedef struct mob_data_s {
+    size_t type;
+    size_t health;
+    size_t damage;
+    size_t range;
+    size_t speed;
+    float cooldown;
+    size_t loot_value;
+} mob_data_t;
+
+static const mob_data_t mob_data[NB_ENEMIES] = {
+    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 5, 7.0, LARGE_LOOT},
+    {NUN, LARGE_HEALTH, 100, 15, 6, 3.0, LARGE_LOOT},
+    {HEADMAN, LARGE_HEALTH, 50, 15, 6, 3.0, LARGE_LOOT},
+    {WITCH, VERY_LARGE_HEALTH, 125, 15, 5, 4.0, LARGE_LOOT},
+    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 3, 6.0, LARGE_LOOT},
+    {CHEF, MEDIUM_HEALTH, 10, 15, 5, 0.5, MEDIUM_LOOT},
+    {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 3.5, SMALL_LOOT}
+};
 
 #endif /* ENEMIES_H_ */

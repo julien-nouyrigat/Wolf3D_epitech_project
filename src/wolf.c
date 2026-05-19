@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-
+#include "network.h"
 #include "wolf.h"
 
 const struct evt_pfs_s events[] = {
@@ -26,11 +26,17 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
     if (win->event.type == sfEvtMouseButtonPressed)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
-    if (win->event.type == sfEvtMouseButtonPressed)
+    if (win->event.type == sfEvtMouseButtonPressed) {
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
             win->is_single = true;
         }
+        if (sfFloatRect_contains(&win->menu.tab[1].bound, mp->x, mp->y)) {
+            connect_client(win);
+            win->is_menu = false;
+            win->is_lobby = true;
+        }
+    }
 }
 
 static int manage_window(window_t *win, player_t *player, map_t *map)
@@ -56,7 +62,26 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    manage_keyboard(player, map);
+    manage_client_network(win, player, map);
+    if (win->is_game == true) {
+        if (sfKeyboard_isKeyPressed(sfKeyZ))
+            send_key_move(KEY_Z, win);
+        if (sfKeyboard_isKeyPressed(sfKeyS))
+            send_key_move(KEY_S, win);
+        if (sfKeyboard_isKeyPressed(sfKeyQ))
+            send_key_move(KEY_Q, win);
+        if (sfKeyboard_isKeyPressed(sfKeyD))
+            send_key_move(KEY_D, win);
+        if (sfKeyboard_isKeyPressed(sfKeyLeft)) {
+            rotate_left(player, map);
+            send_key_move(KEY_LEFT, win);
+        }
+        if (sfKeyboard_isKeyPressed(sfKeyRight)) {
+            rotate_right(player, map);
+            send_key_move(KEY_RIGHT, win);
+        }
+    } else
+        manage_keyboard(player, map);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);
@@ -66,6 +91,7 @@ static int render_window(window_t *win, player_t *player, map_t *map)
     if (manage_window(win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     sfRenderWindow_display(win->window);
+    manage_client_network(win, player, map);
     return EXIT_SUCCESS;
 }
 
@@ -94,6 +120,7 @@ int wolf(void)
     player_t *player = NULL;
     map_t *map = NULL;
 
+    wolf_win->client = NULL;
     if (!wolf_win)
         return EXIT_FAILURE;
     if (init_player(&player) == EXIT_FAILURE) {

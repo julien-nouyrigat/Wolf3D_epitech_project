@@ -40,3 +40,19 @@ void rotate_right(player_t *player, map_t *map)
     player->camera_plane.y = old_plane_x * sin(- ROTATION_SPEED) +
         player->camera_plane.y * cos(- ROTATION_SPEED);
 }
+
+void up_cam(player_t *player, map_t *map)
+{
+    (void)map;
+    player->y_camera += 50;
+    if (player->y_camera > 1500)
+        player->y_camera = 1500;
+}
+
+void down_cam(player_t *player, map_t *map)
+{
+    (void)map;
+    player->y_camera += -50;
+    if (player->y_camera < -1500)
+        player->y_camera = -1500;
+}

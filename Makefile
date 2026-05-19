@@ -51,6 +51,7 @@ SRC = 		$(MAIN)										\
 			src/hud/display_hud.c						\
 			src/player_movements/sprint.c				\
 			src/player_movements/stamina_regen.c		\
+			src/enemies/create_new_monster.c			\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

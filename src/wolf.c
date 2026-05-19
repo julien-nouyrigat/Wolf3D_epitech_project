@@ -33,6 +33,12 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         }
 }
 
+static void display_game_elements(window_t *win, player_t *player, map_t *map)
+{
+    dda_algorithm(player, map, win);
+    display_lamp(win);
+}
+
 static int manage_window(window_t *win, player_t *player, map_t *map)
 {
     if (win->is_menu == true){
@@ -46,8 +52,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
     if (win->is_single == true) {
         sfMusic_pause(win->menu.music);
         sfMusic_stop(win->menu.music);
-        dda_algorithm(player, map, win);
-        display_lamp(win);
+        display_game_elements(win, player, map);
         if (display_hud(win, player) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }

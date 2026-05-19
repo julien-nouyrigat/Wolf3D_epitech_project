@@ -47,9 +47,10 @@ int init_player(player_t **player)
     set_hitbox(player);
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
-    (*player)->mvt_speed = 5;
+    (*player)->mvt_speed = MOVEMENT_SPEED;
     (*player)->sprint = false;
     (*player)->is_moving = false;
+    (*player)->bobing = 0;
     init_life_and_stamina(player);
     (*player)->p_clock = sfClock_create();
     return EXIT_SUCCESS;

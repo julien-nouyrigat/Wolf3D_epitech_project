@@ -14,6 +14,7 @@
     #include "window.h"
 
     #define PLAYER_SIZE 15
+    #define BOBING_COEF 0.3f
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
@@ -27,6 +28,7 @@
     #define LIGHT 255
     #define SHADOW 160
     #define FOG 0.4
+    #define MOVEMENT_SPEED 4
 
 typedef struct {
     float x0;
@@ -78,6 +80,7 @@ typedef struct {
     bool is_moving;
     float y_camera;
     sfClock *p_clock;
+    float bobing;
 } player_t;
 
 #endif /* PLAYER_H_ */

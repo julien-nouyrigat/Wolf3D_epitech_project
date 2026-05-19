@@ -4,7 +4,7 @@
 ** File description:
 ** draw_wall
 */
-
+#include <stdlib.h>
 #include <math.h>
 
 #include "textures.h"
@@ -63,8 +63,10 @@ static quad_vert_t find_quad_vertex(ray_t *ray, window_t *win, map_t *map,
     player_t *player)
 {
     quad_vert_t quad_vert = {0};
-    int wall_height = (int)(win->size.y / ray->real_dist);
-    int wall_bottom = (win->size.y / 2) - (wall_height / 2);
+    int wall_height = (int)(win->size.y / ray->real_dist) +
+        (int)player->y_camera + (int)(sin(player->bobing) * 10);
+    int wall_bottom = (int)(win->size.y / 2) - (wall_height / 2) +
+        (int)player->y_camera + (int)(sin(player->bobing) * 10);
     int wall_top = (win->size.y / 2) + (wall_height / 2);
     float wall_x = find_wall_x(ray, player);
     sfVector2u size = sfTexture_getSize

@@ -8,6 +8,7 @@
 #ifndef ENEMIES_H_
     #define ENEMIES_H_
 
+    #include "textures.h"
     #include "wolf.h"
 
 typedef enum {
@@ -15,10 +16,21 @@ typedef enum {
     NUN,
     HEADMAN,
     WITCH,
-    CYCLOP,
+    CYCLOPS,
     CHEF,
-    ENDERMAN
+    ENDERMAN,
+    NB_ENEMIES
 } monster_type_t;
+
+static const textures_t mob_textures[NB_ENEMIES] = {
+    {"./assets/monsters/clown.png"},
+    {"./assets/monsters/nun.png"},
+    {"./assets/monsters/headman.png"},
+    {"./assets/monsters/witch.png"},
+    {"./assets/monsters/cyclops.png"},
+    {"./assets/monsters/chef.png"},
+    {"./assets/monsters/enderman.png"}
+};
 
 typedef struct monster_s {
     size_t life;

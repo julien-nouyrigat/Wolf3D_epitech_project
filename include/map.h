@@ -10,7 +10,7 @@
 
     #include "level.h"
 
-    #define TILE_SIZE 64
+    #define TILE_SIZE 128
     #define MAP_SIDE 8
 
 typedef struct {

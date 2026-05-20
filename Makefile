@@ -116,6 +116,7 @@ fclean_test :
 	@$(RM) unit_tests
 
 asset:
+	rm -rf assets
 	wget https://github.com/julien-nouyrigat/Asset-Wolf3d/archive/main.zip
 	unzip main.zip -d assets
 	mv assets/Asset-Wolf3d-main/rooms assets
@@ -123,7 +124,10 @@ asset:
 	mv assets/Asset-Wolf3d-main/sounds assets
 	mv assets/Asset-Wolf3d-main/sprite_sheet assets
 	mv assets/Asset-Wolf3d-main/fonts assets
-	rm main.zip
+	rm -f main.zip
+	rm -f main.zip.1
+	rm -f main.zip.2
+	rm -f main.zip.3
 
 re : fclean all
 

@@ -16,18 +16,9 @@ const struct evt_pfs_s events[] = {
     {END, NULL}
 };
 
-static void manage_events(window_t *win, player_t *player, map_t *map,
-    sfVector2i *mp)
+void check_other_events(window_t *win, sfVector2i *mp)
 {
-    for (size_t i = 0; events[i].type != END; i++) {
-        if (win->event.type == events[i].type)
-            events[i].function(win, player, map);
-    }
-    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
-        if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
-            close_window(win, player, map);
-    if (win->event.type == sfEvtMouseButtonPressed) {
-    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
             win->is_single = true;
@@ -38,11 +29,25 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
             win->is_lobby = true;
         }
     }
-    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
         if (sfFloatRect_contains(&win->menu.tab[3].bound, mp->x, mp->y)) {
             win->is_clickable = false;
             win->is_param = true;
         }
+    }
+}
+
+static void manage_events(window_t *win, player_t *player, map_t *map,
+    sfVector2i *mp)
+{
+    for (size_t i = 0; events[i].type != END; i++) {
+        if (win->event.type == events[i].type)
+            events[i].function(win, player, map);
+    }
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
+        if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
+            close_window(win, player, map);
+    check_other_events(win, mp);
 }
 
 static void display_game_elements(window_t *win, player_t *player, map_t *map)

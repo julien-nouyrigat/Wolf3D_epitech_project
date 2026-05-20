@@ -6,6 +6,7 @@
 */
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "wolf.h"
 
@@ -25,6 +26,7 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map,
         wall_color = sfColor_fromRGB(fog_value, fog_value, fog_value);
     }
     ray->color = wall_color;
+    player->z_buffer[ray->screen_x] = ray->real_dist;
     draw_wall(ray, win, map, player);
 }
 
@@ -89,6 +91,9 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
 {
     ray_t ray = {0};
 
+    player->z_buffer = calloc(sizeof(float), win->size.x);
+    if (player->z_buffer == NULL)
+        return;
     draw_floor(&ray, win, map, player);
     for (float screen_col = 0.0; screen_col < win->size.x; screen_col += 1.0) {
         player->camera.x = (2 * screen_col / (win->size.x - 1) - 1);
@@ -98,6 +103,7 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
         ray.direction.y = player->direction.y + player->camera_plane.y *
             player->camera.x;
         init_dda(player, &ray, map, win);
-        //display_enemies(player, map, win, ray);
     }
+    display_enemies(player, map, win);
+    free(player->z_buffer);
 }

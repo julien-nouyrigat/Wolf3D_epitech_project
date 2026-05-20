@@ -63,5 +63,6 @@ void sprint(player_t *player, map_t *map);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
 int create_new_monster(map_t **map);
+void display_enemies(player_t *player, map_t *map, window_t *win);
 
 #endif /* WOLF_H_ */

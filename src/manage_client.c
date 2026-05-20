@@ -9,7 +9,7 @@
 
 void send_key_move(key_enum_t key, window_t *win)
 {
-    key_network_t key_to_send;
+    key_network_t key_to_send = {0};
 
     key_to_send.id = win->client->id;
     key_to_send.key = key;
@@ -49,6 +49,16 @@ static void recv_map_tcp(window_t *win, map_t *map)
     total_bytes = 0;
 }
 
+static void apply_player_pos(player_t *player, pos_network_t *net_pos)
+{
+    player->position.x = net_pos->state.pos_x;
+    player->position.y = net_pos->state.pos_y;
+    player->pos_f.x = net_pos->state.pos_tile_x;
+    player->pos_f.y = net_pos->state.pos_tile_y;
+    player->direction.x = net_pos->state.direction_x;
+    player->direction.y = net_pos->state.direction_y;
+}
+
 static void recv_pos_udp(window_t *win, player_t *player)
 {
     pos_network_t net_pos = {0};
@@ -57,13 +67,12 @@ static void recv_pos_udp(window_t *win, player_t *player)
     ssize_t n_bytes = recvfrom(win->client->sock_udp, &net_pos, sizeof(net_pos),
         0, (struct sockaddr *)&sa_in, &len_sa_in);
 
-    if (n_bytes >= (ssize_t)sizeof(net_pos)) {
-        player->position.x = net_pos.state.pos_x;
-        player->position.y = net_pos.state.pos_y;
-        player->pos_f.x = net_pos.state.pos_tile_x;
-        player->pos_f.y = net_pos.state.pos_tile_y;
-        player->direction.x = net_pos.state.direction_x;
-        player->direction.y = net_pos.state.direction_y;
+    if (n_bytes < (ssize_t)sizeof(net_pos))
+        return;
+    if (net_pos.id == win->client->id)
+        apply_player_pos(player, &net_pos);
+    else {
+        return;
     }
 }
 

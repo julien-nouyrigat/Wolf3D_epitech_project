@@ -47,6 +47,7 @@ int accept_client(server_t *serv)
     for (size_t i = 0; i < MAX_CLIENTS; i++) {
         if (serv->clients[i].fd_tcp <= 0) {
             add_client(serv, fd, &sa_in, i);
+            send(fd, &serv->clients[i].id, sizeof(uint8_t), 0);
             printf("[TCP] Nouveau client id = %zu fd = %d\n", i, fd);
             break;
         }

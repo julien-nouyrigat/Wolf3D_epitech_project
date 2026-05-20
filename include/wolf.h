@@ -74,5 +74,6 @@ void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
 void manage_client_network(window_t *win, player_t *player, map_t *map);
 void send_key_move(key_enum_t key, window_t *win);
+int init_lobby(window_t *win);
 
 #endif /* WOLF_H_ */

@@ -81,11 +81,9 @@ static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
         if (sfKeyboard_isKeyPressed(sfKeyD))
             send_key_move(KEY_D, win);
         if (sfKeyboard_isKeyPressed(sfKeyLeft)) {
-            rotate_left(player, map);
             send_key_move(KEY_LEFT, win);
         }
         if (sfKeyboard_isKeyPressed(sfKeyRight)) {
-            rotate_right(player, map);
             send_key_move(KEY_RIGHT, win);
         }
     } else

@@ -7,6 +7,18 @@
 
 #include "network.h"
 
+static void fill_id(window_t *win)
+{
+    uint8_t recv_id = 0;
+
+    if (win->client != NULL) {
+        if (recv(win->client->sock_tcp, &recv_id, sizeof(uint8_t), 0) > 0) {
+            win->client->id = recv_id;
+            printf("Le client est bien connecté id = %d\n", win->client->id);
+        }
+    }
+}
+
 int connect_client(window_t *win)
 {
     win->client->sock_tcp = socket(AF_INET, SOCK_STREAM, 0);
@@ -21,12 +33,12 @@ int connect_client(window_t *win)
     if (connect(win->client->sock_tcp, (struct sockaddr *)
             &win->client->sa_in_tcp, sizeof(win->client->sa_in_tcp)) < 0)
         return EXIT_FAILURE;
+    fill_id(win);
     win->client->sa_in_udp.sin_family = AF_INET;
     win->client->sa_in_udp.sin_port = htons(PORT_UDP);
     inet_pton(AF_INET, LOCAL, &win->client->sa_in_udp.sin_addr);
     fcntl(win->client->sock_tcp, F_SETFL, O_NONBLOCK);
     fcntl(win->client->sock_udp, F_SETFL, O_NONBLOCK);
-    printf("Le client est bien connecté\n");
     return EXIT_SUCCESS;
 }
 

@@ -13,9 +13,9 @@ static void manage_leave(window_t *win)
     sfVector2i mp = sfMouse_getPositionRenderWindow(win->window);
 
     if (sfFloatRect_contains(&win->lobby.leave_bound, mp.x, mp.y)) {
-        sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){70, 814});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){0.6, 0.9});
+        sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->is_menu = true;
             win->is_single = false;
@@ -23,9 +23,9 @@ static void manage_leave(window_t *win)
         }
     }
     if (sfFloatRect_contains(&win->lobby.settings_bound, mp.x, mp.y)) {
-        sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){288, 814});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){0.85, 0.9});
+        sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->is_menu = true;
             win->is_single = false;

@@ -6,7 +6,7 @@
 */
 
 #include <math.h>
-
+#include "room.h"
 #include "wolf.h"
 
 static void project_wall(ray_t *ray, window_t *win, map_t *map,
@@ -30,6 +30,13 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map,
 
 static bool is_wall(map_t *map)
 {
+    int x = map->map_pos.x;
+    int y = map->map_pos.y;
+
+    if (x < 0 || x >= SIZE_MAP || y < 0 || y >= SIZE_MAP)
+        return true;
+    if (map->int_map == NULL || map->int_map[y] == NULL)
+        return true;
     if (map->int_map[map->map_pos.y][map->map_pos.x] == 1)
         return true;
     return false;

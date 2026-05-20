@@ -53,7 +53,6 @@ static void init_tmp_player(player_t *tmp, player_state_t *state)
     tmp->direction.y = state->direction_y;
     tmp->mvt_speed = state->mvt_speed;
     tmp->sprint = false;
-    tmp->camera_plane = (sfVector2f){0, FOV};
 }
 
 static void apply_pos(player_t *tmp, player_state_t *state)
@@ -82,19 +81,18 @@ static void manage_map_move(server_t *serv, key_network_t *key, player_t *tmp)
 
 int manage_udp(server_t *serv)
 {
-    key_network_t key;
+    key_network_t key = {0};
     player_t tmp_player = {0};
-    struct sockaddr_in sa_in;
+    struct sockaddr_in sa_in = {0};
     socklen_t len_sa_in = sizeof(sa_in);
     ssize_t n_bytes = recvfrom(serv->sock_udp, &key, sizeof(key), 0,
         (struct sockaddr *)&sa_in, &len_sa_in);
 
-    if (n_bytes < (ssize_t)sizeof(key))
+    if (n_bytes < (ssize_t)sizeof(key) || key.id >= MAX_CLIENTS)
         return EXIT_FAILURE;
     if (serv->clients[key.id].fd_tcp <= 0)
         return EXIT_FAILURE;
-    if (serv->clients[key.id].sa_in_udp.sin_port == 0)
-        serv->clients[key.id].sa_in_udp = sa_in;
+    serv->clients[key.id].sa_in_udp = sa_in;
     init_tmp_player(&tmp_player, &serv->clients[key.id].state);
     manage_map_move(serv, &key, &tmp_player);
     apply_pos(&tmp_player, &serv->clients[key.id].state);

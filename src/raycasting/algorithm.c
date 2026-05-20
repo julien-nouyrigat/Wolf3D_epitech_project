@@ -12,13 +12,19 @@
 static void project_wall(ray_t *ray, window_t *win, map_t *map,
     player_t *player)
 {
+    sfColor wall_color = {0};
+    float fog_value = 0;
+
     if (ray->orientation == VERTICAL) {
         ray->real_dist = ray->side_dist.x - ray->delta_dist.x;
-        ray->color = sfWhite;
+        fog_value = LIGHT / (1 + ray->real_dist * FOG);
+        wall_color = sfColor_fromRGB(fog_value, fog_value, fog_value);
     } else {
         ray->real_dist = ray->side_dist.y - ray->delta_dist.y;
-        ray->color = SHADOW;
+        fog_value = SHADOW / (1 + ray->real_dist * FOG);
+        wall_color = sfColor_fromRGB(fog_value, fog_value, fog_value);
     }
+    ray->color = wall_color;
     draw_wall(ray, win, map, player);
 }
 
@@ -92,5 +98,6 @@ void dda_algorithm(player_t *player, map_t *map, window_t *win)
         ray.direction.y = player->direction.y + player->camera_plane.y *
             player->camera.x;
         init_dda(player, &ray, map, win);
+        //display_enemies(player, map, win, ray);
     }
 }

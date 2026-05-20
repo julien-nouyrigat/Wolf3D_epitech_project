@@ -17,6 +17,8 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyD, &move_right},
     {sfKeyLeft, &rotate_left},
     {sfKeyRight, &rotate_right},
+    {sfKeyUp, &up_cam},
+    {sfKeyDown, &down_cam},
     {sfKeyC, &sprint},
     {sfKeyUnknown, NULL}
 };

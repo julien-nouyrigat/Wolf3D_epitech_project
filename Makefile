@@ -40,7 +40,9 @@ SRC = 		$(MAIN)										\
 			src/raycasting/draw_wall.c					\
 			src/window/init/init_menu.c					\
 			src/window/init/init_cursor.c				\
+			src/window/init/init_param.c				\
 			src/window/init/init_lamp.c					\
+			src/window/param.c							\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
 			src/window/draw_mouse.c						\

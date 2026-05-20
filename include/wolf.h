@@ -35,6 +35,8 @@ typedef enum {
 
 int flag_h(void);
 int wolf(void);
+void down_cam(player_t *player, map_t *map);
+void up_cam(player_t *player, map_t *map);
 void init_lamp(window_t *wolf_win);
 void display_lamp(window_t *win);
 void destroy_assets(window_t *wolf_win, player_t *player);
@@ -71,5 +73,7 @@ void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
 void manage_client_network(window_t *win, player_t *player, map_t *map);
 void send_key_move(key_enum_t key, window_t *win);
+int init_param(window_t *win);
+void display_param(window_t *win);
 
 #endif /* WOLF_H_ */

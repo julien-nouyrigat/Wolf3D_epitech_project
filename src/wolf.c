@@ -23,10 +23,11 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
-    if (win->event.type == sfEvtMouseButtonPressed)
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
     if (win->event.type == sfEvtMouseButtonPressed) {
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
             win->is_single = true;
@@ -37,6 +38,17 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
             win->is_lobby = true;
         }
     }
+    if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
+        if (sfFloatRect_contains(&win->menu.tab[3].bound, mp->x, mp->y)) {
+            win->is_clickable = false;
+            win->is_param = true;
+        }
+}
+
+static void display_game_elements(window_t *win, player_t *player, map_t *map)
+{
+    dda_algorithm(player, map, win);
+    display_lamp(win);
 }
 
 static int manage_window(window_t *win, player_t *player, map_t *map)
@@ -50,12 +62,15 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
         }
     }
     if (win->is_single == true) {
+        win->is_param = false;
         sfMusic_pause(win->menu.music);
         sfMusic_stop(win->menu.music);
-        dda_algorithm(player, map, win);
-        display_lamp(win);
+        display_game_elements(win, player, map);
         if (display_hud(win, player) == EXIT_FAILURE)
             return EXIT_FAILURE;
+    }
+    if (win->is_param == true) {
+        display_param(win);
     }
     return EXIT_SUCCESS;
 }

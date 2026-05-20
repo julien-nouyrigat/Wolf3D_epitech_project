@@ -16,6 +16,7 @@
     #undef M_PI
     #define M_PI 3.14159265358979323
     #define PLAYER_SIZE 15
+    #define BOBING_COEF 0.3f
     #define ZERO_INV 1e30
     #define VERTICAL true
     #define HORIZONTAL false
@@ -26,7 +27,13 @@
     #define FOV 0.66
     #define LIFE_LEN 7
     #define STAM_LEN 7
-    #define SHADOW sfColor_fromRGB(160, 160, 160)
+    #define LIGHT 255
+    #define SHADOW 160
+    #define FOG 0.4
+    #define MOVEMENT_SPEED 5
+    #define UP_MAX 1500
+    #define DOWN_MAX -1500
+    #define UP_DOWN_MVT 50
 
 typedef struct {
     float x0;
@@ -78,6 +85,7 @@ typedef struct {
     bool is_moving;
     float y_camera;
     sfClock *p_clock;
+    float bobing;
 } player_t;
 
 #endif /* PLAYER_H_ */

@@ -10,15 +10,30 @@
 
 #include "textures.h"
 #include "room.h"
+#include "level.h"
 #include "wolf.h"
+
+static int init_level(map_t **map)
+{
+    (*map)->level = calloc(sizeof(level_t), 1);
+    if ((*map)->level == NULL)
+        return EXIT_FAILURE;
+    (*map)->level->lvl = FIRST_LEVEL;
+    (*map)->level->nb_mobs = INIT_NB_MOBS;
+    return EXIT_SUCCESS;
+}
 
 int init_map(map_t **map)
 {
     time_t *timer = NULL;
 
-    *map = malloc(sizeof(map_t));
+    *map = calloc(sizeof(map_t), 1);
     if (!*map)
         return EXIT_FAILURE;
+    if (init_level(map) == EXIT_FAILURE) {
+        free(*map);
+        return EXIT_FAILURE;
+    }
     (*map)->x = SIZE_MAP;
     (*map)->y = SIZE_MAP;
     (*map)->int_map = create_map(20);

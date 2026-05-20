@@ -7,4 +7,5 @@ wolf3d
 test.c
 *.out
 assets
+serv
 .vscode

@@ -17,6 +17,7 @@
     #include <SFML/Graphics/Transform.h>
     #include <SFML/Graphics/Types.h>
     #include <SFML/System/Vector2.h>
+    #include <arpa/inet.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
 
@@ -42,6 +43,14 @@ typedef struct {
     sfRectangleShape *rect;
     sfFloatRect bound;
 } tab_t;
+
+typedef struct {
+    uint8_t id;
+    int sock_tcp;
+    int sock_udp;
+    struct sockaddr_in sa_in_tcp;
+    struct sockaddr_in sa_in_udp;
+} client_t;
 
 typedef struct {
     sfText *tab;
@@ -132,6 +141,7 @@ typedef struct {
     sfTexture **textures;
     sfFont *font;
     hud_t hud;
+    client_t *client;
     bool is_clickable;
 } window_t;
 

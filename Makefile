@@ -52,6 +52,7 @@ SRC = 		$(MAIN)										\
 			src/player_movements/sprint.c				\
 			src/player_movements/stamina_regen.c		\
 			src/enemies/create_new_monster.c			\
+			src/enemies/display_enemies.c				\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

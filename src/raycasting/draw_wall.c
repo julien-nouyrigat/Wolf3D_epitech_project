@@ -20,7 +20,7 @@ static float find_wall_x(ray_t *ray, player_t *player)
     return wall_x;
 }
 
-static sfVertex create_vertex(float pos_x, float pos_y, float text_x,
+sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     float text_y)
 {
     sfVertex vertex = {.position = (sfVector2f){pos_x, pos_y},
@@ -39,16 +39,16 @@ static sfRenderStates get_wall_state(window_t *win, map_t *map)
     return wall_state;
 }
 
-static sfVertexArray *create_wall_array(quad_vert_t *quad_vert)
+sfVertexArray *create_vertex_array(quad_vert_t *quad_vert)
 {
-    sfVertexArray *wall_line = sfVertexArray_create();
+    sfVertexArray *line = sfVertexArray_create();
 
-    sfVertexArray_setPrimitiveType(wall_line, sfQuads);
-    sfVertexArray_append(wall_line, quad_vert->top_left);
-    sfVertexArray_append(wall_line, quad_vert->top_right);
-    sfVertexArray_append(wall_line, quad_vert->bottom_right);
-    sfVertexArray_append(wall_line, quad_vert->bottom_left);
-    return wall_line;
+    sfVertexArray_setPrimitiveType(line, sfQuads);
+    sfVertexArray_append(line, quad_vert->top_left);
+    sfVertexArray_append(line, quad_vert->top_right);
+    sfVertexArray_append(line, quad_vert->bottom_right);
+    sfVertexArray_append(line, quad_vert->bottom_left);
+    return line;
 }
 
 static void apply_shadows(quad_vert_t *quad_vert, ray_t *ray)
@@ -88,7 +88,7 @@ void draw_wall(ray_t *ray, window_t *win, map_t *map, player_t *player)
 {
     quad_vert_t quad_vert = find_quad_vertex(ray, win, map, player);
     sfRenderStates wall_state = get_wall_state(win, map);
-    sfVertexArray *wall_line = create_wall_array(&quad_vert);
+    sfVertexArray *wall_line = create_vertex_array(&quad_vert);
 
     sfRenderWindow_drawVertexArray(win->window, wall_line, &wall_state);
     sfVertexArray_destroy(wall_line);

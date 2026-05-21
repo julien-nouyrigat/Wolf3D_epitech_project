@@ -13,9 +13,9 @@
 #include "level.h"
 #include "wolf.h"
 
-static int init_enemies(map_t **map)
+static int init_enemies(map_t **map, size_t nb_mobs)
 {
-    (*map)->level->nb_mobs = INIT_NB_MOBS;
+    (*map)->level->nb_mobs = nb_mobs;
     (*map)->level->enemies = NULL;
     for (size_t i = 0; i < (*map)->level->nb_mobs; i++) {
         if (create_new_monster(map) == EXIT_FAILURE)
@@ -36,7 +36,7 @@ static int init_level(map_t **map)
     }
     for (size_t i = 0; i < NB_ENEMIES; i++)
         (*map)->level->mob_texts[i] = FILE_TEXT(mob_textures[i].texture);
-    if (init_enemies(map) == EXIT_FAILURE) {
+    if (init_enemies(map, INIT_NB_MOBS) == EXIT_FAILURE) {
         for (size_t i = 0; i < NB_ENEMIES; i++) {
             sfTexture_destroy((*map)->level->mob_texts[i]);
             free((*map)->level->mob_texts);

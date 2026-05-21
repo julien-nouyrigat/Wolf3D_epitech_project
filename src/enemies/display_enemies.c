@@ -87,8 +87,6 @@ static void draw_sprite(monster_t *mob, player_t *player, window_t *win,
     sfVector2u tex_size = sfTexture_getSize(texture);
     texture_drawing_t text_draw = {0};
 
-    printf("monsters list ok\n");
-    printf("transform x = %f, y = %f\n", transform.x, transform.y);
     if (transform.y <= 0)
         return;
     proj = compute_projection(&transform, win);

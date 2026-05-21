@@ -90,8 +90,10 @@ typedef struct {
 typedef struct {
     sfTexture *t_lamp;
     sfTexture *t_dark;
+    sfTexture *t_light_of;
     sfSprite *lamp;
     sfSprite *dark;
+    sfSprite *light_of;
 } game_t;
 
 typedef struct {

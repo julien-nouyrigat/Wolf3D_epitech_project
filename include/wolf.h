@@ -29,11 +29,11 @@ int wolf(void);
 void down_cam(player_t *player, map_t *map);
 void up_cam(player_t *player, map_t *map);
 void init_lamp(window_t *wolf_win);
-void display_lamp(window_t *win);
+void display_lamp(window_t *win, player_t *player);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);
-void manage_keyboard(player_t *player, map_t *map);
+void manage_keyboard(player_t *player, map_t *map, window_t *win);
 void close_window(window_t *win, player_t *player, map_t *map);
 void resize_window(window_t *win, player_t *player, map_t *map);
 void move_forward(player_t *player, map_t *map);
@@ -62,5 +62,8 @@ int display_hud(window_t *win, player_t *player);
 void sprint(player_t *player, map_t *map);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
+void display_inventory(window_t *win, player_t *player);
+void set_inv(player_t *player, map_t *map);
+inventory_t *init_inventory(void);
 
 #endif /* WOLF_H_ */

@@ -20,6 +20,7 @@
     #include <arpa/inet.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
+    #include "music.h"
 
     #define FRAMES_LIMIT 60
     #define WIN_WIDTH 1980
@@ -130,6 +131,7 @@ typedef struct {
 
 typedef struct {
     sfClock *clock;
+    sfClock *broad_clock;
     sfTime time;
     float elapsed_time_bg;
 } win_clock_t;
@@ -170,6 +172,7 @@ typedef struct {
     hud_t hud;
     client_t *client;
     bool is_clickable;
+    music_t tab_music[NB_MUSIC];
 } window_t;
 
 #endif /* WINDOW_H_ */

@@ -5,6 +5,7 @@
 ** init_param
 */
 
+#include <string.h>
 #include "wolf.h"
 
 static void init_tab(window_t *win)
@@ -34,11 +35,6 @@ static void init_graphic(window_t *win)
     (void)win;
 }
 
-static void init_audio(window_t *win)
-{
-    (void)win;
-}
-
 static void init_controls(window_t *win)
 {
     (void)win;
@@ -47,11 +43,21 @@ static void init_controls(window_t *win)
 static void init_back(window_t *win)
 {
     win->param.s_bg = sfSprite_create();
+    win->param.s_bg_tab = sfSprite_create();
+    win->param.s_filter = sfSprite_create();
     win->param.t_bg = sfTexture_createFromFile("./assets/image/back_lobby.png",
+        NULL);
+    win->param.t_filter = sfTexture_createFromFile("./assets/image/filter.png",
         NULL);
     sfSprite_setTexture(win->param.s_bg, win->param.t_bg, sfTrue);
     sfSprite_setPosition(win->param.s_bg, (sfVector2f){100, 100});
     sfSprite_setScale(win->param.s_bg, (sfVector2f){1.25, 1.9});
+    sfSprite_setTexture(win->param.s_bg_tab, win->param.t_bg, sfTrue);
+    sfSprite_setPosition(win->param.s_bg_tab, (sfVector2f){800, 100});
+    sfSprite_setScale(win->param.s_bg_tab, (sfVector2f){1.8, 1.9});
+    sfSprite_setTexture(win->param.s_filter, win->param.t_filter, sfTrue);
+    sfSprite_setPosition(win->param.s_filter, (sfVector2f){0, 0});
+    sfSprite_setScale(win->param.s_filter, (sfVector2f){10, 10});
 }
 
 static void init_title(window_t *win)

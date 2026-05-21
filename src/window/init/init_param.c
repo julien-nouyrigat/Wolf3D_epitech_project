@@ -44,11 +44,35 @@ static void init_controls(window_t *win)
     (void)win;
 }
 
+static void init_back(window_t *win)
+{
+    win->param.s_bg = sfSprite_create();
+    win->param.t_bg = sfTexture_createFromFile("./assets/image/back_lobby.png",
+        NULL);
+    sfSprite_setTexture(win->param.s_bg, win->param.t_bg, sfTrue);
+    sfSprite_setPosition(win->param.s_bg, (sfVector2f){100, 100});
+    sfSprite_setScale(win->param.s_bg, (sfVector2f){1.25, 1.9});
+}
+
+static void init_title(window_t *win)
+{
+    sfColor orange = sfColor_fromRGB(255, 165, 0);
+
+    win->param.settings = sfText_create();
+    sfText_setFont(win->param.settings, win->font);
+    sfText_setCharacterSize(win->param.settings, 180);
+    sfText_setPosition(win->param.settings, (sfVector2f){170, 95});
+    sfText_setString(win->param.settings, "SETTINGS");
+    sfText_setColor(win->param.settings, orange);
+}
+
 int init_param(window_t *win)
 {
     init_tab(win);
     init_graphic(win);
     init_audio(win);
     init_controls(win);
+    init_back(win);
+    init_title(win);
     return EXIT_SUCCESS;
 }

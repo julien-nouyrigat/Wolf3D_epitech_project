@@ -35,6 +35,7 @@
     #define UP_MAX 1500
     #define DOWN_MAX -1500
     #define UP_DOWN_MVT 50
+    #define PLAYER_SPAWN 31
 
 typedef struct {
     float x0;

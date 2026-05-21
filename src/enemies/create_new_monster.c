@@ -11,10 +11,31 @@
 #include "enemies.h"
 #include "wolf.h"
 
-// static sfVector2f get_monster_pos()
-// {
-//     srand()
-// }
+static bool is_valid_spawn(int x, int y, map_t **map)
+{
+    if ((*map)->int_map[y][x] != 0)
+        return false;
+    if ((x >= PLAYER_SPAWN - 10 && x <= PLAYER_SPAWN + 10) ||
+        (y >= PLAYER_SPAWN - 10 && y <= PLAYER_SPAWN + 10))
+        return false;
+    return true;
+}
+
+static sfVector2f get_monster_pos(map_t **map)
+{
+    int x = 0;
+    int y = 0;
+
+    srand(time(NULL));
+    x = rand() % MAP_SIZE;
+    y = rand() % MAP_SIZE;
+    while (!is_valid_spawn(x, y, map)) {
+        x = rand() % MAP_SIZE;
+        y = rand() % MAP_SIZE;
+    }
+    return (sfVector2f){x * TILE_SIZE + TILE_SIZE / 2,
+        y * TILE_SIZE + TILE_SIZE / 2};
+}
 
 static void fill_mob_data(enemy_t **mob, map_t **map)
 {
@@ -25,7 +46,7 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->cooldown = mob_data[(*mob)->type].cooldown;
     (*mob)->monster->loot_value = mob_data[(*mob)->type].loot_value;
     (*mob)->monster->can_attack = false;
-    //(*mob)->monster->position = get_monster_pos();
+    (*mob)->monster->position = get_monster_pos(map);
     (*mob)->monster->sprite = sfSprite_create();
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);

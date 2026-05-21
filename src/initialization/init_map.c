@@ -53,13 +53,13 @@ int init_map(map_t **map)
     *map = calloc(sizeof(map_t), 1);
     if (!*map)
         return EXIT_FAILURE;
+    (*map)->x = SIZE_MAP;
+    (*map)->y = SIZE_MAP;
+    (*map)->int_map = create_map(20);
     if (init_level(map) == EXIT_FAILURE) {
         free(*map);
         return EXIT_FAILURE;
     }
-    (*map)->x = SIZE_MAP;
-    (*map)->y = SIZE_MAP;
-    (*map)->int_map = create_map(20);
     srand(time(NULL));
     (*map)->type = rand() % NB_MAPS + 1;
     (*map)->map_pos = (sfVector2i){0, 0};

@@ -26,6 +26,7 @@ static void init_win_func(window_t *wolf_win)
     init_client(wolf_win);
     init_param(wolf_win);
     init_assets(wolf_win);
+    init_footstep(wolf_win);
 }
 
 int init_window(window_t *wolf_win)

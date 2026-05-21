@@ -7,6 +7,16 @@
 
 #include "network.h"
 #include "wolf.h"
+
+static void init_assets(window_t *wolf_win)
+{
+    init_brackground_menu(wolf_win);
+    init_menu(wolf_win);
+    init_lamp(wolf_win);
+    init_client(wolf_win);
+    init_param(wolf_win);
+}
+
 static void init_win_func(window_t *wolf_win)
 {
     init_brackground_menu(wolf_win);
@@ -16,15 +26,6 @@ static void init_win_func(window_t *wolf_win)
     init_client(wolf_win);
     init_param(wolf_win);
     init_assets(wolf_win);
-}
-
-static void init_assets(window_t *wolf_win)
-{
-    init_brackground_menu(wolf_win);
-    init_menu(wolf_win);
-    init_lamp(wolf_win);
-    init_client(wolf_win);
-    init_param(wolf_win);
 }
 
 int init_window(window_t *wolf_win)

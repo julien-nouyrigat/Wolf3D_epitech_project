@@ -40,6 +40,7 @@
     #define HUD_TEXT_SIZE 55
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
+    #define AMBIANCE 30
 
 typedef struct {
     sfText *text;
@@ -174,6 +175,8 @@ typedef struct {
     bool is_clickable;
     sfMusic *footsteps;
     music_t tab_music[NB_MUSIC];
+    sfMusic *ambiance;
+    bool ambiance_started;
 } window_t;
 
 #endif /* WINDOW_H_ */

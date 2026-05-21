@@ -52,6 +52,11 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 
 static void display_game_elements(window_t *win, player_t *player, map_t *map)
 {
+    if (!win->ambiance_started) {
+        sfMusic_play(win->ambiance);
+        sfMusic_setLoop(win->ambiance, sfTrue);
+        win->ambiance_started = true;
+    }
     dda_algorithm(player, map, win);
     if (player->is_in_inv)
         display_inventory(win, player);
@@ -70,7 +75,6 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
     }
     if (win->is_single == true) {
         win->is_param = false;
-        sfMusic_pause(win->menu.music);
         sfMusic_stop(win->menu.music);
         display_game_elements(win, player, map);
         if (display_hud(win, player) == EXIT_FAILURE)

@@ -50,8 +50,6 @@ static int init_level(map_t **map)
 
 int init_map(map_t **map)
 {
-    time_t *timer = NULL;
-
     *map = calloc(sizeof(map_t), 1);
     if (!*map)
         return EXIT_FAILURE;
@@ -62,7 +60,7 @@ int init_map(map_t **map)
     (*map)->x = SIZE_MAP;
     (*map)->y = SIZE_MAP;
     (*map)->int_map = create_map(20);
-    srand(time(timer));
+    srand(time(NULL));
     (*map)->type = rand() % NB_MAPS + 1;
     (*map)->map_pos = (sfVector2i){0, 0};
     return EXIT_SUCCESS;

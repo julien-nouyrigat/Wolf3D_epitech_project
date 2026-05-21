@@ -14,4 +14,7 @@ void init_music(window_t *win)
         win->tab_music[i].tiles = info_music[i].tiles;
         win->tab_music[i].time = 0;
     }
+    win->ambiance = sfMusic_createFromFile("./assets/sounds/ambiance.mp3");
+    sfMusic_setVolume(win->ambiance, AMBIANCE);
+    win->ambiance_started = false;
 }

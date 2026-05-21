@@ -11,6 +11,11 @@
 #include "enemies.h"
 #include "wolf.h"
 
+// static sfVector2f get_monster_pos()
+// {
+//     srand()
+// }
+
 static void fill_mob_data(enemy_t **mob, map_t **map)
 {
     (*mob)->monster->health = mob_data[(*mob)->type].health;
@@ -20,8 +25,7 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->cooldown = mob_data[(*mob)->type].cooldown;
     (*mob)->monster->loot_value = mob_data[(*mob)->type].loot_value;
     (*mob)->monster->can_attack = false;
-    (*mob)->monster->position = (sfVector2f){31 * TILE_SIZE, 31 * TILE_SIZE};
-    // à changer après, prédef pout le moment *émoji fusée*
+    //(*mob)->monster->position = get_monster_pos();
     (*mob)->monster->sprite = sfSprite_create();
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);
@@ -30,7 +34,6 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
 int create_new_monster(map_t **map)
 {
     enemy_t *new = calloc(sizeof(enemy_t), 1);
-    time_t *timer = NULL;
 
     if (new == NULL)
         return EXIT_FAILURE;
@@ -39,7 +42,7 @@ int create_new_monster(map_t **map)
         free(new);
         return EXIT_FAILURE;
     }
-    srand(time(timer));
+    srand(time(NULL));
     new->type = rand() % NB_ENEMIES;
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;

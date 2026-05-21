@@ -10,70 +10,43 @@
 
 #include "wolf.h"
 
-static sfVector2f transform_position(monster_t *mob, player_t *player)
+static sfVector2f transform_sprite(monster_t *mob, player_t *player)
 {
-    sfVector2f sprite_pos = (sfVector2f){mob->position.x - player->position.x,
-        mob->position.y - player->position.y};
-    float inv_det = 1.f / (player->camera_plane.x * player->direction.y -
-        player->camera_plane.y * player->direction.x);
-    float x = inv_det * (player->direction.y *
-        sprite_pos.x - player->direction.x * sprite_pos.y);
-    float y = inv_det * (-player->camera_plane.y *
-        sprite_pos.x + player->camera_plane.x * sprite_pos.y);
-    sfVector2f transformed = (sfVector2f){x, y};
+    sfVector2f relative = (sfVector2f){mob->position.x / TILE_SIZE -
+        player->pos_f.x, mob->position.y / TILE_SIZE - player->pos_f.y};
+    float inv_det = 1.0f / (player->direction.x * player->camera_plane.y -
+        player->camera_plane.x * player->direction.y);
+    sfVector2f transformed = {0};
 
+    transformed.x = inv_det * (player->camera_plane.y * relative.x -
+        player->camera_plane.x * relative.y);
+    transformed.y = inv_det * (- player->direction.y * relative.x +
+        player->direction.x * relative.y);
     return transformed;
 }
 
-static quad_vert_t find_quad_vertex(monster_t *mob, window_t *win,
-    player_t *player, sfTexture *text)
+static sprite_proj_t compute_projection(sfVector2f *transform, window_t *win)
 {
-    quad_vert_t quad_vert = {0};
-    sfVector2f transformed = transform_position(mob, player);
-    int screen_x = win->size.x / 2 * (1 + transformed.x / transformed.y);
-    int sprite_size = fabs(win->size.x / transformed.y);
-    int draw_start = MAX(screen_x - sprite_size / 2, 0);
-    int draw_end = MIN(screen_x + sprite_size / 2, (int)win->size.y - 1);
-    sfVector2u size = sfTexture_getSize(text);
-    float text_x = screen_x * size.x;
+    sprite_proj_t projection = {0};
 
-    for (int i = draw_start; i < draw_end; i++) {
-        if (transformed.y > 0) {
-            quad_vert.top_left = create_vertex((float)i, draw_start, text_x, size.y);
-            quad_vert.top_right =
-                create_vertex((float)i + 1.0, draw_start, text_x + 1.0, size.y);
-            quad_vert.bottom_right = create_vertex((float)i + 1.0, draw_end,
-                text_x + 1.0, 0.f);
-            quad_vert.bottom_left =
-                create_vertex((float)i, draw_end, text_x, 0.f);
-            // apply_shadows(&quad_vert, ray);
-        }
-    }
-    return quad_vert;
-}
-
-static void draw_enemy(monster_t *mob, player_t *player, window_t *win)
-{
-    sfVertexArray *mob_line = sfVertexArray_create();
-    sfVector2f transformed = transform_position(mob, player);
-    int screen_x = win->size.x / 2 * (1 + transformed.x / transformed.y);
-    int sprite_size = fabs(win->size.x / transformed.y);
-    int draw_start = MAX(screen_x - sprite_size / 2, 0);
-    int draw_end = MIN(screen_x + sprite_size / 2, (int)win->size.y - 1);
-
-    sfVertexArray_setPrimitiveType(mob_line, sfLines);
-    for (int i = draw_start; i < draw_end; i++) {
-        if (transformed.y > 0) {
-            sfVertexArray_append(mob_line, (sfVertex)
-                {.position = {(float)i, win->size.y / 2.f -
-                        sprite_size / 2.f}, sfWhite});
-            sfVertexArray_append(mob_line, (sfVertex)
-                {.position = {(float)i, win->size.y / 2.f +
-                        sprite_size / 2.f}, sfWhite});
-        }
-    }
-    sfRenderWindow_drawVertexArray(win->window, mob_line, NULL);
-    sfVertexArray_destroy(mob_line);
+    projection.depth = transform->y;
+    projection.screen_x = (int)((win->size.x / 2.f) *
+        (1.f + transform->x / transform->y));
+    projection.height = abs((int)(win->size.y / transform->y));
+    projection.width = projection.height;
+    projection.start_y = -projection.height / 2 + win->size.y / 2;
+    if (projection.start_y < 0)
+        projection.start_y = 0;
+    projection.end_y = projection.height / 2 + win->size.y / 2;
+    if (projection.end_y >= (int)win->size.y)
+        projection.end_y = win->size.y - 1;
+    projection.start_x = -projection.width / 2 + projection.screen_x;
+    if (projection.start_x < 0)
+        projection.start_x = 0;
+    projection.end_x = projection.width / 2 + projection.screen_x;
+    if (projection.end_x >= (int)win->size.x)
+        projection.end_x = win->size.x - 1;
+    return projection;
 }
 
 static sfRenderStates get_mob_state(sfTexture *texture)
@@ -85,15 +58,48 @@ static sfRenderStates get_mob_state(sfTexture *texture)
     return mob_state;
 }
 
-static void draw_mob(monster_t *mob, player_t *player, window_t *win,
-    sfTexture *text)
+static void draw_sprite_stripe(texture_drawing_t *text_draw,
+    sprite_proj_t *proj, sfTexture *texture, window_t *win)
 {
-    quad_vert_t quad_vert = find_quad_vertex(mob, win, player, text);
-    sfRenderStates mob_state = get_mob_state(text);
-    sfVertexArray *mob_line = create_vertex_array(&quad_vert);
+    quad_vert_t quad = {0};
+    sfVertexArray *array;
+    sfRenderStates state = get_mob_state(texture);
+    sfVector2u size = sfTexture_getSize(texture);
 
-    sfRenderWindow_drawVertexArray(win->window, mob_line, &mob_state);
-    sfVertexArray_destroy(mob_line);
+    quad.top_left = create_vertex(text_draw->stripe, proj->start_y,
+        text_draw->text_x, 0);
+    quad.top_right = create_vertex(text_draw->stripe + 1, proj->start_y,
+        text_draw->text_x + 1, 0);
+    quad.bottom_right = create_vertex(text_draw->stripe + 1, proj->end_y,
+        text_draw->text_x + 1, size.y);
+    quad.bottom_left = create_vertex(text_draw->stripe, proj->end_y,
+        text_draw->text_x, size.y);
+    array = create_vertex_array(&quad);
+    sfRenderWindow_drawVertexArray(win->window, array, &state);
+    sfVertexArray_destroy(array);
+}
+
+static void draw_sprite(monster_t *mob, player_t *player, window_t *win,
+    sfTexture *texture)
+{
+    sfVector2f transform = transform_sprite(mob, player);
+    sprite_proj_t proj = {0};
+    sfVector2u tex_size = sfTexture_getSize(texture);
+    texture_drawing_t text_draw = {0};
+
+    printf("monsters list ok\n");
+    printf("transform x = %f, y = %f\n", transform.x, transform.y);
+    if (transform.y <= 0)
+        return;
+    proj = compute_projection(&transform, win);
+    for (int stripe = proj.start_x; stripe < proj.end_x; stripe++) {
+        if (transform.y < player->z_buffer[stripe]) {
+            text_draw.stripe = stripe;
+            text_draw.text_x = (float)(stripe - proj.start_x) * tex_size.x
+                / proj.width;
+            draw_sprite_stripe(&text_draw, &proj, texture, win);
+        }
+    }
 }
 
 void display_enemies(player_t *player, map_t *map, window_t *win)
@@ -101,5 +107,6 @@ void display_enemies(player_t *player, map_t *map, window_t *win)
     enemy_t *tmp = map->level->enemies;
 
     for (; tmp != NULL; tmp = tmp->next)
-        draw_mob(tmp->monster, player, win, map->level->mob_texts[tmp->type]);
+        draw_sprite(tmp->monster, player, win,
+            map->level->mob_texts[tmp->type]);
 }

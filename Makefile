@@ -42,6 +42,7 @@ SRC = 		$(MAIN)										\
 			src/window/init/init_cursor.c				\
 			src/window/init/init_param.c				\
 			src/window/init/init_lamp.c					\
+			src/window/init/init_audio.c				\
 			src/window/param.c							\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
@@ -56,6 +57,8 @@ SRC = 		$(MAIN)										\
 			src/inventory/inventory.c 					\
 			src/initialization/init_client.c			\
 			src/manage_client.c							\
+			src/window/audio_param.c					\
+
 
 SRC_SERV = 	server/main.c								\
 			server/init/init_epoll.c					\

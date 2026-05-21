@@ -103,12 +103,11 @@ static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
             send_key_move(KEY_RIGHT, win);
         }
     } else
-        manage_keyboard(player, map);
+        manage_keyboard(player, map, win);
 }
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    manage_keyboard(player, map, win);
     check_keyboard_net(win, player, map);
     player->is_moving = false;
     stamina_regen(player);

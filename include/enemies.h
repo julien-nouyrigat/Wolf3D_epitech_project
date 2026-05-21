@@ -11,6 +11,8 @@
     #include "textures.h"
     #include "wolf.h"
 
+    #define FOG_COEF 1000
+
     #define INFINITE_RANGE 10000
 
     #define SMALL_LOOT 2000
@@ -78,13 +80,9 @@ typedef struct {
     int end_x;
     int start_y;
     int end_y;
-    float depth;
+    sfTexture *mob_text;
+    float dist;
 } sprite_proj_t;
-
-typedef struct {
-    float text_x;
-    int stripe;
-} texture_drawing_t;
 
 static const mob_data_t mob_data[NB_ENEMIES] = {
     {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 5, 7.0, LARGE_LOOT},

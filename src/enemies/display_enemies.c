@@ -100,8 +100,7 @@ static void get_sprite_3d_proj(monster_t *mob, player_t *player, window_t *win,
     if (transform.y / TILE_SIZE < 0.1f)
         return;
     proj.mob_text = text;
-    proj.dist = sqrt(pow(player->pos_f.x - mob->position.x, 2) +
-        pow(player->pos_f.y - mob->position.y, 2));
+    proj.dist = sqrt(mob->order_dist);
     select_sprite_stripe(&proj, &transform, win, player);
 }
 
@@ -109,6 +108,13 @@ void display_enemies(player_t *player, map_t *map, window_t *win)
 {
     enemy_t *tmp = map->level->enemies;
 
+    for (; tmp != NULL; tmp = tmp->next) {
+        tmp->monster->order_dist =
+            pow(player->pos_f.x - tmp->monster->position.x / TILE_SIZE, 2) +
+            pow(player->pos_f.y - tmp->monster->position.y / TILE_SIZE, 2);
+    }
+    map->level->enemies = sort_enemies(map->level->enemies);
+    tmp = map->level->enemies;
     for (; tmp != NULL; tmp = tmp->next)
         get_sprite_3d_proj(tmp->monster, player, win,
             map->level->mob_texts[tmp->type]);

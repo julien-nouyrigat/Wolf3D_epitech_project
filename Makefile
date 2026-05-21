@@ -64,6 +64,7 @@ SRC = 		$(MAIN)										\
 			src/window/audio_param.c					\
 			src/window/init/init_footstep.c 			\
 			src/music/play_footsteps.c 					\
+			src/enemies/sort_enemies.c					\
 
 
 SRC_SERV = 	server/main.c								\
@@ -87,6 +88,7 @@ SRC_SERV = 	server/main.c								\
 			src/player_movements/movements.c			\
 			src/player_movements/rotation.c				\
 			src/enemies/create_new_monster.c			\
+			src/enemies/sort_enemies.c					\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

@@ -7,6 +7,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "enemies.h"
 #include "wolf.h"
@@ -68,5 +69,6 @@ int create_new_monster(map_t **map)
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;
     (*map)->level->enemies = new;
+    sleep(1);
     return EXIT_SUCCESS;
 }

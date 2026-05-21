@@ -108,13 +108,14 @@ static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
+    verif_play_sound(player, map, win);
     check_keyboard_net(win, player, map);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);
     win->clock.time = sfClock_restart(win->clock.clock);
     win->clock.elapsed_time_bg += win->clock.time.microseconds /
-        1000000.0;
+        SECOND;
     if (manage_window(win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     sfRenderWindow_display(win->window);

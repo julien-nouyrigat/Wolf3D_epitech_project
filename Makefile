@@ -56,6 +56,8 @@ SRC = 		$(MAIN)										\
 			src/inventory/inventory.c 					\
 			src/initialization/init_client.c			\
 			src/manage_client.c							\
+			src/music/play_music_tiles.c 				\
+			src/initialization/init_music.c 			\
 
 SRC_SERV = 	server/main.c								\
 			server/init/init_epoll.c					\

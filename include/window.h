@@ -38,6 +38,8 @@
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
     #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
     #define HUD_TEXT_SIZE 55
+    #define NB_RECT_AUDIO 4
+    #define NB_TEXT_AUDIO 5
 
 typedef struct {
     sfText *text;
@@ -78,10 +80,33 @@ typedef struct {
 } menu_t;
 
 typedef struct {
+    sfText *text;
+    sfFloatRect bound;
+} audio_text_t;
+
+typedef struct {
+    sfRectangleShape *rect;
+} audio_rect_t;
+
+typedef struct {
+    uint8_t volume;
+    char string_pourcent[BUFSIZ];
+    audio_text_t audio_txt[NB_TEXT_AUDIO];
+    audio_rect_t audio_rect[NB_RECT_AUDIO];
+} audio_t;
+
+typedef struct {
     sfSprite *s_bg;
     sfTexture *t_bg;
+    sfSprite *s_bg_tab;
     sfText *settings;
     tab_param_t tab[NB_TAB_PARAM];
+    audio_t audio;
+    sfTexture *t_filter;
+    sfSprite *s_filter;
+    bool is_graphics;
+    bool is_audio;
+    bool is_controls;
 } param_t;
 
 typedef struct player_lst_s {

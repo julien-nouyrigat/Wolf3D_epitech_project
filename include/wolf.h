@@ -24,16 +24,25 @@
     #define HALF_SEC 0.5
     #define FULL_SEC 0.0
 
+typedef enum {
+    KEY_Z,
+    KEY_S,
+    KEY_Q,
+    KEY_D,
+    KEY_LEFT,
+    KEY_RIGHT
+} key_enum_t;
+
 int flag_h(void);
 int wolf(void);
 void down_cam(player_t *player, map_t *map);
 void up_cam(player_t *player, map_t *map);
 void init_lamp(window_t *wolf_win);
-void display_lamp(window_t *win);
+void display_lamp(window_t *win, player_t *player);
 void destroy_assets(window_t *wolf_win, player_t *player);
 int init_window(window_t *wolf_win);
 int init_player(player_t **player);
-void manage_keyboard(player_t *player, map_t *map);
+void manage_keyboard(player_t *player, map_t *map, window_t *win);
 void close_window(window_t *win, player_t *player, map_t *map);
 void resize_window(window_t *win, player_t *player, map_t *map);
 void move_forward(player_t *player, map_t *map);
@@ -67,5 +76,18 @@ void display_enemies(player_t *player, map_t *map, window_t *win);
 sfVertexArray *create_vertex_array(quad_vert_t *quad_vert);
 sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     float text_y);
+void display_inventory(window_t *win, player_t *player);
+void set_inv(player_t *player, map_t *map);
+inventory_t *init_inventory(void);
+void manage_client_network(window_t *win, player_t *player, map_t *map);
+void send_key_move(key_enum_t key, window_t *win);
+int init_param(window_t *win);
+void display_param(window_t *win);
+void verif_play_sound(player_t *player, map_t *map, window_t *win);
+void init_music(window_t *win);
+void display_audio(window_t *win);
+void init_audio(window_t *win);
+void init_footstep(window_t *win);
+void verif_footsteps(player_t *player, window_t *win);
 
 #endif /* WOLF_H_ */

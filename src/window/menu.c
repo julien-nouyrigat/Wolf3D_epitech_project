@@ -30,7 +30,8 @@ static void display_title(window_t *win)
 
 static void change_color_action(window_t *win, sfVector2i *mp, sfColor *grey)
 {
-    if (sfFloatRect_contains(&(win->menu.tab[3].bound), mp->x, mp->y)) {
+    if (sfFloatRect_contains(&(win->menu.tab[3].bound), mp->x, mp->y)
+        && win->is_clickable) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 775});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.12, 1.2});
         sfText_setColor(win->menu.tab[3].text, sfWhite);
@@ -38,7 +39,8 @@ static void change_color_action(window_t *win, sfVector2i *mp, sfColor *grey)
     } else {
         sfText_setColor(win->menu.tab[3].text, *grey);
     }
-    if (sfFloatRect_contains(&(win->menu.tab[4].bound), mp->x, mp->y)) {
+    if (sfFloatRect_contains(&(win->menu.tab[4].bound), mp->x, mp->y)
+        && win->is_clickable) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 895});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.24, 1.2});
         sfText_setColor(win->menu.tab[4].text, sfWhite);
@@ -50,7 +52,8 @@ static void change_color_action(window_t *win, sfVector2i *mp, sfColor *grey)
 
 static void change_color_solo(window_t *win, sfVector2i *mp, sfColor *grey)
 {
-    if (sfFloatRect_contains(&(win->menu.tab[2].bound), mp->x, mp->y)) {
+    if (sfFloatRect_contains(&(win->menu.tab[2].bound), mp->x, mp->y)
+        && win->is_clickable) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 655});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.62, 1.2});
         sfText_setColor(win->menu.tab[2].text, sfWhite);
@@ -64,14 +67,16 @@ static void change_color_multi(window_t *win, sfVector2i *mp)
 {
     sfColor grey = sfColor_fromRGB(143, 143, 143);
 
-    if (sfFloatRect_contains(&(win->menu.tab[0].bound), mp->x, mp->y)) {
+    if (sfFloatRect_contains(&(win->menu.tab[0].bound), mp->x, mp->y)
+        && win->is_clickable) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 415});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.32, 1.2});
         sfText_setColor(win->menu.tab[0].text, sfWhite);
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
     } else
         sfText_setColor(win->menu.tab[0].text, grey);
-    if (sfFloatRect_contains(&(win->menu.tab[1].bound), mp->x, mp->y)) {
+    if (sfFloatRect_contains(&(win->menu.tab[1].bound), mp->x, mp->y)
+        && win->is_clickable) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){100, 535});
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.27, 1.2});
         sfText_setColor(win->menu.tab[1].text, sfWhite);

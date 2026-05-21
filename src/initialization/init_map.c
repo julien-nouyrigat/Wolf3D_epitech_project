@@ -45,6 +45,8 @@ static int init_level(map_t **map)
             return EXIT_FAILURE;
         }
     }
+    (*map)->level->lvl = FIRST_LEVEL;
+    (*map)->level->nb_mobs = INIT_NB_MOBS;
     return EXIT_SUCCESS;
 }
 

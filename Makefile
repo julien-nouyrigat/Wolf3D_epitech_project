@@ -40,7 +40,10 @@ SRC = 		$(MAIN)										\
 			src/raycasting/draw_wall.c					\
 			src/window/init/init_menu.c					\
 			src/window/init/init_cursor.c				\
+			src/window/init/init_param.c				\
 			src/window/init/init_lamp.c					\
+			src/window/init/init_audio.c				\
+			src/window/param.c							\
 			src/window/sprite_sheet/background_menu.c	\
 			src/window/menu.c							\
 			src/window/draw_mouse.c						\
@@ -53,20 +56,58 @@ SRC = 		$(MAIN)										\
 			src/player_movements/stamina_regen.c		\
 			src/enemies/create_new_monster.c			\
 			src/enemies/display_enemies.c				\
+			src/inventory/inventory.c 					\
+			src/initialization/init_client.c			\
+			src/manage_client.c							\
+			src/music/play_music_tiles.c 				\
+			src/initialization/init_music.c 			\
+			src/window/audio_param.c					\
+			src/window/init/init_footstep.c 			\
+			src/music/play_footsteps.c 					\
+
+
+SRC_SERV = 	server/main.c								\
+			server/init/init_epoll.c					\
+			server/init/init_tcp.c						\
+			server/manage/manage_map.c					\
+			server/manage/manage_client.c				\
+			server/manage/manage_pos.c					\
+			server/manage/manage_stdin.c				\
+			server/get_ip.c								\
+			server/init/init_udp.c						\
+			server/server_loop.c						\
+			src/initialization/init_map.c				\
+			src/generating/parsing_map.c 				\
+			src/generating/parsing_door.c 				\
+			src/generating/generating.c 				\
+			src/generating/create_map.c 				\
+			src/generating/free_tools.c 				\
+			lib/free_array.c							\
+			lib/str_to_wa.c 							\
+			src/player_movements/movements.c			\
+			src/player_movements/rotation.c				\
+
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))
 
 NAME = wolf3d
 
+NAME_SERV = serv
+
 OBJ_FOLDER = obj
 
 OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
-all : $(NAME)
+OBJ_SERV = $(patsubst %.c, obj/%.o, $(SRC_SERV))
+
+all : $(NAME) $(NAME_SERV)
 
 $(NAME) : $(OBJ)
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
+
+$(NAME_SERV) : $(OBJ_SERV)
+	$(CC) $(OBJ_SERV) -o $(NAME_SERV) $(LIBS)
 
 $(OBJ_FOLDER)/%.o: %.c
 	@mkdir -p $(OBJ_FOLDER) $(@D)
@@ -77,7 +118,7 @@ clean :
 	@$(RM) $(OBJ_FOLDER)
 
 fclean : clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_SERV)
 
 fclean_test :
 	@$(RM) *.gcno
@@ -85,6 +126,7 @@ fclean_test :
 	@$(RM) unit_tests
 
 asset:
+	rm -rf assets
 	wget https://github.com/julien-nouyrigat/Asset-Wolf3d/archive/main.zip
 	unzip main.zip -d assets
 	mv assets/Asset-Wolf3d-main/rooms assets
@@ -92,7 +134,10 @@ asset:
 	mv assets/Asset-Wolf3d-main/sounds assets
 	mv assets/Asset-Wolf3d-main/sprite_sheet assets
 	mv assets/Asset-Wolf3d-main/fonts assets
-	rm main.zip
+	rm -f main.zip
+	rm -f main.zip.1
+	rm -f main.zip.2
+	rm -f main.zip.3
 
 re : fclean all
 

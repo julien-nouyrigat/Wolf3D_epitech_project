@@ -19,4 +19,9 @@ void init_lamp(window_t *win)
         NULL);
     sfSprite_setTexture(win->game.dark, win->game.t_dark, sfTrue);
     sfSprite_setScale(win->game.dark, (sfVector2f){1.6, 1.6});
+    win->game.light_of = sfSprite_create();
+    win->game.t_light_of =
+        sfTexture_createFromFile("./assets/image/behind_inv.png", NULL);
+    sfSprite_setTexture(win->game.light_of, win->game.t_light_of, sfTrue);
+    sfSprite_setScale(win->game.light_of, (sfVector2f){6, 6});
 }

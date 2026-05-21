@@ -17,8 +17,10 @@
     #include <SFML/Graphics/Transform.h>
     #include <SFML/Graphics/Types.h>
     #include <SFML/System/Vector2.h>
+    #include <arpa/inet.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
+    #include "music.h"
 
     #define FRAMES_LIMIT 60
     #define WIN_WIDTH 1980
@@ -32,15 +34,31 @@
     #define SIZE_Y_BG (5040 / LINE_BG)
     #define IPS_BG (1.0 / 24)
     #define NB_TAB_MENU 5
+    #define NB_TAB_PARAM 4
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
     #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
     #define HUD_TEXT_SIZE 55
+    #define NB_RECT_AUDIO 4
+    #define NB_TEXT_AUDIO 5
 
 typedef struct {
     sfText *text;
     sfRectangleShape *rect;
     sfFloatRect bound;
 } tab_t;
+
+typedef struct {
+    uint8_t id;
+    int sock_tcp;
+    int sock_udp;
+    struct sockaddr_in sa_in_tcp;
+    struct sockaddr_in sa_in_udp;
+} client_t;
+
+typedef struct {
+    sfText *tab;
+    sfFloatRect boud;
+} tab_param_t;
 
 typedef struct {
     sfTexture *t_bg;
@@ -60,6 +78,36 @@ typedef struct {
     sfMusic *music;
     bool music_started;
 } menu_t;
+
+typedef struct {
+    sfText *text;
+    sfFloatRect bound;
+} audio_text_t;
+
+typedef struct {
+    sfRectangleShape *rect;
+} audio_rect_t;
+
+typedef struct {
+    uint8_t volume;
+    char string_pourcent[BUFSIZ];
+    audio_text_t audio_txt[NB_TEXT_AUDIO];
+    audio_rect_t audio_rect[NB_RECT_AUDIO];
+} audio_t;
+
+typedef struct {
+    sfSprite *s_bg;
+    sfTexture *t_bg;
+    sfSprite *s_bg_tab;
+    sfText *settings;
+    tab_param_t tab[NB_TAB_PARAM];
+    audio_t audio;
+    sfTexture *t_filter;
+    sfSprite *s_filter;
+    bool is_graphics;
+    bool is_audio;
+    bool is_controls;
+} param_t;
 
 typedef struct player_lst_s {
     char pseudo[BUFSIZ];
@@ -83,6 +131,7 @@ typedef struct {
 
 typedef struct {
     sfClock *clock;
+    sfClock *broad_clock;
     sfTime time;
     float elapsed_time_bg;
 } win_clock_t;
@@ -90,8 +139,10 @@ typedef struct {
 typedef struct {
     sfTexture *t_lamp;
     sfTexture *t_dark;
+    sfTexture *t_light_of;
     sfSprite *lamp;
     sfSprite *dark;
+    sfSprite *light_of;
 } game_t;
 
 typedef struct {
@@ -106,6 +157,7 @@ typedef struct {
     menu_t menu;
     game_t game;
     lobby_t lobby;
+    param_t param;
     sfEvent event;
     sfVector2u size;
     sfColor bg_color;
@@ -118,6 +170,10 @@ typedef struct {
     sfTexture **textures;
     sfFont *font;
     hud_t hud;
+    client_t *client;
+    bool is_clickable;
+    sfMusic *footsteps;
+    music_t tab_music[NB_MUSIC];
 } window_t;
 
 #endif /* WINDOW_H_ */

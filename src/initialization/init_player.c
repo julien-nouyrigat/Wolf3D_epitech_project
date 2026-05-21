@@ -32,11 +32,8 @@ static void init_life_and_stamina(player_t **player)
     (*player)->max_stamina = STAM_START;
 }
 
-int init_player(player_t **player)
+static void init_player_comp(player_t **player)
 {
-    *player = malloc(sizeof(player_t));
-    if (!*player)
-        return EXIT_FAILURE;
     (*player)->position = (sfVector2f){31 * TILE_SIZE, 31 * TILE_SIZE};
     (*player)->pos_f.x = (*player)->position.x / TILE_SIZE;
     (*player)->pos_f.y = (*player)->position.y / TILE_SIZE;
@@ -44,14 +41,24 @@ int init_player(player_t **player)
     (*player)->camera_plane = (sfVector2f){0, FOV};
     (*player)->y_camera = FOV;
     (*player)->camera = (sfVector2f){0, 0};
-    set_hitbox(player);
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
+}
+
+int init_player(player_t **player)
+{
+    *player = malloc(sizeof(player_t));
+    if (!*player)
+        return EXIT_FAILURE;
+    set_hitbox(player);
+    init_player_comp(player);
     (*player)->mvt_speed = MOVEMENT_SPEED;
     (*player)->sprint = false;
     (*player)->is_moving = false;
     (*player)->bobing = 0;
     init_life_and_stamina(player);
     (*player)->p_clock = sfClock_create();
+    (*player)->inventory = init_inventory();
+    (*player)->is_in_inv = false;
     return EXIT_SUCCESS;
 }

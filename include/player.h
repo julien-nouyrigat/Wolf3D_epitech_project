@@ -11,8 +11,11 @@
     #include <stdbool.h>
     #include <math.h>
 
+    #include "inventory.h"
     #include "window.h"
 
+    #undef M_PI
+    #define M_PI 3.14159265358979323
     #define PLAYER_SIZE 15
     #define BOBING_COEF 0.3f
     #define ZERO_INV 1e30
@@ -81,6 +84,8 @@ typedef struct {
     size_t max_stamina;
     bool sprint;
     bool is_moving;
+    inventory_t *inventory;
+    bool is_in_inv;
     float y_camera;
     sfClock *p_clock;
     float bobing;

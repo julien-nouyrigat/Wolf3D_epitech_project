@@ -86,6 +86,7 @@ SRC_SERV = 	server/main.c								\
 			lib/str_to_wa.c 							\
 			src/player_movements/movements.c			\
 			src/player_movements/rotation.c				\
+			src/enemies/create_new_monster.c			\
 
 
 SRC_TESTS = tests/unit_tests.c 							\
@@ -134,6 +135,7 @@ asset:
 	mv assets/Asset-Wolf3d-main/sounds assets
 	mv assets/Asset-Wolf3d-main/sprite_sheet assets
 	mv assets/Asset-Wolf3d-main/fonts assets
+	mv assets/Asset-Wolf3d-main/monsters assets
 	rm -f main.zip
 	rm -f main.zip.1
 	rm -f main.zip.2

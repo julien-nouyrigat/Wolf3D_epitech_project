@@ -24,6 +24,15 @@
     #define HALF_SEC 0.5
     #define FULL_SEC 0.0
 
+typedef enum {
+    KEY_Z,
+    KEY_S,
+    KEY_Q,
+    KEY_D,
+    KEY_LEFT,
+    KEY_RIGHT
+} key_enum_t;
+
 int flag_h(void);
 int wolf(void);
 void down_cam(player_t *player, map_t *map);
@@ -65,5 +74,9 @@ void stamina_regen(player_t *player);
 void display_inventory(window_t *win, player_t *player);
 void set_inv(player_t *player, map_t *map);
 inventory_t *init_inventory(void);
+void manage_client_network(window_t *win, player_t *player, map_t *map);
+void send_key_move(key_enum_t key, window_t *win);
+int init_param(window_t *win);
+void display_param(window_t *win);
 
 #endif /* WOLF_H_ */

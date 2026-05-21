@@ -5,6 +5,7 @@
 ** init_window
 */
 
+#include "network.h"
 #include "wolf.h"
 
 int init_window(window_t *wolf_win)
@@ -24,6 +25,8 @@ int init_window(window_t *wolf_win)
     init_brackground_menu(wolf_win);
     init_menu(wolf_win);
     init_lamp(wolf_win);
+    init_client(wolf_win);
+    init_param(wolf_win);
     if (create_textures(wolf_win) == EXIT_FAILURE)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;

@@ -17,6 +17,7 @@
     #include <SFML/Graphics/Transform.h>
     #include <SFML/Graphics/Types.h>
     #include <SFML/System/Vector2.h>
+    #include <arpa/inet.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
 
@@ -32,6 +33,7 @@
     #define SIZE_Y_BG (5040 / LINE_BG)
     #define IPS_BG (1.0 / 24)
     #define NB_TAB_MENU 5
+    #define NB_TAB_PARAM 4
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
     #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
     #define HUD_TEXT_SIZE 55
@@ -41,6 +43,19 @@ typedef struct {
     sfRectangleShape *rect;
     sfFloatRect bound;
 } tab_t;
+
+typedef struct {
+    uint8_t id;
+    int sock_tcp;
+    int sock_udp;
+    struct sockaddr_in sa_in_tcp;
+    struct sockaddr_in sa_in_udp;
+} client_t;
+
+typedef struct {
+    sfText *tab;
+    sfFloatRect boud;
+} tab_param_t;
 
 typedef struct {
     sfTexture *t_bg;
@@ -60,6 +75,13 @@ typedef struct {
     sfMusic *music;
     bool music_started;
 } menu_t;
+
+typedef struct {
+    sfSprite *s_bg;
+    sfTexture *t_bg;
+    sfText *settings;
+    tab_param_t tab[NB_TAB_PARAM];
+} param_t;
 
 typedef struct player_lst_s {
     char pseudo[BUFSIZ];
@@ -108,6 +130,7 @@ typedef struct {
     menu_t menu;
     game_t game;
     lobby_t lobby;
+    param_t param;
     sfEvent event;
     sfVector2u size;
     sfColor bg_color;
@@ -120,6 +143,8 @@ typedef struct {
     sfTexture **textures;
     sfFont *font;
     hud_t hud;
+    client_t *client;
+    bool is_clickable;
 } window_t;
 
 #endif /* WINDOW_H_ */

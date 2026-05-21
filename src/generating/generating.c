@@ -42,7 +42,7 @@ static bool has_door(room_t *room, int x, int y)
     return false;
 }
 
-static bool connect(rooms_t *rooms, int cur, int new, int pos)
+static bool connect_rooms(rooms_t *rooms, int cur, int new, int pos)
 {
     room_t *cur_room = &rooms->rooms[cur];
     room_t *new_room = &rooms->rooms[new];
@@ -89,7 +89,7 @@ int tries_rooms(rooms_t *rooms, int **s_map, int d, pos_t *pos_dup)
     size_t res = 0;
 
     for (size_t index = 0; index != rooms->count - 1; index++){
-        if (connect(rooms, s_map[pos_dup->x][pos_dup->y],
+        if (connect_rooms(rooms, s_map[pos_dup->x][pos_dup->y],
                 path[index], d) == true){
             res = path[index];
             free(path);

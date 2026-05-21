@@ -12,9 +12,11 @@ void verif_play_sound(player_t *player, map_t *map, window_t *win)
 
     for (size_t i = 0; i < NB_MUSIC; i++){
         if (map->int_map[(int)player->pos_f.y][(int)player->pos_f.x] ==
-            win->tab_music[i].tiles)
+            win->tab_music[i].tiles){
+            sfMusic_setVolume(win->tab_music[i].music, win->param.audio.volume);
             return win->tab_music[i].func(win->tab_music[i].music,
                 &win->tab_music[i].time, time.microseconds / SECOND);
+        }
     }
 }
 

@@ -89,6 +89,7 @@ typedef struct {
     float y_camera;
     sfClock *p_clock;
     float bobing;
+    float *z_buffer;
 } player_t;
 
 #endif /* PLAYER_H_ */

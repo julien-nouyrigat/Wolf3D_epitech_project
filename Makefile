@@ -60,6 +60,8 @@ SRC = 		$(MAIN)										\
 			src/music/play_music_tiles.c 				\
 			src/initialization/init_music.c 			\
 			src/window/audio_param.c					\
+			src/window/init/init_footstep.c 			\
+			src/music/play_footsteps.c 					\
 
 
 SRC_SERV = 	server/main.c								\

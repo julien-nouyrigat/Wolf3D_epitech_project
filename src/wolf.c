@@ -110,6 +110,7 @@ static int render_window(window_t *win, player_t *player, map_t *map)
 {
     verif_play_sound(player, map, win);
     check_keyboard_net(win, player, map);
+    verif_footsteps(player, win);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);

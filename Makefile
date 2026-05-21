@@ -65,6 +65,8 @@ SRC = 		$(MAIN)										\
 			src/window/init/init_footstep.c 			\
 			src/music/play_footsteps.c 					\
 			src/enemies/sort_enemies.c					\
+			src/window/init/init_graphics.c				\
+			src/window/graphics.c						\
 
 
 SRC_SERV = 	server/main.c								\

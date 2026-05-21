@@ -19,7 +19,9 @@ static void check_controls(window_t *win, sfVector2i *pos_mouse)
         sfText_setColor(win->param.tab[2].tab, sfWhite);
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
-            printf("67\n");
+            win->param.is_audio = false;
+            win->param.is_controls = true;
+            win->param.is_graphics = false;
         }
     } else
         sfText_setColor(win->param.tab[2].tab, grey);
@@ -57,7 +59,9 @@ static void check_graphic(window_t *win, sfVector2i *pos_mouse)
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfText_setColor(win->param.tab[0].tab, sfWhite);
         if (win->event.type == sfEvtMouseButtonPressed) {
-            printf("67\n");
+            win->param.is_audio = false;
+            win->param.is_controls = false;
+            win->param.is_graphics = true;
         }
     } else
         sfText_setColor(win->param.tab[0].tab, grey);
@@ -86,6 +90,8 @@ static void manage_tab(window_t *win)
 {
     if (win->param.is_audio)
         display_audio(win);
+    if (win->param.is_graphics)
+        display_graphics(win);
 }
 
 void display_param(window_t *win)

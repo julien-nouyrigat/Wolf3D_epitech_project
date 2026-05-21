@@ -30,11 +30,6 @@ static void init_tab(window_t *win)
         win->param.tab[i].boud = sfText_getGlobalBounds(win->param.tab[i].tab);
 }
 
-static void init_graphic(window_t *win)
-{
-    (void)win;
-}
-
 static void init_controls(window_t *win)
 {
     (void)win;
@@ -75,7 +70,7 @@ static void init_title(window_t *win)
 int init_param(window_t *win)
 {
     init_tab(win);
-    init_graphic(win);
+    init_graphics(win);
     init_audio(win);
     init_controls(win);
     init_back(win);

@@ -40,7 +40,7 @@
     #define HUD_TEXT_SIZE 55
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
-    #define AMBIANCE 30
+    #define AMBIANCE 50
 
 typedef struct {
     sfText *text;

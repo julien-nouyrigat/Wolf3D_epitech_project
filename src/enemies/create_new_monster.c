@@ -20,7 +20,8 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->cooldown = mob_data[(*mob)->type].cooldown;
     (*mob)->monster->loot_value = mob_data[(*mob)->type].loot_value;
     (*mob)->monster->can_attack = false;
-    (*mob)->monster->position = (sfVector2f){31 * TILE_SIZE, 31 * TILE_SIZE}; // à changer après, prédef pout le moment *émoji fusée*
+    (*mob)->monster->position = (sfVector2f){31 * TILE_SIZE, 31 * TILE_SIZE};
+    // à changer après, prédef pout le moment *émoji fusée*
     (*mob)->monster->sprite = sfSprite_create();
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);

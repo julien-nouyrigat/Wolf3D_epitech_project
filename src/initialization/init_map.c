@@ -36,7 +36,6 @@ static int init_level(map_t **map)
     }
     for (size_t i = 0; i < NB_ENEMIES; i++)
         (*map)->level->mob_texts[i] = FILE_TEXT(mob_textures[i].texture);
-    (*map)->level->lvl = FIRST_LEVEL;
     if (init_enemies(map) == EXIT_FAILURE) {
         for (size_t i = 0; i < NB_ENEMIES; i++) {
             sfTexture_destroy((*map)->level->mob_texts[i]);
@@ -46,7 +45,6 @@ static int init_level(map_t **map)
         }
     }
     (*map)->level->lvl = FIRST_LEVEL;
-    (*map)->level->nb_mobs = INIT_NB_MOBS;
     return EXIT_SUCCESS;
 }
 

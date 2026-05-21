@@ -82,5 +82,7 @@ void verif_play_sound(player_t *player, map_t *map, window_t *win);
 void init_music(window_t *win);
 void display_audio(window_t *win);
 void init_audio(window_t *win);
+void init_footstep(window_t *win);
+void verif_footsteps(player_t *player, window_t *win);
 
 #endif /* WOLF_H_ */

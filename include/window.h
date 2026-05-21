@@ -172,6 +172,7 @@ typedef struct {
     hud_t hud;
     client_t *client;
     bool is_clickable;
+    sfMusic *footsteps;
     music_t tab_music[NB_MUSIC];
 } window_t;
 

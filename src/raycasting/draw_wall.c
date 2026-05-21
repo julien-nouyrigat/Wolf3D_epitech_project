@@ -24,7 +24,7 @@ sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     float text_y)
 {
     sfVertex vertex = {.position = (sfVector2f){pos_x, pos_y},
-        .texCoords = (sfVector2f){text_x, text_y}};
+        .color = sfWhite, .texCoords = (sfVector2f){text_x, text_y}};
 
     return vertex;
 }

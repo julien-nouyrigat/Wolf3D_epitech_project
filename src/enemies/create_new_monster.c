@@ -5,6 +5,7 @@
 ** create_new_monster
 */
 
+#include <time.h>
 #include <stdlib.h>
 
 #include "enemies.h"
@@ -28,6 +29,7 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
 int create_new_monster(map_t **map)
 {
     enemy_t *new = calloc(sizeof(enemy_t), 1);
+    time_t *timer = NULL;
 
     if (new == NULL)
         return EXIT_FAILURE;
@@ -36,6 +38,7 @@ int create_new_monster(map_t **map)
         free(new);
         return EXIT_FAILURE;
     }
+    srand(time(timer));
     new->type = rand() % NB_ENEMIES;
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;

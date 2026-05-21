@@ -70,6 +70,22 @@ typedef struct mob_data_s {
     size_t loot_value;
 } mob_data_t;
 
+typedef struct {
+    int screen_x;
+    int width;
+    int height;
+    int start_x;
+    int end_x;
+    int start_y;
+    int end_y;
+    float depth;
+} sprite_proj_t;
+
+typedef struct {
+    float text_x;
+    int stripe;
+} texture_drawing_t;
+
 static const mob_data_t mob_data[NB_ENEMIES] = {
     {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 5, 7.0, LARGE_LOOT},
     {NUN, LARGE_HEALTH, 100, 15, 6, 3.0, LARGE_LOOT},

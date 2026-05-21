@@ -23,8 +23,10 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyUnknown, NULL}
 };
 
-void manage_keyboard(player_t *player, map_t *map)
+void manage_keyboard(player_t *player, map_t *map, window_t *win)
 {
+    if (win->event.type == sfEvtKeyPressed)
+        set_inv(player, map);
     for (size_t i = 0; keyboard_input[i].function != NULL; i++) {
         if (sfKeyboard_isKeyPressed(keyboard_input[i].code))
             keyboard_input[i].function(player, map);

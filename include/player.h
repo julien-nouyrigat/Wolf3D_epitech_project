@@ -11,6 +11,7 @@
     #include <stdbool.h>
     #include <math.h>
 
+    #include "inventory.h"
     #include "window.h"
 
     #undef M_PI
@@ -83,6 +84,8 @@ typedef struct {
     size_t max_stamina;
     bool sprint;
     bool is_moving;
+    inventory_t *inventory;
+    bool is_in_inv;
     float y_camera;
     sfClock *p_clock;
     float bobing;

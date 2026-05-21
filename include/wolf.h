@@ -78,5 +78,7 @@ void manage_client_network(window_t *win, player_t *player, map_t *map);
 void send_key_move(key_enum_t key, window_t *win);
 int init_param(window_t *win);
 void display_param(window_t *win);
+void display_audio(window_t *win);
+void init_audio(window_t *win);
 
 #endif /* WOLF_H_ */

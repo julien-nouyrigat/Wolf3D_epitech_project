@@ -7,6 +7,15 @@
 
 #include "network.h"
 #include "wolf.h"
+static void init_win_func(window_t *wolf_win)
+{
+    init_brackground_menu(wolf_win);
+    init_menu(wolf_win);
+    init_lamp(wolf_win);
+    init_music(wolf_win);
+    init_client(wolf_win);
+    init_param(wolf_win);
+}
 
 int init_window(window_t *wolf_win)
 {
@@ -20,13 +29,10 @@ int init_window(window_t *wolf_win)
     wolf_win->size = sfRenderWindow_getSize(wolf_win->window);
     wolf_win->bg_color = sfBlack;
     wolf_win->clock.clock = sfClock_create();
+    wolf_win->clock.broad_clock = sfClock_create();
     wolf_win->clock.elapsed_time_bg = 0.0f;
     wolf_win->font = sfFont_createFromFile("./assets/fonts/teko.ttf");
-    init_brackground_menu(wolf_win);
-    init_menu(wolf_win);
-    init_lamp(wolf_win);
-    init_client(wolf_win);
-    init_param(wolf_win);
+    init_win_func(wolf_win);
     if (create_textures(wolf_win) == EXIT_FAILURE)
         return EXIT_FAILURE;
     return EXIT_SUCCESS;

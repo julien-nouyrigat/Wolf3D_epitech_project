@@ -36,7 +36,9 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 static void display_game_elements(window_t *win, player_t *player, map_t *map)
 {
     dda_algorithm(player, map, win);
-    display_lamp(win);
+    if (player->is_in_inv)
+        display_inventory(win, player);
+    display_lamp(win, player);
 }
 
 static int manage_window(window_t *win, player_t *player, map_t *map)
@@ -61,7 +63,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    manage_keyboard(player, map);
+    manage_keyboard(player, map, win);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);

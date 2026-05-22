@@ -18,10 +18,8 @@ static bool not_shooting(window_t *win)
     return false;
 }
 
-static void animate_gun(window_t *win)
+static void animate_gun(window_t *win, float frame_time)
 {
-    float frame_time = 0.01f;
-
     if (not_shooting(win))
         return;
     win->game.anim_time += win->clock.time.microseconds / SECOND;
@@ -34,8 +32,10 @@ static void animate_gun(window_t *win)
             win->game.rect_gun.left = 0;
             win->game.rect_gun.top = 5;
         } else {
-            win->game.rect_gun.left = (win->game.current_frame % COL_GUN) * SIZE_X_GUN;
-            win->game.rect_gun.top = ((win->game.current_frame / LINE_GUN) * SIZE_Y_GUN) + 5;
+            win->game.rect_gun.left =
+                (win->game.current_frame % COL_GUN) * SIZE_X_GUN;
+            win->game.rect_gun.top =
+                ((win->game.current_frame / LINE_GUN) * SIZE_Y_GUN) + 5;
         }
         sfSprite_setTextureRect(win->game.gun, win->game.rect_gun);
     }
@@ -44,6 +44,6 @@ static void animate_gun(window_t *win)
 void draw_gun(window_t *win)
 {
     win->clock.time = sfClock_restart(win->clock.clock);
-    animate_gun(win);
+    animate_gun(win, 0.01f);
     sfRenderWindow_drawSprite(win->window, win->game.gun, NULL);
 }

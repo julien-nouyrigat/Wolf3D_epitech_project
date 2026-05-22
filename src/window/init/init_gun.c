@@ -10,7 +10,8 @@
 void init_gun(window_t *win)
 {
     win->game.gun = sfSprite_create();
-    win->game.t_gun = sfTexture_createFromFile("assets/sprite_sheet/gun.png", NULL);
+    win->game.t_gun =
+        sfTexture_createFromFile("assets/sprite_sheet/gun.png", NULL);
     sfSprite_setTexture(win->game.gun, win->game.t_gun, sfTrue);
     win->game.rect_gun = (sfIntRect){0, 0, SIZE_X_GUN, SIZE_Y_GUN - 5};
     win->game.col_ss_gun = 0;

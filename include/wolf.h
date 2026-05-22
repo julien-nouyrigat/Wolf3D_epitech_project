@@ -89,5 +89,7 @@ void display_audio(window_t *win);
 void init_audio(window_t *win);
 void init_footstep(window_t *win);
 void verif_footsteps(player_t *player, window_t *win);
+void init_gun(window_t *win);
+void draw_gun(window_t *win);
 
 #endif /* WOLF_H_ */

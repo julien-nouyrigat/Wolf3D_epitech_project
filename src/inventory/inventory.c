@@ -27,7 +27,7 @@ inventory_t *init_inventory(void)
     return inv;
 }
 
-void set_inv(player_t *player, map_t *map)
+void set_inv(window_t *win, player_t *player, map_t *map)
 {
     (void)player;
     (void)map;
@@ -40,6 +40,14 @@ void set_inv(player_t *player, map_t *map)
             player->is_in_inv = true;
             return;
         }
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
+        if (win->is_param) {
+            win->is_param = false;
+            return;
+        }
+        if (!win->is_param)
+            win->is_param = true;
     }
 }
 

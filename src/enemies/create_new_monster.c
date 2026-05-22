@@ -5,9 +5,9 @@
 ** create_new_monster
 */
 
-#include <time.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "enemies.h"
 #include "wolf.h"
@@ -52,6 +52,9 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->sprite = sfSprite_create();
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);
+    (*mob)->monster->mob_clock = sfClock_create();
+    (*mob)->monster->sound_effect =
+        sfMusic_createFromFile(mob_sounds_effects[(*mob)->type].music);
 }
 
 int create_new_monster(map_t **map)
@@ -66,7 +69,8 @@ int create_new_monster(map_t **map)
         return EXIT_FAILURE;
     }
     srand(time(NULL));
-    new->type = rand() % NB_ENEMIES;
+    new->type = ENDERMAN;
+    // new->type = rand() % NB_ENEMIES;
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;
     (*map)->level->enemies = new;

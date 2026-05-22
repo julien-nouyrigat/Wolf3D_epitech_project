@@ -62,12 +62,20 @@ static void handle_mob_movements(monster_t *mob, player_t *player, map_t *map)
         move_mob(mob, map, &to_player_dir);
 }
 
+static void define_mob_comportment(enemy_t *mob, player_t *player, map_t *map)
+{
+    if (mob->type == ENDERMAN)
+        handle_enderman(mob->monster, player, map);
+    else
+        handle_mob_movements(mob->monster, player, map);
+}
+
 void manage_enemies(window_t *win, player_t *player, map_t *map)
 {
     enemy_t *tmp = map->level->enemies;
 
     for (; tmp != NULL; tmp = tmp->next) {
         if (tmp->monster->health > 0)
-            handle_mob_movements(tmp->monster, player, map);
+            define_mob_comportment(tmp, player, map);
     }
 }

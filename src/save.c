@@ -27,6 +27,14 @@ static void save_info(player_t *player)
     fclose(file);
 }
 
+static void save_info_map(map_t *map)
+{
+    FILE *file = fopen("./save/map_info.save", "w");
+
+    fprintf(file, "%d\n", map->type);
+    fclose(file);
+}
+
 static void save_map(map_t *map)
 {
     FILE *file = fopen("./save/map.save", "w");
@@ -45,4 +53,5 @@ void save_in_file(player_t *player, map_t *map)
     save_map(map);
     save_pos(player);
     save_info(player);
+    save_info_map(map);
 }

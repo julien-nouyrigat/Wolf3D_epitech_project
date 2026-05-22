@@ -17,6 +17,20 @@ static void replace_map(map_t *map, char **line, int index)
     }
 }
 
+static void load_info_map(map_t *map)
+{
+    int check_file = open("./save/map_info.save", O_RDONLY);
+    FILE *file = fopen("./save/map_info.save", "r");
+    char *line = NULL;
+    size_t len = 0;
+
+    if (check_file == -1)
+        return;
+    getline(&line, &len, file);
+    map->type = atoi(line);
+    fclose(file);
+}
+
 static void load_map(map_t *map)
 {
     int check_file = open("./save/map.save", O_RDONLY);
@@ -39,4 +53,5 @@ static void load_map(map_t *map)
 void load_save(player_t *player, map_t *map)
 {
     load_map(map);
+    load_info_map(map);
 }

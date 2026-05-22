@@ -208,6 +208,7 @@ typedef struct {
     bool is_fullscreen;
     int width;
     int height;
+    sfMusic *gun_sound;
 } window_t;
 
 #endif /* WINDOW_H_ */

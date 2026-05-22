@@ -61,7 +61,7 @@ static void display_game_elements(window_t *win, player_t *player, map_t *map)
     if (player->is_in_inv)
         display_inventory(win, player);
     display_lamp(win, player);
-    draw_gun(win);
+    draw_gun(win, player, map);
 }
 
 static int manage_window(window_t *win, player_t *player, map_t *map)

@@ -38,7 +38,7 @@ static void init_rect_player(window_t *win)
     sfRectangleShape_setFillColor(win->minimap.bg, sfRed);
 }
 
-void init_minimap(window_t *win, map_t *map)
+void init_minimap(window_t *win)
 {
     sfVector2f view_size;
     float ratio = (float)WIN_WIDTH / (float)WIN_HEIGHT;

@@ -80,7 +80,7 @@ sfVertexArray *create_vertex_array(quad_vert_t *quad_vert);
 sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     float text_y);
 void display_inventory(window_t *win, player_t *player);
-void set_inv(player_t *player, map_t *map);
+void set_inv(window_t *win, player_t *player, map_t *map);
 inventory_t *init_inventory(void);
 void manage_client_network(window_t *win, player_t *player, map_t *map);
 void send_key_move(key_enum_t key, window_t *win);

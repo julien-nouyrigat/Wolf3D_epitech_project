@@ -31,7 +31,7 @@ void manage_keyboard(player_t *player, map_t *map, window_t *win)
             shoot(win, player, map);
         }
     if (win->event.type == sfEvtKeyPressed)
-        set_inv(player, map);
+        set_inv(win, player, map);
     for (size_t i = 0; keyboard_input[i].function != NULL; i++) {
         if (sfKeyboard_isKeyPressed(keyboard_input[i].code))
             keyboard_input[i].function(player, map);

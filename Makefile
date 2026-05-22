@@ -70,6 +70,7 @@ SRC = 		$(MAIN)										\
 			src/window/init/init_graphics.c				\
 			src/window/graphics.c						\
 			src/enemies/manage_enemies.c				\
+			src/enemies/handle_enderman.c				\
 
 
 SRC_SERV = 	server/main.c								\
@@ -94,6 +95,7 @@ SRC_SERV = 	server/main.c								\
 			src/player_movements/rotation.c				\
 			src/enemies/create_new_monster.c			\
 			src/enemies/sort_enemies.c					\
+			src/enemies/handle_enderman.c				\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

@@ -39,7 +39,7 @@ enum text_enum {
 
 typedef struct textures_s {
     char *texture;
-}textures_t;
+} textures_t;
 
 static const textures_t textures[TOTAL_TEXTURES] = {
     {"./assets/rooms/castle_wall.jpg"},

@@ -19,8 +19,9 @@ void init_gun(window_t *win)
     win->game.current_frame = 0;
     win->game.anim_time = 0;
     win->game.shoot = false;
+    win->clock.gun_clock = sfClock_create();
     sfSprite_setTextureRect(win->game.gun, win->game.rect_gun);
     sfSprite_setScale(win->game.gun, (sfVector2f){3, 3});
-    sfSprite_setPosition(win->game.gun, (sfVector2f){990, 600});
-    //win->gun_sound = sfMusic_createFromFile();///////////////:
+    sfSprite_setPosition(win->game.gun, (sfVector2f){990, 650});
+    win->gun_sound = sfMusic_createFromFile("./assets/sounds/gun_sound.mp3");
 }

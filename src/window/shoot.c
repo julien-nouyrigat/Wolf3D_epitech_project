@@ -14,7 +14,20 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool is_mob(map_t *map)
+static bool shoot_mob(enemy_t *tmp, window_t *win)
+{
+    sfTime time = sfClock_getElapsedTime(win->clock.gun_clock);
+    float sec = time.microseconds / SECOND;
+
+    if (sec >= GUN_COOLDOWN) {
+        tmp->monster->health -= GUN_DAMAGE;
+        sfClock_restart(win->clock.gun_clock);
+        return true;
+    }
+    return false;
+}
+
+static bool is_mob(map_t *map, window_t *win)
 {
     enemy_t *tmp = map->level->enemies;
 
@@ -23,9 +36,7 @@ static bool is_mob(map_t *map)
             map->map_pos.x <= ((int)tmp->monster->position.x / TILE_SIZE) + 1 &&
             map->map_pos.y >= ((int)tmp->monster->position.y / TILE_SIZE) - 1 &&
             map->map_pos.y <= ((int)tmp->monster->position.y / TILE_SIZE) + 1) {
-            tmp->monster->health -= 15;
-            printf("%d\n", tmp->monster->health);
-            return true;
+            return shoot_mob(tmp, win);
         }
     }
     return false;
@@ -36,7 +47,7 @@ static void dda_loop(ray_t *ray, map_t *map,
     player_t __attribute_maybe_unused__ *player)
 {
     while (!is_wall(map)) {
-        if (is_mob(map)) {
+        if (is_mob(map, win)) {
             return;
         }
         if (ray->side_dist.x < ray->side_dist.y) {

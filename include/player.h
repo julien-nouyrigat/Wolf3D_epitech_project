@@ -31,7 +31,7 @@
     #define LIGHT 255
     #define SHADOW 160
     #define FOG 0.4
-    #define MOVEMENT_SPEED 5
+    #define MOVEMENT_SPEED 3
     #define UP_MAX 1500
     #define DOWN_MAX -1500
     #define UP_DOWN_MVT 50

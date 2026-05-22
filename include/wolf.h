@@ -102,5 +102,6 @@ void manage_enemies(window_t *win, player_t *player, map_t *map);
 void handle_enderman(monster_t *mob, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
+void enemy_attack(window_t *win, player_t *player, map_t *map);
 
 #endif /* WOLF_H_ */

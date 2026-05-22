@@ -75,6 +75,7 @@ SRC = 		$(MAIN)										\
 			src/load_save.c								\
 			src/enemies/manage_enemies.c				\
 			src/enemies/handle_enderman.c				\
+			src/enemies/enemies_attack.c 				\
 
 
 SRC_SERV = 	server/main.c								\

@@ -62,7 +62,7 @@ static const sound_effect_t mob_sounds_effects[NB_ENEMIES] = {
 };
 
 typedef struct monster_s {
-    size_t health;
+    int health;
     size_t damage;
     size_t range;
     float speed;
@@ -85,7 +85,7 @@ typedef struct enemy_s {
 
 typedef struct mob_data_s {
     size_t type;
-    size_t health;
+    int health;
     size_t damage;
     size_t range;
     float speed;

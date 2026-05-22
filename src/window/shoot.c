@@ -7,27 +7,46 @@
 
 #include "wolf.h"
 
-/*static bool is_wall(map_t *map)
+static bool is_wall(map_t *map)
 {
     if (map->int_map[map->map_pos.y][map->map_pos.x] == 1)
         return true;
     return false;
 }
 
-static void dda_loop(ray_t *ray, map_t *map, window_t *win, player_t *player)
+static bool is_mob(map_t *map)
+{
+    enemy_t *tmp = map->level->enemies;
+
+    for (; tmp != NULL; tmp = tmp->next) {
+        if (map->map_pos.x >= ((int)tmp->monster->position.x / TILE_SIZE) - 1 &&
+            map->map_pos.x <= ((int)tmp->monster->position.x / TILE_SIZE) + 1 &&
+            map->map_pos.y >= ((int)tmp->monster->position.y / TILE_SIZE) - 1 &&
+            map->map_pos.y <= ((int)tmp->monster->position.y / TILE_SIZE) + 1) {
+            tmp->monster->health -= 15;
+            printf("%d\n", tmp->monster->health);
+            return true;
+        }
+    }
+    return false;
+}
+
+static void dda_loop(ray_t *ray, map_t *map,
+    window_t __attribute_maybe_unused__ *win,
+    player_t __attribute_maybe_unused__ *player)
 {
     while (!is_wall(map)) {
+        if (is_mob(map)) {
+            return;
+        }
         if (ray->side_dist.x < ray->side_dist.y) {
             ray->side_dist.x += ray->delta_dist.x;
             map->map_pos.x += ray->step.x;
-            ray->orientation = VERTICAL;
         } else {
             ray->side_dist.y += ray->delta_dist.y;
             map->map_pos.y += ray->step.y;
-            ray->orientation = HORIZONTAL;
         }
     }
-    project_wall(ray, win, map, player);
 }
 
 static void init_raycasting(ray_t *ray, player_t *player, map_t *map)
@@ -62,9 +81,9 @@ static void init_dda(player_t *player, ray_t *ray, map_t *map, window_t *win)
         (ray->direction.y == 0) ? ZERO_INV : fabsf(1 / ray->direction.y);
     init_raycasting(ray, player, map);
     dda_loop(ray, map, win, player);
-}*/
+}
 
-void verif_shoot(player_t *player, window_t *win)
+static void verif_shoot(player_t *player, window_t *win, map_t *map)
 {
     ray_t bullet = {0};
 
@@ -73,4 +92,10 @@ void verif_shoot(player_t *player, window_t *win)
         player->camera.x;
     bullet.direction.y = player->direction.y + player->camera_plane.y *
         player->camera.x;
+    init_dda(player, &bullet, map, win);
+}
+
+void shoot(window_t *win, player_t *player, map_t *map)
+{
+    verif_shoot(player, win, map);
 }

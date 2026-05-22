@@ -18,7 +18,7 @@ void take_damage(player_t *player, size_t damage)
     player->life -= damage;
 }
 
-void enemy_attack(window_t *win, player_t *player, map_t *map)
+void enemy_attack(player_t *player, map_t *map)
 {
     enemy_t *enemies = map->level->enemies;
 

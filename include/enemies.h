@@ -24,7 +24,7 @@
     #define VERY_LARGE_HEALTH 500
 
     #define SEEING_DIST 5
-    #define MIN_DIST 8
+    #define MIN_DIST 3
 
 typedef enum {
     CLOWN,

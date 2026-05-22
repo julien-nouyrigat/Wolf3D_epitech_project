@@ -28,7 +28,7 @@ void sprint(player_t *player, __attribute_maybe_unused__ map_t *map)
 void stop_sprint(window_t *win, player_t *player,
     __attribute_maybe_unused__ map_t *map)
 {
-    if (win->event.key.code == sfKeyC) {
+    if (win->event.key.code == sfKeyLShift) {
         player->sprint = false;
     }
 }

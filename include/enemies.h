@@ -13,7 +13,7 @@
 
     #define FOG_COEF 1000
 
-    #define INFINITE_RANGE 10000
+    #define INFINITE_RANGE 10000000000
 
     #define SMALL_LOOT 2000
     #define MEDIUM_LOOT 4000
@@ -22,6 +22,9 @@
     #define MEDIUM_HEALTH 150
     #define LARGE_HEALTH 250
     #define VERY_LARGE_HEALTH 500
+
+    #define SEEING_DIST 5
+    #define MIN_DIST 3
 
 typedef enum {
     CLOWN,
@@ -53,7 +56,9 @@ typedef struct monster_s {
     size_t loot_value;
     bool can_attack;
     sfVector2f position;
+    sfVector2f direction;
     sfSprite *sprite;
+    float order_dist;
 } monster_t;
 
 typedef struct enemy_s {
@@ -93,5 +98,7 @@ static const mob_data_t mob_data[NB_ENEMIES] = {
     {CHEF, MEDIUM_HEALTH, 10, 15, 5, 0.5, MEDIUM_LOOT},
     {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 3.5, SMALL_LOOT}
 };
+
+enemy_t *sort_enemies(enemy_t *head);
 
 #endif /* ENEMIES_H_ */

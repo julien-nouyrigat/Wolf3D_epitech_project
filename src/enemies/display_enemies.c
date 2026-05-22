@@ -24,15 +24,18 @@ static sfVector2f transform_position(player_t *player, sfVector2f *sprite_pos)
     return transform;
 }
 
-static sprite_proj_t compute_projection(sfVector2f *transform, window_t *win)
+static sprite_proj_t compute_projection(sfVector2f *transform, window_t *win,
+    player_t *player)
 {
     sprite_proj_t proj = {0};
+    int center = win->size.y / 2 + (int)player->y_camera / 2 +
+        (int)(sin(player->bobing) * 10) / 2;
 
     proj.screen_x = (int)((win->size.x / 2) *
         (1 + transform->x / transform->y));
     proj.height = abs((int)(win->size.y / (transform->y / TILE_SIZE)));
-    proj.start_y = win->size.y / 2 - proj.height / 2;
-    proj.end_y = win->size.y / 2 + proj.height / 2;
+    proj.end_y = center + proj.height / 2;
+    proj.start_y = proj.end_y - proj.height;
     proj.width = abs((int)(win->size.y / (transform->y / TILE_SIZE)));
     proj.start_x = proj.screen_x - proj.width / 2;
     proj.end_x = proj.screen_x + proj.width / 2;
@@ -95,13 +98,12 @@ static void get_sprite_3d_proj(monster_t *mob, player_t *player, window_t *win,
     sfVector2f sprite_pos = (sfVector2f){mob->position.x - player->position.x,
         mob->position.y - player->position.y};
     sfVector2f transform = transform_position(player, &sprite_pos);
-    sprite_proj_t proj = compute_projection(&transform, win);
+    sprite_proj_t proj = compute_projection(&transform, win, player);
 
     if (transform.y / TILE_SIZE < 0.1f)
         return;
     proj.mob_text = text;
-    proj.dist = sqrt(pow(player->pos_f.x - mob->position.x, 2) +
-        pow(player->pos_f.y - mob->position.y, 2));
+    proj.dist = sqrt(mob->order_dist);
     select_sprite_stripe(&proj, &transform, win, player);
 }
 
@@ -109,7 +111,16 @@ void display_enemies(player_t *player, map_t *map, window_t *win)
 {
     enemy_t *tmp = map->level->enemies;
 
-    for (; tmp != NULL; tmp = tmp->next)
-        get_sprite_3d_proj(tmp->monster, player, win,
-            map->level->mob_texts[tmp->type]);
+    for (; tmp != NULL; tmp = tmp->next) {
+        tmp->monster->order_dist =
+            pow(player->pos_f.x - tmp->monster->position.x / TILE_SIZE, 2) +
+            pow(player->pos_f.y - tmp->monster->position.y / TILE_SIZE, 2);
+    }
+    map->level->enemies = sort_enemies(map->level->enemies);
+    tmp = map->level->enemies;
+    for (; tmp != NULL; tmp = tmp->next) {
+        if (tmp->monster->health > 0)
+            get_sprite_3d_proj(tmp->monster, player, win,
+                map->level->mob_texts[tmp->type]);
+    }
 }

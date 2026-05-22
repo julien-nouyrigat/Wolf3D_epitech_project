@@ -44,7 +44,9 @@
     #define HUD_TEXT_SIZE 55
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
-    #define AMBIANCE 30
+    #define AMBIANCE 50
+    #define NB_RESOLUTION 6
+    #define GRAY sfColor_fromRGB(143, 143, 143)
 
 typedef struct {
     sfText *text;
@@ -99,6 +101,17 @@ typedef struct {
     audio_text_t audio_txt[NB_TEXT_AUDIO];
     audio_rect_t audio_rect[NB_RECT_AUDIO];
 } audio_t;
+
+typedef struct {
+    sfText *text;
+    sfRectangleShape *rect;
+    sfFloatRect bound;
+} resolutions_t;
+
+typedef struct {
+    sfText *title;
+    resolutions_t tab[NB_RESOLUTION];
+} graphics_t;
 
 typedef struct {
     sfSprite *s_bg;
@@ -190,6 +203,11 @@ typedef struct {
     music_t tab_music[NB_MUSIC];
     sfMusic *ambiance;
     bool ambiance_started;
+    graphics_t graphics;
+    sfView *view;
+    bool is_fullscreen;
+    int width;
+    int height;
 } window_t;
 
 #endif /* WINDOW_H_ */

@@ -30,16 +30,28 @@ static void init_win_func(window_t *wolf_win)
     init_gun(wolf_win);
 }
 
-int init_window(window_t *wolf_win)
+static int create_window(window_t *wolf_win)
 {
     sfVideoMode mode = {WIN_WIDTH, WIN_HEIGHT, WIN_BPP};
 
+    wolf_win->width = WIN_WIDTH;
+    wolf_win->height = WIN_HEIGHT;
     wolf_win->window = sfRenderWindow_create(mode, "Wolf3D",
         sfResize | sfClose, NULL);
     sfRenderWindow_setFramerateLimit(wolf_win->window, FRAMES_LIMIT);
     if (!wolf_win->window)
         return EXIT_FAILURE;
     wolf_win->size = sfRenderWindow_getSize(wolf_win->window);
+    wolf_win->view = sfView_createFromRect((sfFloatRect){0, 0,
+            WIN_WIDTH, WIN_HEIGHT});
+    sfRenderWindow_setView(wolf_win->window, wolf_win->view);
+    return EXIT_SUCCESS;
+}
+
+int init_window(window_t *wolf_win)
+{
+    if (create_window(wolf_win) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     wolf_win->bg_color = sfBlack;
     wolf_win->is_clickable = true;
     wolf_win->clock.clock = sfClock_create();

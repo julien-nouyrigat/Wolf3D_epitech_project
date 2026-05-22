@@ -30,7 +30,7 @@ static void init_audio_text(window_t *win)
     sfText_setString(win->param.audio.audio_txt[4].text,
         win->param.audio.string_pourcent);
     sfText_setPosition(win->param.audio.audio_txt[0].text,
-        (sfVector2f){1100, 95});
+        (sfVector2f){1130, 95});
     sfText_setPosition(win->param.audio.audio_txt[1].text,
         (sfVector2f){900, 400});
     sfText_setPosition(win->param.audio.audio_txt[4].text,

@@ -17,19 +17,33 @@ static int get_verif(float pos, float dir, player_t *player)
     return res;
 }
 
+static sfVector2f normalize(sfVector2f *vector)
+{
+    float len = sqrtf(vector->x * vector->x + vector->y * vector->y);
+    sfVector2f norm;
+
+    if (len == 0.0f)
+        norm = (sfVector2f){0.f, 0.f};
+    else
+        norm = (sfVector2f){vector->x / len, vector->y / len};
+    return norm;
+}
+
 static void change_pos(map_t *map, player_t *player,
     sfVector2f *movement_dir, sfVector2f *verif)
 {
+    sfVector2f norm = normalize(movement_dir);
+
     if (map->int_map[(int)(player->position.y / TILE_SIZE)]
         [(int)verif->x] != WALL) {
-        player->position.x += movement_dir->x *
+        player->position.x += norm.x *
             (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.x = player->position.x / TILE_SIZE;
         player->is_moving = true;
     }
     if (map->int_map[(int)verif->y]
         [(int)(player->position.x / TILE_SIZE)] != WALL) {
-        player->position.y += movement_dir->y *
+        player->position.y += norm.y *
             (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.y = player->position.y / TILE_SIZE;
         player->is_moving = true;
@@ -52,8 +66,8 @@ void move_forward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = player->direction.x * ((player->mvt_speed) / (3 * M_PI));
-    movement_dir.y = player->direction.y * ((player->mvt_speed) / (3 * M_PI));
+    movement_dir.x = player->direction.x;
+    movement_dir.y = player->direction.y;
     move(player, map, &movement_dir);
 }
 
@@ -61,8 +75,8 @@ void move_backward(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = - player->direction.x * ((player->mvt_speed) / (3 * M_PI));
-    movement_dir.y = - player->direction.y * ((player->mvt_speed) / (3 * M_PI));
+    movement_dir.x = - player->direction.x;
+    movement_dir.y = - player->direction.y;
     move(player, map, &movement_dir);
 }
 
@@ -70,8 +84,8 @@ void move_right(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = - player->direction.y * sin((player->mvt_speed));
-    movement_dir.y = - player->direction.x * cos((player->mvt_speed));
+    movement_dir.x = player->direction.y;
+    movement_dir.y = - player->direction.x;
     move(player, map, &movement_dir);
 }
 
@@ -79,7 +93,7 @@ void move_left(player_t *player, map_t *map)
 {
     sfVector2f movement_dir = {0};
 
-    movement_dir.x = player->direction.y * sin((player->mvt_speed));
-    movement_dir.y = player->direction.x * cos((player->mvt_speed));
+    movement_dir.x = - player->direction.y;
+    movement_dir.y = player->direction.x;
     move(player, map, &movement_dir);
 }

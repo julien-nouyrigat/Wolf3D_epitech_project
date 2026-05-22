@@ -65,7 +65,7 @@ typedef struct monster_s {
     size_t health;
     size_t damage;
     size_t range;
-    size_t speed;
+    float speed;
     float cooldown;
     size_t loot_value;
     bool can_attack;
@@ -88,7 +88,7 @@ typedef struct mob_data_s {
     size_t health;
     size_t damage;
     size_t range;
-    size_t speed;
+    float speed;
     float cooldown;
     size_t loot_value;
 } mob_data_t;
@@ -106,12 +106,12 @@ typedef struct {
 } sprite_proj_t;
 
 static const mob_data_t mob_data[NB_ENEMIES] = {
-    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 5, 7.0, LARGE_LOOT},
-    {NUN, LARGE_HEALTH, 100, 15, 6, 3.0, LARGE_LOOT},
-    {HEADMAN, LARGE_HEALTH, 50, 15, 6, 3.0, LARGE_LOOT},
-    {WITCH, VERY_LARGE_HEALTH, 125, 15, 5, 4.0, LARGE_LOOT},
-    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 3, 6.0, LARGE_LOOT},
-    {CHEF, MEDIUM_HEALTH, 10, 15, 5, 0.5, MEDIUM_LOOT},
+    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 3.5, 7.0, LARGE_LOOT},
+    {NUN, LARGE_HEALTH, 100, 15, 4.5, 3.0, LARGE_LOOT},
+    {HEADMAN, LARGE_HEALTH, 50, 15, 4.5, 3.0, LARGE_LOOT},
+    {WITCH, VERY_LARGE_HEALTH, 125, 15, 3.5, 4.0, LARGE_LOOT},
+    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 1.5, 6.0, LARGE_LOOT},
+    {CHEF, MEDIUM_HEALTH, 10, 15, 3.5, 0.5, MEDIUM_LOOT},
     {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 45, SMALL_LOOT}
 };
 

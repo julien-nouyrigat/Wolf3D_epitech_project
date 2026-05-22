@@ -12,6 +12,9 @@
 static bool is_wall(monster_t *mob, player_t *player,
     sfVector2f *to_player_dir)
 {
+    (void)mob;
+    (void)player;
+    (void)to_player_dir;
     return false;
 }
 
@@ -70,7 +73,8 @@ static void define_mob_comportment(enemy_t *mob, player_t *player, map_t *map)
         handle_mob_movements(mob->monster, player, map);
 }
 
-void manage_enemies(window_t *win, player_t *player, map_t *map)
+void manage_enemies(window_t __attribute_maybe_unused__ *win, player_t *player,
+    map_t *map)
 {
     enemy_t *tmp = map->level->enemies;
 

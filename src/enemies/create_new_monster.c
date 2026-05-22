@@ -69,8 +69,7 @@ int create_new_monster(map_t **map)
         return EXIT_FAILURE;
     }
     srand(time(NULL));
-    new->type = ENDERMAN;
-    // new->type = rand() % NB_ENEMIES;
+    new->type = rand() % NB_ENEMIES;
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;
     (*map)->level->enemies = new;

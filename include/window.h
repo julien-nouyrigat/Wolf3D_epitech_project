@@ -217,6 +217,7 @@ typedef struct {
     bool is_fullscreen;
     int width;
     int height;
+    sfMusic *gun_sound;
     sfView *view_minimap;
     minimap_t minimap;
 } window_t;

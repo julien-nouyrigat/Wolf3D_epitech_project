@@ -18,19 +18,25 @@ static bool not_shooting(window_t *win)
     return false;
 }
 
-static void animate_gun(window_t *win, float frame_time)
+static void actualise_state(window_t *win)
 {
-    if (not_shooting(win))
+    win->game.current_frame = 0;
+    win->game.shoot = false;
+    win->game.rect_gun.left = 0;
+    win->game.rect_gun.top = 5;
+}
+
+static void animate_gun(window_t *win, float frame_time, player_t *player)
+{
+    if (not_shooting(win) || win->is_menu || win->is_param ||
+        player->is_in_inv)
         return;
     win->game.anim_time += win->clock.time.microseconds / SECOND;
     if (win->game.anim_time >= frame_time) {
         win->game.anim_time = 0;
         win->game.current_frame++;
         if (win->game.current_frame >= COL_GUN * LINE_GUN) {
-            win->game.current_frame = 0;
-            win->game.shoot = false;
-            win->game.rect_gun.left = 0;
-            win->game.rect_gun.top = 5;
+            actualise_state(win);
         } else {
             win->game.rect_gun.left =
                 (win->game.current_frame % COL_GUN) * SIZE_X_GUN;
@@ -41,9 +47,10 @@ static void animate_gun(window_t *win, float frame_time)
     }
 }
 
-void draw_gun(window_t *win)
+void draw_gun(window_t *win, player_t *player,
+    map_t __attribute_maybe_unused__ *map)
 {
     win->clock.time = sfClock_restart(win->clock.clock);
-    animate_gun(win, 0.01f);
+    animate_gun(win, 0.01f, player);
     sfRenderWindow_drawSprite(win->window, win->game.gun, NULL);
 }

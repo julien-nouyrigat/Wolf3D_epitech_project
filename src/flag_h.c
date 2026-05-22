@@ -7,6 +7,34 @@
 
 #include "wolf.h"
 
+static void print_controls(void)
+{
+    printf("For the best gameplay quality, please use ");
+    printf("\033[37;7mmake asset\033[0m before launching the game.\n\n");
+    printf("CONTROLS\n\n");
+    printf("Use \033[37;7mZQSD\033[0m to move in each direction\n");
+    printf("Use \033[37;7m^<v>\033[0m to look around\n");
+    printf("Use \033[37;7mLShift\033[0m to sprint\n");
+    printf("Use the \033[37;7mLeftMouseButton\033[0m to fire your weapon\n");
+    printf("Use \033[37;7mE\033[0m to open your inventory\n");
+    printf("Use \033[37;7mEsc\033[0m to open the menu while in game\n");
+}
+
+static void print_rules(void)
+{
+    printf("\n\n\t\tWelcome to \033[33;1mD.E.P.O.T.\033[0m !\n\n");
+    printf("You are here to make us some \033[0;32mmoney\033[0m !\n");
+    printf("To do so, you must collect some items in a lot of very nice ");
+    printf("places.\nYou can find them everywhere so make sure you're ");
+    printf("looking in every room !\nYou may encounter some ... Let's say ");
+    printf("\033[0;31mcreatures\033[0m.\nYou can try to make friends with ");
+    printf("them, but we wouldn't advise it.\nJust make sure you have ");
+    printf("\033[36;4menough money\033[0m at the end, or we won't come for ");
+    printf("you.\n\nBut most importantly, remember to ");
+    printf("\033[0;35m✦★have some fun★✦\033[0m :)\n\n\n");
+    print_controls();
+}
+
 static void print_character_lower_half(void)
 {
     printf("''',,,,,,,:co:::::cc::lollloolllllccc:::::,,,,,:,,,,,''''......\n");
@@ -25,6 +53,7 @@ static void print_character_lower_half(void)
     printf(",,,,''','.,','.'',,,:::::,,,,,'''''''............,:::::,,,','''\n");
     printf("''.'..'''''.''..''',:',c,',,''l'.''...............,,,,,,,''.'''\n");
     printf(",,,,,,,,,,,,,,,,,,,',',,,,,,,,,,,,,,,,,,,'',,,,,'',,,,,,,,,,,,,\n");
+    print_rules();
 }
 
 int flag_h(void)

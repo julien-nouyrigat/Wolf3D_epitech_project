@@ -71,6 +71,8 @@ SRC = 		$(MAIN)										\
 			src/window/graphics.c						\
 			src/window/init/init_minimap.c				\
 			src/window/minimap.c						\
+			src/save.c									\
+			src/load_save.c								\
 			src/enemies/manage_enemies.c				\
 			src/enemies/handle_enderman.c				\
 

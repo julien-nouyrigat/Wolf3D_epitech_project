@@ -47,10 +47,10 @@ static void animate_gun(window_t *win, float frame_time, player_t *player)
     }
 }
 
-void draw_gun(window_t *win, player_t *player, map_t *map)
+void draw_gun(window_t *win, player_t *player,
+    map_t __attribute_maybe_unused__ *map)
 {
     win->clock.time = sfClock_restart(win->clock.clock);
     animate_gun(win, 0.01f, player);
     sfRenderWindow_drawSprite(win->window, win->game.gun, NULL);
-    shoot(win, player, map);
 }

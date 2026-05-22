@@ -24,6 +24,7 @@ static bool is_mob(map_t *map)
             map->map_pos.y >= ((int)tmp->monster->position.y / TILE_SIZE) - 1 &&
             map->map_pos.y <= ((int)tmp->monster->position.y / TILE_SIZE) + 1) {
             tmp->monster->health -= 15;
+            printf("%d\n", tmp->monster->health);
             return true;
         }
     }

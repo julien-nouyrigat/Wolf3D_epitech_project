@@ -9,8 +9,6 @@
 
 static void check_controls(window_t *win, sfVector2i *pos_mouse)
 {
-    sfColor grey = sfColor_fromRGB(143, 143, 143);
-
     if (sfFloatRect_contains(&win->param.tab[2].boud, pos_mouse->x,
             pos_mouse->y)) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){185, 612});
@@ -24,13 +22,11 @@ static void check_controls(window_t *win, sfVector2i *pos_mouse)
             win->param.is_graphics = false;
         }
     } else
-        sfText_setColor(win->param.tab[2].tab, grey);
+        sfText_setColor(win->param.tab[2].tab, GRAY);
 }
 
 static void check_audio(window_t *win, sfVector2i *pos_mouse)
 {
-    sfColor grey = sfColor_fromRGB(143, 143, 143);
-
     if (sfFloatRect_contains(&win->param.tab[1].boud, pos_mouse->x,
             pos_mouse->y)) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){190, 462});
@@ -44,13 +40,11 @@ static void check_audio(window_t *win, sfVector2i *pos_mouse)
             win->param.is_graphics = false;
         }
     } else
-        sfText_setColor(win->param.tab[1].tab, grey);
+        sfText_setColor(win->param.tab[1].tab, GRAY);
 }
 
 static void check_graphic(window_t *win, sfVector2i *pos_mouse)
 {
-    sfColor grey = sfColor_fromRGB(143, 143, 143);
-
     if (sfFloatRect_contains(&win->param.tab[0].boud, pos_mouse->x,
             pos_mouse->y)) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){185, 312});
@@ -64,13 +58,11 @@ static void check_graphic(window_t *win, sfVector2i *pos_mouse)
             win->param.is_graphics = true;
         }
     } else
-        sfText_setColor(win->param.tab[0].tab, grey);
+        sfText_setColor(win->param.tab[0].tab, GRAY);
 }
 
 static void check_back(window_t *win, sfVector2i *pos_mouse)
 {
-    sfColor grey = sfColor_fromRGB(143, 143, 143);
-
     if (sfFloatRect_contains(&win->param.tab[3].boud, pos_mouse->x,
             pos_mouse->y)) {
         sfSprite_setPosition(win->menu.s_rect_back, (sfVector2f){190, 842});
@@ -83,7 +75,7 @@ static void check_back(window_t *win, sfVector2i *pos_mouse)
             win->is_clickable = true;
         }
     } else
-        sfText_setColor(win->param.tab[3].tab, grey);
+        sfText_setColor(win->param.tab[3].tab, GRAY);
 }
 
 static void manage_tab(window_t *win)

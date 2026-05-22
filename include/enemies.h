@@ -23,6 +23,9 @@
     #define LARGE_HEALTH 250
     #define VERY_LARGE_HEALTH 500
 
+    #define SEEING_DIST 5
+    #define MIN_DIST 3
+
 typedef enum {
     CLOWN,
     NUN,
@@ -44,17 +47,34 @@ static const textures_t mob_textures[NB_ENEMIES] = {
     {"./assets/monsters/enderman.png"}
 };
 
+typedef struct sound_effect_s {
+    char *music;
+} sound_effect_t;
+
+static const sound_effect_t mob_sounds_effects[NB_ENEMIES] = {
+    {"./assets/monster_sounds/clown_seen.mp3"},
+    {"./assets/monster_sounds/nun_seen.mp3"},
+    {"./assets/monster_sounds/headman_seen.mp3"},
+    {"./assets/monster_sounds/witch_seen.mp3"},
+    {"./assets/monster_sounds/cyclops_seen.mp3"},
+    {"./assets/monster_sounds/chef_seen.mp3"},
+    {"./assets/monster_sounds/enderman_seen.mp3"}
+};
+
 typedef struct monster_s {
     size_t health;
     size_t damage;
     size_t range;
-    size_t speed;
+    float speed;
     float cooldown;
     size_t loot_value;
     bool can_attack;
     sfVector2f position;
+    sfVector2f direction;
     sfSprite *sprite;
     float order_dist;
+    sfClock *mob_clock;
+    sfMusic *sound_effect;
 } monster_t;
 
 typedef struct enemy_s {
@@ -68,7 +88,7 @@ typedef struct mob_data_s {
     size_t health;
     size_t damage;
     size_t range;
-    size_t speed;
+    float speed;
     float cooldown;
     size_t loot_value;
 } mob_data_t;
@@ -86,13 +106,13 @@ typedef struct {
 } sprite_proj_t;
 
 static const mob_data_t mob_data[NB_ENEMIES] = {
-    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 5, 7.0, LARGE_LOOT},
-    {NUN, LARGE_HEALTH, 100, 15, 6, 3.0, LARGE_LOOT},
-    {HEADMAN, LARGE_HEALTH, 50, 15, 6, 3.0, LARGE_LOOT},
-    {WITCH, VERY_LARGE_HEALTH, 125, 15, 5, 4.0, LARGE_LOOT},
-    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 3, 6.0, LARGE_LOOT},
-    {CHEF, MEDIUM_HEALTH, 10, 15, 5, 0.5, MEDIUM_LOOT},
-    {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 3.5, SMALL_LOOT}
+    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 3.5, 7.0, LARGE_LOOT},
+    {NUN, LARGE_HEALTH, 100, 15, 4.5, 3.0, LARGE_LOOT},
+    {HEADMAN, LARGE_HEALTH, 50, 15, 4.5, 3.0, LARGE_LOOT},
+    {WITCH, VERY_LARGE_HEALTH, 125, 15, 3.5, 4.0, LARGE_LOOT},
+    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 1.5, 6.0, LARGE_LOOT},
+    {CHEF, MEDIUM_HEALTH, 10, 15, 3.5, 0.5, MEDIUM_LOOT},
+    {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 45, SMALL_LOOT}
 };
 
 enemy_t *sort_enemies(enemy_t *head);

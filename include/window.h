@@ -29,9 +29,13 @@
     #define LINE_SIZE 3
     #define COL_BG 29
     #define LINE_BG 28
+    #define COL_GUN 3
+    #define LINE_GUN 3
     #define LAST_LINE_BG 6
     #define SIZE_X_BG (9280 / COL_BG)
     #define SIZE_Y_BG (5040 / LINE_BG)
+    #define SIZE_X_GUN (539 / COL_GUN)
+    #define SIZE_Y_GUN (463 / LINE_GUN)
     #define IPS_BG (1.0 / 24)
     #define NB_TAB_MENU 5
     #define NB_TAB_PARAM 4
@@ -43,6 +47,7 @@
     #define AMBIANCE 50
     #define RENDER_DISTANCE 100
     #define NB_RESOLUTION 6
+    #define GRAY sfColor_fromRGB(143, 143, 143)
 
 typedef struct {
     sfText *text;
@@ -148,15 +153,24 @@ typedef struct {
     sfClock *broad_clock;
     sfTime time;
     float elapsed_time_bg;
+    float elapsed_time_gun;
 } win_clock_t;
 
 typedef struct {
     sfTexture *t_lamp;
     sfTexture *t_dark;
     sfTexture *t_light_of;
+    sfTexture *t_gun;
     sfSprite *lamp;
     sfSprite *dark;
     sfSprite *light_of;
+    sfSprite *gun;
+    sfIntRect rect_gun;
+    int line_ss_gun;
+    int col_ss_gun;
+    bool shoot;
+    int current_frame;
+    float anim_time;
 } game_t;
 
 typedef struct {

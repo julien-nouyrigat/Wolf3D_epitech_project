@@ -8,7 +8,7 @@
 
 void verif_footsteps(player_t *player, window_t *win)
 {
-    if (!player->is_moving){
+    if (!player->is_moving && !win->is_menu){
         sfMusic_play(win->footsteps);
         sfMusic_setLoop(win->footsteps, sfTrue);
     }

@@ -91,6 +91,8 @@ void init_footstep(window_t *win);
 void init_graphics(window_t *win);
 void display_graphics(window_t *win);
 void verif_footsteps(player_t *player, window_t *win);
+void init_gun(window_t *win);
+void draw_gun(window_t *win);
 void manage_enemies(window_t *win, player_t *player, map_t *map);
 
 #endif /* WOLF_H_ */

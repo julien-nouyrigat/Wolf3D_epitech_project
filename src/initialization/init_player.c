@@ -34,8 +34,8 @@ static void init_life_and_stamina(player_t **player)
 
 static void init_player_comp(player_t **player)
 {
-    (*player)->position = (sfVector2f){PLAYER_SPAWN * TILE_SIZE,
-        PLAYER_SPAWN * TILE_SIZE};
+    (*player)->position = (sfVector2f){31 * TILE_SIZE,
+        31 * TILE_SIZE};
     (*player)->pos_f.x = (*player)->position.x / TILE_SIZE;
     (*player)->pos_f.y = (*player)->position.y / TILE_SIZE;
     (*player)->direction = (sfVector2f){-1, 0};

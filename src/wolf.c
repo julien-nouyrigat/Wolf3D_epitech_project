@@ -76,6 +76,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
     if (win->is_single == true) {
         win->is_param = false;
         sfMusic_stop(win->menu.music);
+        manage_enemies(win, player, map);
         display_game_elements(win, player, map);
         if (display_hud(win, player) == EXIT_FAILURE)
             return EXIT_FAILURE;

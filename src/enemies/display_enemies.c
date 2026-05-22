@@ -118,7 +118,9 @@ void display_enemies(player_t *player, map_t *map, window_t *win)
     }
     map->level->enemies = sort_enemies(map->level->enemies);
     tmp = map->level->enemies;
-    for (; tmp != NULL; tmp = tmp->next)
-        get_sprite_3d_proj(tmp->monster, player, win,
-            map->level->mob_texts[tmp->type]);
+    for (; tmp != NULL; tmp = tmp->next) {
+        if (tmp->monster->health > 0)
+            get_sprite_3d_proj(tmp->monster, player, win,
+                map->level->mob_texts[tmp->type]);
+    }
 }

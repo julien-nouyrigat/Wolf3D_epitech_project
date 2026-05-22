@@ -23,6 +23,9 @@
     #define LARGE_HEALTH 250
     #define VERY_LARGE_HEALTH 500
 
+    #define SEEING_DIST 5
+    #define MIN_DIST 8
+
 typedef enum {
     CLOWN,
     NUN,
@@ -53,6 +56,7 @@ typedef struct monster_s {
     size_t loot_value;
     bool can_attack;
     sfVector2f position;
+    sfVector2f direction;
     sfSprite *sprite;
     float order_dist;
 } monster_t;

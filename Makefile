@@ -67,6 +67,7 @@ SRC = 		$(MAIN)										\
 			src/enemies/sort_enemies.c					\
 			src/window/init/init_graphics.c				\
 			src/window/graphics.c						\
+			src/enemies/manage_enemies.c				\
 
 
 SRC_SERV = 	server/main.c								\

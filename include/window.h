@@ -42,6 +42,7 @@
     #define NB_TEXT_AUDIO 5
     #define AMBIANCE 50
     #define NB_RESOLUTION 6
+    #define GRAY sfColor_fromRGB(143, 143, 143)
 
 typedef struct {
     sfText *text;

@@ -17,6 +17,7 @@ static void check_controls(window_t *win, sfVector2i *pos_mouse)
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.14, 1.2});
         sfText_setColor(win->param.tab[2].tab, sfWhite);
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
+        sfRenderWindow_drawText(win->window, win->param.tab[2].tab, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->param.is_audio = false;
             win->param.is_controls = true;
@@ -36,6 +37,7 @@ static void check_audio(window_t *win, sfVector2i *pos_mouse)
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){0.7, 1.2});
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfText_setColor(win->param.tab[1].tab, sfWhite);
+        sfRenderWindow_drawText(win->window, win->param.tab[1].tab, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->param.is_audio = true;
             win->param.is_controls = false;
@@ -55,6 +57,7 @@ static void check_graphic(window_t *win, sfVector2i *pos_mouse)
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){1.12, 1.2});
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfText_setColor(win->param.tab[0].tab, sfWhite);
+        sfRenderWindow_drawText(win->window, win->param.tab[0].tab, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->param.is_audio = false;
             win->param.is_controls = false;
@@ -74,6 +77,7 @@ static void check_back(window_t *win, sfVector2i *pos_mouse)
         sfSprite_setScale(win->menu.s_rect_back, (sfVector2f){0.62, 1.2});
         sfRenderWindow_drawSprite(win->window, win->menu.s_rect_back, NULL);
         sfText_setColor(win->param.tab[3].tab, sfWhite);
+        sfRenderWindow_drawText(win->window, win->param.tab[3].tab, NULL);
         if (win->event.type == sfEvtMouseButtonPressed) {
             win->is_param = false;
             win->is_clickable = true;

@@ -49,6 +49,38 @@ static void change_resolution(window_t *win, int width, int height,
     resize_view(win);
 }
 
+static void check_high_res(window_t *win)
+{
+    sfVector2i pos_mouse = sfMouse_getPositionRenderWindow(win->window);
+
+    if (sfFloatRect_contains(&win->graphics.tab[4].bound, pos_mouse.x,
+            pos_mouse.y)) {
+        if (win->event.type == sfEvtMouseButtonPressed)
+            change_resolution(win, 2560, 1440, false);
+    }
+    if (sfFloatRect_contains(&win->graphics.tab[5].bound, pos_mouse.x,
+            pos_mouse.y)) {
+        if (win->event.type == sfEvtMouseButtonPressed)
+            change_resolution(win, 3840, 2160, false);
+    }
+}
+
+static void check_low_res(window_t *win)
+{
+    sfVector2i pos_mouse = sfMouse_getPositionRenderWindow(win->window);
+
+    if (sfFloatRect_contains(&win->graphics.tab[2].bound, pos_mouse.x,
+            pos_mouse.y)) {
+        if (win->event.type == sfEvtMouseButtonPressed)
+            change_resolution(win, 1280, 720, false);
+    }
+    if (sfFloatRect_contains(&win->graphics.tab[3].bound, pos_mouse.x,
+            pos_mouse.y)) {
+        if (win->event.type == sfEvtMouseButtonPressed)
+            change_resolution(win, WIN_WIDTH, WIN_HEIGHT, false);
+    }
+}
+
 static void check_size_screen(window_t *win)
 {
     sfVector2i pos_mouse = sfMouse_getPositionRenderWindow(win->window);
@@ -73,4 +105,6 @@ void display_graphics(window_t *win)
         sfRenderWindow_drawText(win->window, win->graphics.tab[i].text, NULL);
     }
     check_size_screen(win);
+    check_low_res(win);
+    check_high_res(win);
 }

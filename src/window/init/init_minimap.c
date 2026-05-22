@@ -8,19 +8,6 @@
 #include <stdlib.h>
 #include "wolf.h"
 
-static void reverse_map(map_t *map)
-{
-    size_t max = MAP_SIZE;
-
-    map->int_map_reversed = malloc(sizeof(int *) * MAP_SIZE);
-    for (size_t i = 0; i < MAP_SIZE; i++) {
-        map->int_map_reversed[i] = malloc(sizeof(int) * MAP_SIZE);
-        for (size_t j = 0; j < MAP_SIZE; j++) {
-            map->int_map_reversed[i][j] = map->int_map[i][max - j];
-        }
-    }
-}
-
 static void init_player_minimap(window_t *win)
 {
     win->minimap.s_player = sfSprite_create();
@@ -64,5 +51,4 @@ void init_minimap(window_t *win, map_t *map)
     sfView_setViewport(win->view_minimap, viewport);
     init_rect_player(win);
     init_player_minimap(win);
-    reverse_map(map);
 }

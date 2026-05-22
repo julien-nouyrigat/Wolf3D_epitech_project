@@ -5,6 +5,7 @@
 ** load_save
 */
 
+#include <sys/stat.h>
 #include "room.h"
 #include <fcntl.h>
 #include <unistd.h>
@@ -19,11 +20,15 @@ static void replace_map(map_t *map, char **line, int index)
 
 static void load_info_map(map_t *map)
 {
+    struct stat st;
     int check_file = open("./save/map_info.save", O_RDONLY);
     FILE *file = fopen("./save/map_info.save", "r");
     char *line = NULL;
     size_t len = 0;
 
+    stat("./save/map_info.save", &st);
+    if (st.st_size <= 0)
+        return;
     if (check_file == -1)
         return;
     getline(&line, &len, file);

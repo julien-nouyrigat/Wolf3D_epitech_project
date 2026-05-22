@@ -190,6 +190,10 @@ typedef struct {
     sfMusic *ambiance;
     bool ambiance_started;
     graphics_t graphics;
+    sfView *view;
+    bool is_fullscreen;
+    int width;
+    int height;
 } window_t;
 
 #endif /* WINDOW_H_ */

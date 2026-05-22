@@ -141,6 +141,7 @@ asset:
 	mv assets/Asset-Wolf3d-main/sprite_sheet assets
 	mv assets/Asset-Wolf3d-main/fonts assets
 	mv assets/Asset-Wolf3d-main/monsters assets
+	mv assets/Asset-Wolf3d-main/monster_sounds assets
 	rm -f main.zip
 	rm -f main.zip.1
 	rm -f main.zip.2

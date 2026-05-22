@@ -44,6 +44,7 @@ static void change_resolution(window_t *win, int width, int height,
     win->width = width;
     win->height = height;
     win->is_fullscreen = fullscreen;
+    sfRenderWindow_setFramerateLimit(win->window, 60);
     sfRenderWindow_setMouseCursorVisible(win->window, sfFalse);
     resize_view(win);
 }

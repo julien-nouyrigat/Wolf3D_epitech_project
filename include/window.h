@@ -23,7 +23,7 @@
     #include "music.h"
 
     #define FRAMES_LIMIT 60
-    #define WIN_WIDTH 1980
+    #define WIN_WIDTH 1920
     #define WIN_HEIGHT 1080
     #define WIN_BPP 32
     #define LINE_SIZE 3
@@ -45,6 +45,7 @@
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
     #define AMBIANCE 50
+    #define RENDER_DISTANCE 100
     #define NB_RESOLUTION 6
     #define GRAY sfColor_fromRGB(143, 143, 143)
 
@@ -180,6 +181,14 @@ typedef struct {
 } hud_t;
 
 typedef struct {
+    sfRectangleShape *wall;
+    sfCircleShape *player;
+    sfTexture *t_player;
+    sfSprite *s_player;
+    sfRectangleShape *bg;
+} minimap_t;
+
+typedef struct {
     sfRenderWindow *window;
     menu_t menu;
     game_t game;
@@ -208,6 +217,8 @@ typedef struct {
     bool is_fullscreen;
     int width;
     int height;
+    sfView *view_minimap;
+    minimap_t minimap;
 } window_t;
 
 #endif /* WINDOW_H_ */

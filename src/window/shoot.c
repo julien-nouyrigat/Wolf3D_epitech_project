@@ -14,21 +14,28 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool is_mob(ray_t *ray, map_t *map, monster_t *to_shoot,
-    player_t *player)
+static bool is_mob(map_t *map)
 {
-    sfVector2f bullet_pos = player->position;
+    enemy_t *tmp = map->level->enemies;
 
-    for (; )
+    for (; tmp != NULL; tmp = tmp->next) {
+        if (map->map_pos.x >= ((int)tmp->monster->position.x / TILE_SIZE) - 1 &&
+            map->map_pos.x <= ((int)tmp->monster->position.x / TILE_SIZE) + 1 &&
+            map->map_pos.y >= ((int)tmp->monster->position.y / TILE_SIZE) - 1 &&
+            map->map_pos.y <= ((int)tmp->monster->position.y / TILE_SIZE) + 1) {
+            tmp->monster->health -= 15;
+            return true;
+        }
+    }
+    return false;
 }
 
-static void dda_loop(ray_t *ray, map_t *map, window_t *win, player_t *player)
+static void dda_loop(ray_t *ray, map_t *map,
+    window_t __attribute_maybe_unused__ *win,
+    player_t __attribute_maybe_unused__ *player)
 {
-    monster_t to_shoot;
-
     while (!is_wall(map)) {
-        if (is_mob(ray, map, &to_shoot, player)) {
-            shoot_mob();
+        if (is_mob(map)) {
             return;
         }
         if (ray->side_dist.x < ray->side_dist.y) {
@@ -84,6 +91,7 @@ static void verif_shoot(player_t *player, window_t *win, map_t *map)
         player->camera.x;
     bullet.direction.y = player->direction.y + player->camera_plane.y *
         player->camera.x;
+    init_dda(player, &bullet, map, win);
 }
 
 void shoot(window_t *win, player_t *player, map_t *map)

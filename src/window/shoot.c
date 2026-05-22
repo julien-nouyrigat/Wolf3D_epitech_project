@@ -109,4 +109,5 @@ static void verif_shoot(player_t *player, window_t *win, map_t *map)
 void shoot(window_t *win, player_t *player, map_t *map)
 {
     verif_shoot(player, win, map);
+    sfMusic_play(win->gun_sound);
 }

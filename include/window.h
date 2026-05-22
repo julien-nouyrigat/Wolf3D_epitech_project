@@ -49,6 +49,9 @@
     #define NB_RESOLUTION 6
     #define GRAY sfColor_fromRGB(143, 143, 143)
 
+    #define GUN_DAMAGE 15
+    #define GUN_COOLDOWN 1
+
 typedef struct {
     sfText *text;
     sfRectangleShape *rect;
@@ -151,6 +154,7 @@ typedef struct {
 typedef struct {
     sfClock *clock;
     sfClock *broad_clock;
+    sfClock *gun_clock;
     sfTime time;
     float elapsed_time_bg;
     float elapsed_time_gun;
@@ -217,6 +221,7 @@ typedef struct {
     bool is_fullscreen;
     int width;
     int height;
+    sfMusic *gun_sound;
     sfView *view_minimap;
     minimap_t minimap;
 } window_t;

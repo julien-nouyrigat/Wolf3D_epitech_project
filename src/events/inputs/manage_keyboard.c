@@ -19,15 +19,17 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyRight, &rotate_right},
     {sfKeyUp, &up_cam},
     {sfKeyDown, &down_cam},
-    {sfKeyC, &sprint},
+    {sfKeyLShift, &sprint},
     {sfKeyUnknown, NULL}
 };
 
 void manage_keyboard(player_t *player, map_t *map, window_t *win)
 {
     if (win->event.type == sfEvtMouseButtonPressed)
-        if (sfMouse_isButtonPressed(sfMouseLeft) && !win->is_menu)
+        if (sfMouse_isButtonPressed(sfMouseLeft) && !win->is_menu) {
             win->game.shoot = true;
+            shoot(win, player, map);
+        }
     if (win->event.type == sfEvtKeyPressed)
         set_inv(player, map);
     for (size_t i = 0; keyboard_input[i].function != NULL; i++) {

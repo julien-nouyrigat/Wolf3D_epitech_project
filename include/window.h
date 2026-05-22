@@ -222,6 +222,7 @@ typedef struct {
     int width;
     int height;
     sfMusic *gun_sound;
+    sfMusic *hurt_sound;
     sfView *view_minimap;
     minimap_t minimap;
 } window_t;

@@ -24,4 +24,6 @@ void init_gun(window_t *win)
     sfSprite_setScale(win->game.gun, (sfVector2f){3, 3});
     sfSprite_setPosition(win->game.gun, (sfVector2f){990, 650});
     win->gun_sound = sfMusic_createFromFile("./assets/sounds/gun_sound.mp3");
+    win->hurt_sound =
+        sfMusic_createFromFile("./assets/monster_sounds/hurt_sound.mp3");
 }

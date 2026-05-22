@@ -21,6 +21,7 @@ static bool shoot_mob(enemy_t *tmp, window_t *win)
 
     if (sec >= GUN_COOLDOWN) {
         tmp->monster->health -= GUN_DAMAGE;
+        sfMusic_play(win->hurt_sound);
         sfClock_restart(win->clock.gun_clock);
         return true;
     }

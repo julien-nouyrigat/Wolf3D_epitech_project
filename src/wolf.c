@@ -61,6 +61,7 @@ static void display_game_elements(window_t *win, player_t *player, map_t *map)
     if (player->is_in_inv)
         display_inventory(win, player);
     display_lamp(win, player);
+    display_minimap(win, player, map);
 }
 
 static int manage_window(window_t *win, player_t *player, map_t *map)
@@ -173,6 +174,7 @@ int wolf(void)
 
     if (init_all(wolf_win, &map, &player) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    init_minimap(wolf_win, map);
     if (game_loop(wolf_win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     destroy_assets(wolf_win, player);

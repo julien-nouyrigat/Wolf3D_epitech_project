@@ -20,6 +20,7 @@ typedef struct {
     int x;
     int y;
     int **int_map;
+    int **int_map_reversed;
     int type;
     sfVector2i map_pos;
     struct level_s *level;

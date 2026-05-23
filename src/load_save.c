@@ -6,9 +6,10 @@
 */
 
 #include <sys/stat.h>
-#include "room.h"
 #include <fcntl.h>
 #include <unistd.h>
+
+#include "room.h"
 #include "wolf.h"
 
 static void replace_map(map_t *map, char **line, int index)

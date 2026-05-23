@@ -6,7 +6,7 @@ obj/
 wolf3d
 test.c
 *.out
-assets
 serv
 .vscode
 assets/sprite_sheet/spritesheet.png
+*save*

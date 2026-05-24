@@ -87,23 +87,33 @@ static void init_dda(player_t *player, ray_t *ray, map_t *map, window_t *win)
     dda_loop(ray, map, win, player);
 }
 
-void dda_algorithm(player_t *player, map_t *map, window_t *win)
+static void init_ray_struct(player_t *player, ray_t *ray, window_t *win,
+    float screen_col)
+{
+    player->camera.x = (2 * screen_col / (win->size.x - 1) - 1);
+    ray->screen_x = screen_col;
+    ray->direction.x = player->direction.x + player->camera_plane.x *
+        player->camera.x;
+    ray->direction.y = player->direction.y + player->camera_plane.y *
+        player->camera.x;
+}
+
+int dda_algorithm(player_t *player, map_t *map, window_t *win)
 {
     ray_t ray = {0};
 
     player->z_buffer = calloc(sizeof(float), win->size.x);
     if (player->z_buffer == NULL)
-        return;
+        return EXIT_FAILURE;
     draw_floor(&ray, win, map, player);
     for (float screen_col = 0.0; screen_col < win->size.x; screen_col += 1.0) {
-        player->camera.x = (2 * screen_col / (win->size.x - 1) - 1);
-        ray.screen_x = screen_col;
-        ray.direction.x = player->direction.x + player->camera_plane.x *
-            player->camera.x;
-        ray.direction.y = player->direction.y + player->camera_plane.y *
-            player->camera.x;
+        init_ray_struct(player, &ray, win, screen_col);
         init_dda(player, &ray, map, win);
     }
-    display_enemies(player, map, win);
+    if (create_entity_list(player, map, win) == EXIT_FAILURE) {
+        free(player->z_buffer);
+        return EXIT_FAILURE;
+    }
     free(player->z_buffer);
+    return EXIT_SUCCESS;
 }

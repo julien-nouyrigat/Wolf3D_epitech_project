@@ -35,6 +35,7 @@ typedef enum {
 } key_enum_t;
 
 typedef struct monster_s monster_t;
+typedef struct entities_s entities_t;
 
 int flag_h(void);
 int wolf(void);
@@ -58,7 +59,7 @@ int init_map(map_t **map);
 void init_ray(ray_t *ray);
 void draw_2d_player(window_t *wolf_win, player_t *player);
 void draw_2d_map(window_t *wolf_win, map_t *map);
-void dda_algorithm(player_t *player, map_t *map, window_t *win);
+int dda_algorithm(player_t *player, map_t *map, window_t *win);
 void draw_wall(ray_t *ray, window_t *win, map_t *map, player_t *player);
 int init_brackground_menu(window_t *win);
 void display_background_menu(window_t *win);
@@ -75,7 +76,7 @@ void sprint(player_t *player, map_t *map);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
 int create_new_monster(map_t **map);
-void display_enemies(player_t *player, map_t *map, window_t *win);
+int create_entity_list(player_t *player, map_t *map, window_t *win);
 sfVertexArray *create_vertex_array(quad_vert_t *quad_vert);
 sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     float text_y);
@@ -104,5 +105,6 @@ void shoot(window_t *win, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
 void enemy_attack(player_t *player, map_t *map);
+entities_t *sort_entities(entities_t *head);
 
 #endif /* WOLF_H_ */

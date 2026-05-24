@@ -55,7 +55,7 @@ SRC = 		$(MAIN)										\
 			src/player_movements/sprint.c				\
 			src/player_movements/stamina_regen.c		\
 			src/enemies/create_new_monster.c			\
-			src/enemies/display_enemies.c				\
+			src/enemies/display_entities.c				\
 			src/inventory/inventory.c 					\
 			src/initialization/init_client.c			\
 			src/manage_client.c							\
@@ -66,7 +66,7 @@ SRC = 		$(MAIN)										\
 			src/music/play_footsteps.c 					\
 			src/window/init/init_gun.c 					\
 			src/window/draw_gun.c 						\
-			src/enemies/sort_enemies.c					\
+			src/enemies/sort_entities.c					\
 			src/window/init/init_graphics.c				\
 			src/window/graphics.c						\
 			src/window/init/init_minimap.c				\
@@ -100,7 +100,7 @@ SRC_SERV = 	server/main.c								\
 			src/player_movements/movements.c			\
 			src/player_movements/rotation.c				\
 			src/enemies/create_new_monster.c			\
-			src/enemies/sort_enemies.c					\
+			src/enemies/sort_entities.c					\
 			src/enemies/handle_enderman.c				\
 
 

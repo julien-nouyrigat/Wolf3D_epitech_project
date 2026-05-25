@@ -9,6 +9,7 @@
 #include <sys/param.h>
 #include <math.h>
 
+#include "entity_display.h"
 #include "wolf.h"
 
 static sfVector2f transform_position(player_t *player, sfVector2f *sprite_pos)
@@ -66,8 +67,8 @@ static void draw_vertex_array(sprite_proj_t *proj, int stripe,
 {
     quad_vert_t quad = {0};
     sfVertexArray *array;
-    sfRenderStates state = get_mob_state(proj->mob_text);
-    sfVector2u size = sfTexture_getSize(proj->mob_text);
+    sfRenderStates state = get_mob_state(proj->entity_text);
+    sfVector2u size = sfTexture_getSize(proj->entity_text);
     int tex_x = (int)((float)(stripe - proj->start_x) /
         (float)(proj->width) * size.x);
 
@@ -92,35 +93,61 @@ static void select_sprite_stripe(sprite_proj_t *proj, sfVector2f *transform,
     }
 }
 
-static void get_sprite_3d_proj(monster_t *mob, player_t *player, window_t *win,
-    sfTexture *text)
+static void get_sprite_3d_proj(entities_t *entity, player_t *player,
+    window_t *win)
 {
-    sfVector2f sprite_pos = (sfVector2f){mob->position.x - player->position.x,
-        mob->position.y - player->position.y};
+    sfVector2f sprite_pos = (sfVector2f){entity->position.x -
+        player->position.x, entity->position.y - player->position.y};
     sfVector2f transform = transform_position(player, &sprite_pos);
     sprite_proj_t proj = compute_projection(&transform, win, player);
 
     if (transform.y / TILE_SIZE < 0.1f)
         return;
-    proj.mob_text = text;
-    proj.dist = sqrt(mob->order_dist);
+    proj.entity_text = entity->text;
+    proj.dist = entity->p_dist;
     select_sprite_stripe(&proj, &transform, win, player);
 }
 
-void display_enemies(player_t *player, map_t *map, window_t *win)
+static void display_entities(player_t *player, window_t *win, entities_t *head)
 {
-    enemy_t *tmp = map->level->enemies;
+    entities_t *tmp = head;
 
     for (; tmp != NULL; tmp = tmp->next) {
-        tmp->monster->order_dist =
-            pow(player->pos_f.x - tmp->monster->position.x / TILE_SIZE, 2) +
-            pow(player->pos_f.y - tmp->monster->position.y / TILE_SIZE, 2);
+        get_sprite_3d_proj(tmp, player, win);
     }
-    map->level->enemies = sort_enemies(map->level->enemies);
-    tmp = map->level->enemies;
-    for (; tmp != NULL; tmp = tmp->next) {
-        if (tmp->monster->health > 0)
-            get_sprite_3d_proj(tmp->monster, player, win,
-                map->level->mob_texts[tmp->type]);
+}
+
+static int add_monster_entity(enemy_t *mob, entities_t **head,
+    player_t *player, map_t *map)
+{
+    entities_t *new = NULL;
+
+    if (mob->monster->health <= 0)
+        return EXIT_SUCCESS;
+    new = calloc(sizeof(entities_t), 1);
+    if (new == NULL)
+        return EXIT_FAILURE;
+    new->position = mob->monster->position;
+    new->direction = mob->monster->direction;
+    new->text = map->level->mob_texts[mob->type];
+    new->p_dist = sqrt(
+        pow(player->pos_f.x - mob->monster->position.x / TILE_SIZE, 2) +
+        pow(player->pos_f.y - mob->monster->position.y / TILE_SIZE, 2));
+    new->next = *head;
+    *head = new;
+    return EXIT_SUCCESS;
+}
+
+int create_entity_list(player_t *player, map_t *map, window_t *win)
+{
+    entities_t *head = NULL;
+    enemy_t *mob_tmp = map->level->enemies;
+
+    for (; mob_tmp != NULL; mob_tmp = mob_tmp->next) {
+        if (add_monster_entity(mob_tmp, &head, player, map) == EXIT_FAILURE)
+            return EXIT_FAILURE;
     }
+    head = sort_entities(head);
+    display_entities(player, win, head);
+    return EXIT_SUCCESS;
 }

@@ -155,7 +155,6 @@ int **genrating_map(rooms_t *rooms, int nb_rooms)
 
     if (small_map == NULL)
         return NULL;
-    srand(time(NULL));
     add_room(small_map, &pos, rooms, &nb_rooms);
     return small_map;
 }

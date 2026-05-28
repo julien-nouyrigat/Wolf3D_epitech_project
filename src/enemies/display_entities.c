@@ -138,10 +138,32 @@ static int add_monster_entity(enemy_t *mob, entities_t **head,
     return EXIT_SUCCESS;
 }
 
+static int add_items_entity(loot_t *loot, entities_t **head,
+    player_t *player)
+{
+    entities_t *new = NULL;
+
+    if (loot->item->is_grab)
+        return EXIT_SUCCESS;
+    new = calloc(sizeof(entities_t), 1);
+    if (new == NULL)
+        return EXIT_FAILURE;
+    new->position = loot->item->position;
+    new->direction = loot->item->direction;
+    new->text = loot->item->textures;
+    new->p_dist = sqrt(
+        pow(player->pos_f.x - loot->item->position.x / TILE_SIZE, 2) +
+        pow(player->pos_f.y - loot->item->position.y / TILE_SIZE, 2));
+    new->next = *head;
+    *head = new;
+    return EXIT_SUCCESS;
+}
+
 int create_entity_list(player_t *player, map_t *map, window_t *win)
 {
     entities_t *head = NULL;
     enemy_t *mob_tmp = map->level->enemies;
+    loot_t *loot_tmp = map->level->loot;
 
     for (size_t i = 0; i < MAX_CLIENTS; i++) {
         if (!win->client)
@@ -150,6 +172,10 @@ int create_entity_list(player_t *player, map_t *map, window_t *win)
     }
     for (; mob_tmp != NULL; mob_tmp = mob_tmp->next) {
         if (add_monster_entity(mob_tmp, &head, player, map) == EXIT_FAILURE)
+            return EXIT_FAILURE;
+    }
+    for (; loot_tmp != NULL; loot_tmp = loot_tmp->next) {
+        if (add_items_entity(loot_tmp, &head, player) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
     head = sort_entities(head);

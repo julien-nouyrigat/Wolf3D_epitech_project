@@ -13,6 +13,27 @@
 #include "level.h"
 #include "wolf.h"
 
+static int nb_money(map_t **map)
+{
+    int money = 0;
+    loot_t *tmp_loot = (*map)->level->loot;
+
+    for (; tmp_loot; tmp_loot = tmp_loot->next){
+        money += tmp_loot->item->price;
+    }
+    return money;
+}
+
+static int init_items(map_t **map, size_t max_money)
+{
+    (*map)->level->loot = NULL;
+    for (size_t i = 0; i <= max_money; i = nb_money(map)) {
+        if (create_new_item(map) == EXIT_FAILURE)
+            return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
 static int init_enemies(map_t **map, size_t nb_mobs)
 {
     (*map)->level->nb_mobs = nb_mobs;
@@ -21,6 +42,20 @@ static int init_enemies(map_t **map, size_t nb_mobs)
         if (create_new_monster(map) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
+    return EXIT_SUCCESS;
+}
+
+static int init_entities(map_t **map)
+{
+    if (init_enemies(map, INIT_NB_MOBS) == EXIT_FAILURE) {
+        for (size_t i = 0; i < NB_ENEMIES; i++) {
+            sfTexture_destroy((*map)->level->mob_texts[i]);
+            free((*map)->level->mob_texts);
+            free((*map)->level);
+            return EXIT_FAILURE;
+        }
+    }
+    init_items(map, INIT_MAX_MONEY);
     return EXIT_SUCCESS;
 }
 
@@ -36,14 +71,8 @@ static int init_level(map_t **map)
     }
     for (size_t i = 0; i < NB_ENEMIES; i++)
         (*map)->level->mob_texts[i] = FILE_TEXT(mob_textures[i].texture);
-    if (init_enemies(map, INIT_NB_MOBS) == EXIT_FAILURE) {
-        for (size_t i = 0; i < NB_ENEMIES; i++) {
-            sfTexture_destroy((*map)->level->mob_texts[i]);
-            free((*map)->level->mob_texts);
-            free((*map)->level);
-            return EXIT_FAILURE;
-        }
-    }
+    if (init_entities(map) == EXIT_FAILURE)
+        return EXIT_FAILURE;
     (*map)->level->lvl = FIRST_LEVEL;
     return EXIT_SUCCESS;
 }
@@ -62,7 +91,6 @@ int init_map(map_t **map)
     }
     srand(time(NULL));
     (*map)->type = (rand() % NB_MAPS) + 1;
-    printf("type = %d\n", (*map)->type = (rand() % NB_MAPS) + 1);
     (*map)->map_pos = (sfVector2i){0, 0};
     return EXIT_SUCCESS;
 }

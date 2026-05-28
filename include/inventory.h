@@ -23,23 +23,44 @@
     #define NB_MAX_ITEM 16
     #define EMPTY_SLOT -1
 
-enum item_indx_t {
-    AXE,
-    PAPER,
-    NB_ITEM
+enum type_loot_s {
+    BONSAI,
+    BRACELET,
+    WATCH,
+    PETRI,
+    NB_ITEMS
 };
+
+typedef struct item_s {
+    int weight;
+    int price;
+    int durability;
+    sfVector2f position;
+    sfVector2f direction;
+    sfTexture *textures;
+    bool is_grab;
+    float order_dist;
+} item_t;
+
+typedef struct loot_s {
+    size_t type;
+    item_t *item;
+    struct loot_s *next;
+} loot_t;
+
 
 typedef struct {
     int weight;
     int price;
     int durability;
     char *asset_path;
-    sfVector2f pos;
-} item_t;
+} item_data_t;
 
-static const item_t inv_tab[NB_ITEM] = {
-    {10, 100, 200, "assets/item/axe.png", {0, 0}},
-    {5, 60, 10, "assets/item/paper.png", {0, 0}},
+static const item_data_t item_data[NB_ITEMS] = {
+    {10, 100, 200, "assets/items/Bonsai_Tree.png"},
+    {5, 60, 10, "assets/items/Bracelet.png"},
+    {5, 60, 10, "assets/items/Pocket_Watch.png"},
+    {5, 60, 10, "assets/items/Uranium_Petri_Dish.png"},
 };
 
 typedef struct {

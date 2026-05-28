@@ -77,6 +77,7 @@ SRC = 		$(MAIN)										\
 			src/enemies/handle_enderman.c				\
 			src/enemies/enemies_attack.c 				\
 			src/window/shoot.c							\
+			src/object/init_items.c 					\
 
 
 SRC_SERV = 	server/main.c								\
@@ -102,6 +103,7 @@ SRC_SERV = 	server/main.c								\
 			src/enemies/create_new_monster.c			\
 			src/enemies/sort_entities.c					\
 			src/enemies/handle_enderman.c				\
+			src/object/init_items.c 					\
 
 
 SRC_TESTS = tests/unit_tests.c 							\
@@ -152,6 +154,7 @@ asset:
 	mv assets/Asset-Wolf3d-main/fonts assets
 	mv assets/Asset-Wolf3d-main/monsters assets
 	mv assets/Asset-Wolf3d-main/monster_sounds assets
+	mv assets/Asset-Wolf3d-main/items assets
 	rm -f main.zip
 	rm -f main.zip.1
 	rm -f main.zip.2

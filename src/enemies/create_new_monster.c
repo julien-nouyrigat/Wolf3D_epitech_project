@@ -27,7 +27,6 @@ static sfVector2f get_monster_pos(map_t **map)
     int x = 0;
     int y = 0;
 
-    srand(time(NULL));
     x = rand() % MAP_SIZE;
     y = rand() % MAP_SIZE;
     while (!is_valid_spawn(x, y, map)) {
@@ -68,11 +67,9 @@ int create_new_monster(map_t **map)
         free(new);
         return EXIT_FAILURE;
     }
-    srand(time(NULL));
     new->type = rand() % NB_ENEMIES;
     fill_mob_data(&new, map);
     new->next = (*map)->level->enemies;
     (*map)->level->enemies = new;
-    sleep(1);
     return EXIT_SUCCESS;
 }

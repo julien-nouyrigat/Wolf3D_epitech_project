@@ -22,24 +22,13 @@
     #define LOCAL "127.0.0.1"
     #define PORT_TCP 8080
     #define PORT_UDP 8081
-    #define MAX_CLIENTS 6
     #define MAX_EVENTS 64
     #define ROOM_NEXT 5
     #define EXIT_PROG -84
 
 typedef struct {
-    float pos_x;
-    float pos_y;
-    float pos_tile_x;
-    float pos_tile_y;
-    float direction_x;
-    float direction_y;
-    int mvt_speed;
-} player_state_t;
-
-typedef struct {
     uint8_t id;
-    key_enum_t key;
+    uint8_t key;
 } key_network_t;
 
 typedef struct {
@@ -91,7 +80,7 @@ int accept_client(server_t *serv);
 int init_udp(server_t *serv);
 int manage_client(server_t *serv, int fd);
 int manage_udp(server_t *serv);
-int connect_client(window_t *win);
+int connect_client(window_t *win, player_t *player);
 int init_client(window_t *win);
 
 #endif

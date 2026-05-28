@@ -10,3 +10,5 @@ serv
 .vscode
 assets/sprite_sheet/spritesheet.png
 *save*
+save/
+test/

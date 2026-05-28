@@ -74,6 +74,7 @@ SRC = 		$(MAIN)										\
 			src/save.c									\
 			src/load_save.c								\
 			src/enemies/manage_enemies.c				\
+			src/enemies/add_to_entity_list.c			\
 			src/enemies/handle_enderman.c				\
 			src/enemies/enemies_attack.c 				\
 			src/window/shoot.c							\

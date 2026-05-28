@@ -32,6 +32,9 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map,
 
 static bool is_wall(map_t *map)
 {
+    if (map->map_pos.y < 0 || map->map_pos.y >= MAP_SIZE ||
+        map->map_pos.x < 0 || map->map_pos.x >= MAP_SIZE)
+        return true;
     if (map->int_map[map->map_pos.y][map->map_pos.x] == 1)
         return true;
     return false;

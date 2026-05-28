@@ -16,7 +16,7 @@ const struct evt_pfs_s events[] = {
     {END, NULL}
 };
 
-void check_other_events(window_t *win, sfVector2i *mp)
+void check_other_events(window_t *win, sfVector2i *mp, player_t *player)
 {
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
@@ -24,7 +24,7 @@ void check_other_events(window_t *win, sfVector2i *mp)
             win->is_single = true;
         }
         if (sfFloatRect_contains(&win->menu.tab[1].bound, mp->x, mp->y)) {
-            connect_client(win);
+            connect_client(win, player);
             win->is_menu = false;
             win->is_lobby = true;
         }
@@ -47,7 +47,7 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
-    check_other_events(win, mp);
+    check_other_events(win, mp, player);
 }
 
 static int display_game_elements(window_t *win, player_t *player, map_t *map)

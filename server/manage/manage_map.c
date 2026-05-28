@@ -39,8 +39,6 @@ static void free_level(map_t **map)
     for (size_t i = 0; (*map)->int_map[i] != NULL; i++) {
         free((*map)->int_map[i]);
     }
-    sfRectangleShape_destroy((*map)->ceilling);
-    sfTexture_destroy((*map)->floor);
 }
 
 static int create_level(map_t **map)

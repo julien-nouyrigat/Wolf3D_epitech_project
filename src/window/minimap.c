@@ -79,7 +79,6 @@ static void draw_player_2d(window_t *win, player_t *player)
 {
     sfVector2f pos = {player->position.x, player->position.y};
 
-    printf("x%f y%f\n", pos.x, pos.y);
     sfSprite_setPosition(win->minimap.s_player, pos);
     sfRenderWindow_drawSprite(win->window, win->minimap.s_player, NULL);
 }

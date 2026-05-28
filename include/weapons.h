@@ -35,6 +35,6 @@ static const weapons_data_t weapons_data[NB_WEAPONS] = {
     {270, 3.0, 3.0, 5, 600},
     {8, 1.0, 4.0, 20, INFINITE_RANGE},
     {0, 1.0, 15.0, 8, 600}
-};  
+};
 
 #endif /* WEAPONS_H_ */

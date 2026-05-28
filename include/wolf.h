@@ -36,6 +36,7 @@ typedef enum {
 
 typedef struct monster_s monster_t;
 typedef struct entities_s entities_t;
+typedef struct enemy_s enemy_t;
 
 int flag_h(void);
 int wolf(void);
@@ -110,5 +111,9 @@ void add_player_entity(entities_t **head, player_t *player,
     window_t *win, size_t i);
 void free_entities(entities_t *head);
 int create_new_item(map_t **map);
+int add_items_entity(loot_t *loot, entities_t **head,
+    player_t *player);
+int add_monster_entity(enemy_t *mob, entities_t **head,
+    player_t *player, map_t *map);
 
 #endif /* WOLF_H_ */

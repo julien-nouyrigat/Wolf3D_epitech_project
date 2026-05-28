@@ -7,7 +7,24 @@
 
 #include "network.h"
 
-int connect_client(window_t *win)
+static void recv_infos(window_t *win, player_t *player)
+{
+    uint8_t id = 0;
+    player_state_t state = {0};
+
+    recv(win->client->sock_tcp, &id, sizeof(id), MSG_WAITALL);
+    recv(win->client->sock_tcp, &state, sizeof(state), MSG_WAITALL);
+    win->client->id = id;
+    player->position.x = state.pos_x;
+    player->position.y = state.pos_y;
+    player->pos_f.x = state.pos_x / TILE_SIZE;
+    player->pos_f.y = state.pos_y / TILE_SIZE;
+    player->direction.x = state.direction_x;
+    player->direction.y = state.direction_y;
+    player->mvt_speed = state.mvt_speed;
+}
+
+int connect_client(window_t *win, player_t *player)
 {
     win->client->sock_tcp = socket(AF_INET, SOCK_STREAM, 0);
     win->client->sock_udp = socket(AF_INET, SOCK_DGRAM, 0);
@@ -21,6 +38,7 @@ int connect_client(window_t *win)
     if (connect(win->client->sock_tcp, (struct sockaddr *)
             &win->client->sa_in_tcp, sizeof(win->client->sa_in_tcp)) < 0)
         return EXIT_FAILURE;
+    recv_infos(win, player);
     win->client->sa_in_udp.sin_family = AF_INET;
     win->client->sa_in_udp.sin_port = htons(PORT_UDP);
     inet_pton(AF_INET, LOCAL, &win->client->sa_in_udp.sin_addr);
@@ -32,11 +50,13 @@ int connect_client(window_t *win)
 
 int init_client(window_t *win)
 {
-    win->client = malloc(sizeof(*win->client));
+    win->client = calloc(1, sizeof(*win->client));
     if (win->client == NULL)
         return EXIT_FAILURE;
     win->client->id = 0;
     win->client->sock_tcp = 0;
     win->client->sock_udp = 0;
+    win->client->t_player = sfTexture_createFromFile("./assets/image/perso.png",
+        NULL);
     return EXIT_SUCCESS;
 }

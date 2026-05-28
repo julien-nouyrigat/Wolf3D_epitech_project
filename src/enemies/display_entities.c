@@ -165,6 +165,11 @@ int create_entity_list(player_t *player, map_t *map, window_t *win)
     enemy_t *mob_tmp = map->level->enemies;
     loot_t *loot_tmp = map->level->loot;
 
+    for (size_t i = 0; i < MAX_CLIENTS; i++) {
+        if (!win->client)
+            continue;
+        add_player_entity(&head, player, win, i);
+    }
     for (; mob_tmp != NULL; mob_tmp = mob_tmp->next) {
         if (add_monster_entity(mob_tmp, &head, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
@@ -175,5 +180,6 @@ int create_entity_list(player_t *player, map_t *map, window_t *win)
     }
     head = sort_entities(head);
     display_entities(player, win, head);
+    free_entities(head);
     return EXIT_SUCCESS;
 }

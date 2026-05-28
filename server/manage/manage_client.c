@@ -20,6 +20,15 @@ static void init_pos_client(server_t *serv, int i)
     serv->clients[i].state.mvt_speed = 5;
 }
 
+static void send_id(server_t *serv, int fd, int i)
+{
+    uint8_t id = (uint8_t)i;
+    player_state_t state = serv->clients[i].state;
+
+    send(fd, &id, sizeof(id), 0);
+    send(fd, &state, sizeof(state), 0);
+}
+
 static void add_client(server_t *serv, int fd, struct sockaddr_in *sa_in,
     int i)
 {
@@ -33,6 +42,7 @@ static void add_client(server_t *serv, int fd, struct sockaddr_in *sa_in,
     event.events = EPOLLIN;
     event.data.fd = fd;
     epoll_ctl(serv->fd_epoll, EPOLL_CTL_ADD, fd, &event);
+    send_id(serv, fd, i);
 }
 
 int accept_client(server_t *serv)

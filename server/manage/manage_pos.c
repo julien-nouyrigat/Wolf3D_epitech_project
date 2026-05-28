@@ -49,11 +49,14 @@ static void init_tmp_player(player_t *tmp, player_state_t *state)
 {
     tmp->position.x = state->pos_x;
     tmp->position.y = state->pos_y;
+    tmp->pos_f.x = state->pos_x / TILE_SIZE;
+    tmp->pos_f.y = state->pos_y / TILE_SIZE;
     tmp->direction.x = state->direction_x;
     tmp->direction.y = state->direction_y;
     tmp->mvt_speed = state->mvt_speed;
     tmp->sprint = false;
-    tmp->camera_plane = (sfVector2f){0, FOV};
+    tmp->camera_plane.x = -state->direction_y * FOV;
+    tmp->camera_plane.y = state->direction_x * FOV;
 }
 
 static void apply_pos(player_t *tmp, player_state_t *state)
@@ -64,6 +67,7 @@ static void apply_pos(player_t *tmp, player_state_t *state)
     state->direction_y = tmp->direction.y;
     state->pos_tile_x = tmp->pos_f.x;
     state->pos_tile_y = tmp->pos_f.y;
+    state->mvt_speed = tmp->mvt_speed;
 }
 
 static void manage_map_move(server_t *serv, key_network_t *key, player_t *tmp)

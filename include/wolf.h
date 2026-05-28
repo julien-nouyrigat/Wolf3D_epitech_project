@@ -106,6 +106,9 @@ void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
 void enemy_attack(player_t *player, map_t *map);
 entities_t *sort_entities(entities_t *head);
+void add_player_entity(entities_t **head, player_t *player,
+    window_t *win, size_t i);
+void free_entities(entities_t *head);
 int create_new_item(map_t **map);
 
 #endif /* WOLF_H_ */

@@ -57,14 +57,18 @@ static void recv_pos_udp(window_t *win, player_t *player)
     ssize_t n_bytes = recvfrom(win->client->sock_udp, &net_pos, sizeof(net_pos),
         0, (struct sockaddr *)&sa_in, &len_sa_in);
 
-    if (n_bytes >= (ssize_t)sizeof(net_pos)) {
-        player->position.x = net_pos.state.pos_x;
-        player->position.y = net_pos.state.pos_y;
-        player->pos_f.x = net_pos.state.pos_tile_x;
-        player->pos_f.y = net_pos.state.pos_tile_y;
-        player->direction.x = net_pos.state.direction_x;
-        player->direction.y = net_pos.state.direction_y;
+    if (n_bytes < (ssize_t)sizeof(net_pos))
+        return;
+    if (net_pos.id != win->client->id) {
+        win->client->other[net_pos.id] = net_pos.state;
+        return;
     }
+    player->position.x = net_pos.state.pos_x;
+    player->position.y = net_pos.state.pos_y;
+    player->pos_f.x = net_pos.state.pos_tile_x;
+    player->pos_f.y = net_pos.state.pos_tile_y;
+    player->direction.x = net_pos.state.direction_x;
+    player->direction.y = net_pos.state.direction_y;
 }
 
 void manage_client_network(window_t *win, player_t *player, map_t *map)

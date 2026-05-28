@@ -52,6 +52,18 @@
     #define GUN_DAMAGE 15
     #define GUN_COOLDOWN 1
 
+    #define MAX_CLIENTS 6
+
+typedef struct {
+    float pos_x;
+    float pos_y;
+    float pos_tile_x;
+    float pos_tile_y;
+    float direction_x;
+    float direction_y;
+    int mvt_speed;
+} player_state_t;
+
 typedef struct {
     sfText *text;
     sfRectangleShape *rect;
@@ -64,6 +76,8 @@ typedef struct {
     int sock_udp;
     struct sockaddr_in sa_in_tcp;
     struct sockaddr_in sa_in_udp;
+    player_state_t other[MAX_CLIENTS];
+    sfTexture *t_player;
 } client_t;
 
 typedef struct {

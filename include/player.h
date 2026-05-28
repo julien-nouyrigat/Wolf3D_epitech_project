@@ -67,6 +67,7 @@ typedef struct {
     float real_dist;
     bool orientation;
     sfColor color;
+    sfTexture *wall_text;
 } ray_t;
 
 typedef struct {

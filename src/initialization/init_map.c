@@ -62,7 +62,6 @@ int init_map(map_t **map)
     }
     srand(time(NULL));
     (*map)->type = (rand() % NB_MAPS) + 1;
-    printf("type = %d\n", (*map)->type = (rand() % NB_MAPS) + 1);
     (*map)->map_pos = (sfVector2i){0, 0};
     return EXIT_SUCCESS;
 }

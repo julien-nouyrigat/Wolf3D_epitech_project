@@ -30,16 +30,26 @@ static void project_wall(ray_t *ray, window_t *win, map_t *map,
     draw_wall(ray, win, map, player);
 }
 
-static bool is_wall(map_t *map)
+static bool is_wall(map_t *map, ray_t *ray, window_t *win)
 {
-    if (map->int_map[map->map_pos.y][map->map_pos.x] == 1)
+    int tile = map->int_map[map->map_pos.y][map->map_pos.x];
+
+    if (tile == MAP_WALL) {
+        ray->wall_text = win->textures[(map->type * TEXT_TYPES + WALL) -
+            TEXT_TYPES - 1];
         return true;
+    }
+    if (tile == MAP_WALL1) {
+        ray->wall_text = win->textures[(map->type * TEXT_TYPES + WALL1) -
+            TEXT_TYPES - 1];
+        return true;
+    }
     return false;
 }
 
 static void dda_loop(ray_t *ray, map_t *map, window_t *win, player_t *player)
 {
-    while (!is_wall(map)) {
+    while (!is_wall(map, ray, win)) {
         if (ray->side_dist.x < ray->side_dist.y) {
             ray->side_dist.x += ray->delta_dist.x;
             map->map_pos.x += ray->step.x;

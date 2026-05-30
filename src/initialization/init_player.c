@@ -32,7 +32,7 @@ static void init_life_and_stamina(player_t **player)
     (*player)->max_stamina = STAM_START;
 }
 
-static void init_player_comp(player_t **player)
+void init_player_comp(player_t **player)
 {
     (*player)->position = (sfVector2f){31 * TILE_SIZE,
         31 * TILE_SIZE};

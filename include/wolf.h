@@ -118,5 +118,6 @@ int add_monster_entity(enemy_t *mob, entities_t **head,
 int new_level(map_t *map, player_t *player);
 void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
+void init_player_comp(player_t **player);
 
 #endif /* WOLF_H_ */

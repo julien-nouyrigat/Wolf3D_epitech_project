@@ -115,5 +115,8 @@ int add_items_entity(loot_t *loot, entities_t **head,
     player_t *player);
 int add_monster_entity(enemy_t *mob, entities_t **head,
     player_t *player, map_t *map);
+int new_level(map_t *map, player_t *player);
+void free_enemies_list(map_t *map);
+int **create_map(size_t nb_rooms);
 
 #endif /* WOLF_H_ */

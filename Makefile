@@ -79,6 +79,8 @@ SRC = 		$(MAIN)										\
 			src/enemies/enemies_attack.c 				\
 			src/window/shoot.c							\
 			src/object/init_items.c 					\
+			src/level_management/next_level.c			\
+			src/free/free_enemies_list.c				\
 
 
 SRC_SERV = 	server/main.c								\
@@ -105,6 +107,8 @@ SRC_SERV = 	server/main.c								\
 			src/enemies/sort_entities.c					\
 			src/enemies/handle_enderman.c				\
 			src/object/init_items.c 					\
+			src/level_management/next_level.c			\
+			src/free/free_enemies_list.c				\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

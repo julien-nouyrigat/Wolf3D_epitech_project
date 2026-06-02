@@ -7,13 +7,16 @@
 
 #include "network.h"
 
-void send_key_move(key_enum_t key, window_t *win)
+void send_position_to_serv(player_t *player, window_t *win)
 {
-    key_network_t key_to_send;
+    pos_network_t pos_net = {0};
 
-    key_to_send.id = win->client->id;
-    key_to_send.key = key;
-    sendto(win->client->sock_udp, &key_to_send, sizeof(key_to_send), 0,
+    pos_net.state.pos_x = player->position.x;
+    pos_net.state.pos_y = player->position.y;
+    pos_net.state.pos_tile_x = player->pos_f.x;
+    pos_net.state.pos_tile_y = player->pos_f.y;
+    pos_net.id = win->client->id;
+    sendto(win->client->sock_udp, &pos_net, sizeof(pos_net), 0,
         (struct sockaddr *)&win->client->sa_in_udp,
         sizeof(win->client->sa_in_udp));
 }
@@ -48,7 +51,7 @@ static void recv_map_tcp(window_t *win, map_t *map)
     set_state_win(win);
 }
 
-static void recv_pos_udp(window_t *win, player_t *player)
+static void recv_pos_udp(window_t *win)
 {
     pos_network_t net_pos = {0};
     struct sockaddr_in sa_in = {0};
@@ -62,15 +65,9 @@ static void recv_pos_udp(window_t *win, player_t *player)
         win->client->other[net_pos.id] = net_pos.state;
         return;
     }
-    player->position.x = net_pos.state.pos_x;
-    player->position.y = net_pos.state.pos_y;
-    player->pos_f.x = net_pos.state.pos_tile_x;
-    player->pos_f.y = net_pos.state.pos_tile_y;
-    player->direction.x = net_pos.state.direction_x;
-    player->direction.y = net_pos.state.direction_y;
 }
 
-void manage_client_network(window_t *win, player_t *player, map_t *map)
+void manage_client_network(window_t *win, map_t *map)
 {
     if (win->client->sock_tcp < 0)
         return;
@@ -78,6 +75,6 @@ void manage_client_network(window_t *win, player_t *player, map_t *map)
         recv_map_tcp(win, map);
     }
     if (win->is_game == true) {
-        recv_pos_udp(win, player);
+        recv_pos_udp(win);
     }
 }

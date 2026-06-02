@@ -10,7 +10,7 @@
 
     #include "wolf.h"
 
-typedef void(*function_t)(player_t *player, map_t *map);
+typedef void(*function_t)(player_t *player, map_t *map, window_t *win);
 
 typedef struct keyboard_fpt_s {
     sfKeyCode code;

@@ -31,7 +31,7 @@ typedef struct {
     uint8_t key;
 } key_network_t;
 
-typedef struct {
+typedef struct pos_network_s {
     uint8_t id;
     player_state_t state;
 } pos_network_t;

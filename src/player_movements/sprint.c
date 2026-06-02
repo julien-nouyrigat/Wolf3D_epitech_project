@@ -7,7 +7,8 @@
 
 #include "wolf.h"
 
-void sprint(player_t *player, __attribute_maybe_unused__ map_t *map)
+void sprint(player_t *player, __attribute_maybe_unused__ map_t *map,
+    __attribute_maybe_unused__ window_t *win)
 {
     sfTime time;
     float sec = 0;

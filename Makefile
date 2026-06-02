@@ -83,6 +83,7 @@ SRC = 		$(MAIN)										\
 			src/free/free_enemies_list.c				\
 			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
+			src/initialization/init_visor.c				\
 
 
 SRC_SERV = 	server/main.c								\
@@ -115,6 +116,7 @@ SRC_SERV = 	server/main.c								\
 			src/inventory/inventory.c					\
 			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
+			src/initialization/init_visor.c				\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

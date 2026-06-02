@@ -7,7 +7,7 @@
 
 #include "wolf.h"
 
-static void set_rectangles(player_t **player, window_t *win)
+static void set_rectangles(player_t **player, window_t const *win)
 {
     sfRectangleShape_setFillColor((*player)->hand_inv->one, INV_COLOR);
     sfRectangleShape_setSize((*player)->hand_inv->one,
@@ -28,7 +28,7 @@ static void set_rectangles(player_t **player, window_t *win)
             EMPTY_HAND_INV});
 }
 
-static void format_text(player_t **player, window_t *win)
+static void format_text(player_t **player, window_t const *win)
 {
     sfText_setScale((*player)->hand_inv->t_one, (sfVector2f){1.5, 1.5});
     sfText_setColor((*player)->hand_inv->t_one, sfWhite);
@@ -46,7 +46,7 @@ static void format_text(player_t **player, window_t *win)
             EMPTY_HAND_INV + 10});
 }
 
-static void create_texts(player_t **player, window_t *win)
+static void create_texts(player_t **player, window_t const *win)
 {
     sfFont *inv_font = sfFont_createFromFile(INV_FONT);
 
@@ -62,7 +62,7 @@ static void create_texts(player_t **player, window_t *win)
     format_text(player, win);
 }
 
-void init_hand_inv(player_t **player, window_t *win)
+void init_hand_inv(player_t **player, window_t const *win)
 {
     (*player)->hand_inv->one = sfRectangleShape_create();
     (*player)->hand_inv->two = sfRectangleShape_create();
@@ -74,13 +74,30 @@ void init_hand_inv(player_t **player, window_t *win)
     create_texts(player, win);
 }
 
-void display_hand_inv(window_t *win, player_t *player)
+static void draw_hand_content(window_t const *win, player_t const *player)
+{
+    if (player->hand_inv->w_one == NULL)
+        sfRenderWindow_drawText(win->window, player->hand_inv->t_one, NULL);
+    else
+        sfRenderWindow_drawSprite(win->window, player->hand_inv->w_one->icon,
+            NULL);
+    if (player->hand_inv->w_two == NULL)
+        sfRenderWindow_drawText(win->window, player->hand_inv->t_two, NULL);
+    else
+        sfRenderWindow_drawSprite(win->window, player->hand_inv->w_two->icon,
+            NULL);
+    if (player->hand_inv->w_three == NULL)
+        sfRenderWindow_drawText(win->window, player->hand_inv->t_three, NULL);
+    else
+        sfRenderWindow_drawSprite(win->window,
+            player->hand_inv->w_three->icon, NULL);
+}
+
+void display_hand_inv(window_t const *win, player_t const *player)
 {
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->one, NULL);
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->two, NULL);
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->three,
         NULL);
-    sfRenderWindow_drawText(win->window, player->hand_inv->t_one, NULL);
-    sfRenderWindow_drawText(win->window, player->hand_inv->t_two, NULL);
-    sfRenderWindow_drawText(win->window, player->hand_inv->t_three, NULL);
+    draw_hand_content(win, player);
 }

@@ -68,6 +68,7 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
     display_lamp(win, player);
     display_minimap(win, player, map);
     draw_gun(win, player, map);
+    sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }
 
@@ -155,22 +156,23 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-static int init_all(window_t *wolf_win, map_t **map, player_t **player)
+static int init_all(window_t *win, map_t **map, player_t **player)
 {
-    wolf_win->client = NULL;
-    if (!wolf_win)
+    win->client = NULL;
+    if (!win)
         return EXIT_FAILURE;
     if (init_player(player) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, *player);
+        destroy_assets(win, *player);
         return EXIT_FAILURE;
     }
     if (init_map(map) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, *player);
+        destroy_assets(win, *player);
         return EXIT_FAILURE;
     }
-    if (init_window(wolf_win) == EXIT_FAILURE)
+    if (init_window(win) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    init_hand_inv(player, wolf_win);
+    init_hand_inv(player, win);
+    init_visor(player, win);
     return EXIT_SUCCESS;
 }
 

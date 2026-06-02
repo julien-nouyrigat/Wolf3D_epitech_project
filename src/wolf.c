@@ -63,6 +63,8 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         return EXIT_FAILURE;
     if (player->is_in_inv)
         display_inventory(win, player);
+    if (!player->is_in_inv)
+        display_hand_inv(win, player);
     display_lamp(win, player);
     display_minimap(win, player, map);
     draw_gun(win, player, map);
@@ -168,6 +170,7 @@ static int init_all(window_t *wolf_win, map_t **map, player_t **player)
     }
     if (init_window(wolf_win) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    init_hand_inv(player, wolf_win);
     return EXIT_SUCCESS;
 }
 

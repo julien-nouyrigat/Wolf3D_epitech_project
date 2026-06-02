@@ -121,5 +121,6 @@ int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
 void init_hand_inv(player_t **player, window_t *win);
 void display_hand_inv(window_t *win, player_t *player);
+void grab_object(player_t *player, map_t *map);
 
 #endif /* WOLF_H_ */

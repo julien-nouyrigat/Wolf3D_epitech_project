@@ -21,6 +21,7 @@
     #define HIDE '.'
     #define MUL 7
     #define SIZE_MAP (SIZE_SMAP * MUL)
+    #define SPAWN_PATH "zspawn.room"
 
     #include <stdlib.h>
 typedef enum dir {
@@ -72,5 +73,5 @@ void free_array(char **line);
 char **my_str_to_wa(char *str);
 int **genrating_map(rooms_t *rooms, int nb_rooms);
 rooms_t *parsing_door(rooms_t *rooms);
-rooms_t *pars_map(rooms_t *rooms);
+rooms_t *pars_map(rooms_t *rooms, size_t count);
 #endif /* ROOM_H_ */

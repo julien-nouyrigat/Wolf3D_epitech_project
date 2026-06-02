@@ -31,7 +31,7 @@ void set_inv(window_t *win, player_t *player, map_t *map)
 {
     (void)player;
     (void)map;
-    if (sfKeyboard_isKeyPressed(sfKeyE)){
+    if (sfKeyboard_isKeyPressed(sfKeyI)){
         if (player->is_in_inv){
             player->is_in_inv = false;
             return;

@@ -32,21 +32,20 @@ static void recv_map_tcp(window_t *win, map_t *map)
     uint8_t *buff = (uint8_t *)&net_map;
     ssize_t n_bytes;
 
-    n_bytes = recv(win->client->sock_tcp, buff + total_bytes,
-        sizeof(map_network_t) - total_bytes, 0);
-    if (n_bytes <= 0)
-        return;
-    total_bytes += n_bytes;
-    if (total_bytes < sizeof(map_network_t))
-        return;
+    while (total_bytes < sizeof(map_network_t)) {
+        n_bytes = recv(win->client->sock_tcp, buff + total_bytes,
+            sizeof(map_network_t) - total_bytes, 0);
+        if (n_bytes == 0)
+            return;
+        if (n_bytes > 0)
+            total_bytes += n_bytes;
+    }
     map->type = net_map.type;
     for (size_t i = 0; i < SIZE_MAP; i++) {
-        for (size_t j = 0; j < SIZE_MAP; j++) {
+        for (size_t j = 0; j < SIZE_MAP; j++)
             map->int_map[i][j] = net_map.map[i][j];
-        }
     }
     set_state_win(win);
-    total_bytes = 0;
 }
 
 static void recv_pos_udp(window_t *win, player_t *player)

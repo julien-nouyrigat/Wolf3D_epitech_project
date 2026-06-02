@@ -12,7 +12,7 @@ enum weapons {
     SWORD,
     GUN,
     SHOTGUN,
-    //PHOTON_BLASTER,
+    PHOTON_BLASTER,
     //BOLTZAP,
     //TRANQ_GUN,
     NB_WEAPONS
@@ -30,7 +30,7 @@ static const weapons_data_t weapons_data[NB_WEAPONS] = {
     {50, 0.5, 0, 15, 30},
     {80, 1.0, 0.5, 15, 2000},
     {300, 2.0, 1.5, 5, 200},
-    //{270, 3.0, 3.0, 5, 600},
+    {270, 3.0, 3.0, 5, 600},
     //{8, 1.0, 4.0, 20, 2000},
     //{0, 1.0, 15.0, 8, 600}
 };

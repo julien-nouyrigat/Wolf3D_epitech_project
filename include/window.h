@@ -20,7 +20,9 @@
     #include <arpa/inet.h>
     #include <SFML/Audio.h>
     #include <stdbool.h>
+
     #include "music.h"
+    #include "weapons.h"
 
     #define FRAMES_LIMIT 60
     #define WIN_WIDTH 1920
@@ -239,6 +241,9 @@ typedef struct {
     sfMusic *hurt_sound;
     sfView *view_minimap;
     minimap_t minimap;
+    weapon_t weapons[NB_WEAPONS];
+    sfTexture **weapons_texts;
+    sfTexture **icons_texts;
 } window_t;
 
 #endif /* WINDOW_H_ */

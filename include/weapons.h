@@ -8,6 +8,8 @@
 #ifndef WEAPONS_H_
     #define WEAPONS_H_
 
+    #include "textures.h"
+
 enum weapons {
     SWORD,
     GUN,
@@ -38,7 +40,23 @@ static const weapons_data_t weapons_data[NB_WEAPONS] = {
 typedef struct {
     size_t type;
     weapons_data_t *stats;
+    sfSprite *sprite;
     sfSprite *icon;
+    size_t bullets;
 } weapon_t;
+
+static const textures_t weapons_textures[NB_WEAPONS] = {
+    {"./assets/weapons/sword.png"},
+    {"./assets/weapons/gun.png"},
+    {"./assets/weapons/shotgun.png"},
+    {"./assets/weapons/photon_blaster.png"}
+};
+
+static const textures_t weapons_icons[NB_WEAPONS] = {
+    {"./assets/weapons/sword_icon.png"},
+    {"./assets/weapons/gun_icon.png"},
+    {"./assets/weapons/shotgun_icon.png"},
+    {"./assets/weapons/photon_blaster_icon.png"}
+};
 
 #endif /* WEAPONS_H_ */

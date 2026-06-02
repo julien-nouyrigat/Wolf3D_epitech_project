@@ -125,5 +125,6 @@ void init_hand_inv(player_t **player, window_t const *win);
 void display_hand_inv(window_t const *win, player_t const *player);
 void grab_object(player_t *player, map_t *map);
 void init_visor(player_t **player, window_t *win);
+void init_weapons(window_t *win);
 
 #endif /* WOLF_H_ */

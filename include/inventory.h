@@ -48,7 +48,6 @@ typedef struct loot_s {
     struct loot_s *next;
 } loot_t;
 
-
 typedef struct {
     int weight;
     int price;
@@ -68,6 +67,8 @@ typedef struct {
     sfSprite *s_inventory;
     sfVector2f pos;
     int *inventory;
+    size_t player_money;
+    size_t player_weight;
 } inventory_t;
 
 #endif /* INVENTORY_H_ */

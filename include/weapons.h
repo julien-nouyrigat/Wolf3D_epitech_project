@@ -10,6 +10,8 @@
 
     #include "textures.h"
 
+    #define ICON_SIZE 70
+
 enum weapons {
     SWORD,
     GUN,

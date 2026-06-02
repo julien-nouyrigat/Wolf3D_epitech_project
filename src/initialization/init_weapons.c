@@ -9,6 +9,15 @@
 
 #include "wolf.h"
 
+static sfVector2f get_scale(window_t *win, size_t i)
+{
+    sfVector2u size = sfTexture_getSize(win->icons_texts[i]);
+    sfVector2f scale = (sfVector2f){ICON_SIZE / (float)size.x,
+        ICON_SIZE / (float)size.y};
+
+    return scale;
+}
+
 static void create_weapon(window_t *win, size_t i)
 {
     win->weapons_tab[i]->type = i;
@@ -25,6 +34,7 @@ static void create_weapon(window_t *win, size_t i)
         true);
     win->weapons_tab[i]->icon = sfSprite_create();
     sfSprite_setTexture(win->weapons_tab[i]->icon, win->icons_texts[i], true);
+    sfSprite_setScale(win->weapons_tab[i]->icon, get_scale(win, i));
     win->weapons_tab[i]->bullets = win->weapons_tab[i]->stats->charge;
 }
 

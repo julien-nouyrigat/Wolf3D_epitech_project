@@ -119,5 +119,6 @@ int new_level(map_t *map, player_t *player);
 void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
+void grab_object(player_t *player, map_t *map);
 
 #endif /* WOLF_H_ */

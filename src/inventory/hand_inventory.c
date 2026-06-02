@@ -30,18 +30,21 @@ static void set_rectangles(player_t **player, window_t *win)
 
 static void create_texts(player_t **player)
 {
+    sfFont *inv_font = sfFont_createFromFile(INV_FONT);
+
     (*player)->hand_inv->t_one = sfText_create();
     sfText_setFont((*player)->hand_inv->t_one, inv_font);
+    sfText_setString((*player)->hand_inv->t_one, "1");
     (*player)->hand_inv->t_two = sfText_create();
     sfText_setFont((*player)->hand_inv->t_two, inv_font);
+    sfText_setString((*player)->hand_inv->t_two, "2");
     (*player)->hand_inv->t_three = sfText_create();
     sfText_setFont((*player)->hand_inv->t_three, inv_font);
+    sfText_setString((*player)->hand_inv->t_three, "3");
 }
 
 void init_hand_inv(player_t **player, window_t *win)
 {
-    sfFont *inv_font = sfFont_createFromFile(INV_FONT);
-
     (*player)->hand_inv->one = sfRectangleShape_create();
     (*player)->hand_inv->two = sfRectangleShape_create();
     (*player)->hand_inv->three = sfRectangleShape_create();
@@ -55,7 +58,10 @@ void init_hand_inv(player_t **player, window_t *win)
 void display_hand_inv(window_t *win, player_t *player)
 {
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->one, NULL);
+    sfRenderWindow_drawText(win->window, player->hand_inv->t_one, NULL);
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->two, NULL);
+    sfRenderWindow_drawText(win->window, player->hand_inv->t_two, NULL);
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->three,
         NULL);
+    sfRenderWindow_drawText(win->window, player->hand_inv->t_three, NULL);
 }

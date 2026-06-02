@@ -241,7 +241,7 @@ typedef struct {
     sfMusic *hurt_sound;
     sfView *view_minimap;
     minimap_t minimap;
-    weapon_t weapons[NB_WEAPONS];
+    weapon_t **weapons_tab;
     sfTexture **weapons_texts;
     sfTexture **icons_texts;
 } window_t;

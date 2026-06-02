@@ -171,9 +171,9 @@ static int init_all(window_t *win, map_t **map, player_t **player)
     }
     if (init_window(win) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    init_weapons(win);
     init_hand_inv(player, win);
     init_visor(player, win);
-    init_weapons(win);
     return EXIT_SUCCESS;
 }
 

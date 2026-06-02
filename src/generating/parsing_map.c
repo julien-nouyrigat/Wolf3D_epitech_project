@@ -109,9 +109,8 @@ room_t set_room(char *file)
     return room;
 }
 
-rooms_t *pars_map(rooms_t *rooms)
+rooms_t *pars_map(rooms_t *rooms, size_t count)
 {
-    size_t count = 0;
     DIR *dirent;
     struct dirent *entry;
 
@@ -123,8 +122,9 @@ rooms_t *pars_map(rooms_t *rooms)
         free(rooms);
         return NULL;
     }
+    rooms->rooms[0] = set_room(SPAWN_PATH);
     for (entry = readdir(dirent); entry != NULL; entry = readdir(dirent)){
-        if (entry->d_name[0] != HIDE){
+        if (entry->d_name[0] != HIDE && strcmp(entry->d_name, SPAWN_PATH) != 0){
             rooms->rooms[count] = set_room(entry->d_name);
             count++;
         }

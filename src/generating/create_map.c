@@ -131,7 +131,7 @@ int **create_map(size_t nb_rooms)
     int **smap = NULL;
     int **map = NULL;
 
-    rooms = pars_map(rooms);
+    rooms = pars_map(rooms, 1);
     parsing_door(rooms);
     smap = genrating_map(rooms, nb_rooms);
     map = create_big_map(smap, rooms);

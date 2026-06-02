@@ -20,8 +20,13 @@
     #include <SFML/Audio.h>
     #include <stdbool.h>
 
+    #include "weapons.h"
+
     #define NB_MAX_ITEM 16
     #define EMPTY_SLOT -1
+    #define HAND_INV_SIZE 150
+    #define EMPTY_HAND_INV 1000
+    #define INV_COLOR sfColor_fromRGB(96, 96, 96)
 
 enum type_loot_s {
     BONSAI,
@@ -69,5 +74,14 @@ typedef struct {
     sfVector2f pos;
     int *inventory;
 } inventory_t;
+
+typedef struct {
+    sfRectangleShape *one;
+    weapon_t *w_one;
+    sfRectangleShape *two;
+    weapon_t *w_two;
+    sfRectangleShape *three;
+    weapon_t *w_three;
+} hand_inv_t;
 
 #endif /* INVENTORY_H_ */

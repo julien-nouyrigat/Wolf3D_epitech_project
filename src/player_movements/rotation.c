@@ -9,7 +9,8 @@
 
 #include "wolf.h"
 
-void rotate_left(player_t *player, map_t *map)
+void rotate_left(player_t *player, map_t *map,
+    __attribute_maybe_unused__ window_t *win)
 {
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;
@@ -25,7 +26,8 @@ void rotate_left(player_t *player, map_t *map)
         player->camera_plane.y * cos(ROTATION_SPEED);
 }
 
-void rotate_right(player_t *player, map_t *map)
+void rotate_right(player_t *player, map_t *map,
+    __attribute_maybe_unused__ window_t *win)
 {
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;
@@ -41,7 +43,8 @@ void rotate_right(player_t *player, map_t *map)
         player->camera_plane.y * cos(- ROTATION_SPEED);
 }
 
-void up_cam(player_t *player, map_t *map)
+void up_cam(player_t *player, map_t *map,
+    __attribute_maybe_unused__ window_t *win)
 {
     (void)map;
     player->y_camera += UP_DOWN_MVT;
@@ -49,7 +52,8 @@ void up_cam(player_t *player, map_t *map)
         player->y_camera = UP_MAX;
 }
 
-void down_cam(player_t *player, map_t *map)
+void down_cam(player_t *player, map_t *map,
+    __attribute_maybe_unused__ window_t *win)
 {
     (void)map;
     player->y_camera -= UP_DOWN_MVT;

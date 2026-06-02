@@ -39,6 +39,6 @@ void manage_keyboard(player_t *player, map_t *map, window_t *win)
     }
     for (size_t i = 0; keyboard_input[i].function != NULL; i++) {
         if (sfKeyboard_isKeyPressed(keyboard_input[i].code))
-            keyboard_input[i].function(player, map);
+            keyboard_input[i].function(player, map, win);
     }
 }

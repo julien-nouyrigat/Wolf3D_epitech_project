@@ -28,8 +28,20 @@ static void set_rectangles(player_t **player, window_t *win)
             EMPTY_HAND_INV});
 }
 
+static void create_texts(player_t **player)
+{
+    (*player)->hand_inv->t_one = sfText_create();
+    sfText_setFont((*player)->hand_inv->t_one, inv_font);
+    (*player)->hand_inv->t_two = sfText_create();
+    sfText_setFont((*player)->hand_inv->t_two, inv_font);
+    (*player)->hand_inv->t_three = sfText_create();
+    sfText_setFont((*player)->hand_inv->t_three, inv_font);
+}
+
 void init_hand_inv(player_t **player, window_t *win)
 {
+    sfFont *inv_font = sfFont_createFromFile(INV_FONT);
+
     (*player)->hand_inv->one = sfRectangleShape_create();
     (*player)->hand_inv->two = sfRectangleShape_create();
     (*player)->hand_inv->three = sfRectangleShape_create();
@@ -37,6 +49,7 @@ void init_hand_inv(player_t **player, window_t *win)
     (*player)->hand_inv->w_two = NULL;
     (*player)->hand_inv->w_three = NULL;
     set_rectangles(player, win);
+    create_texts(player);
 }
 
 void display_hand_inv(window_t *win, player_t *player)

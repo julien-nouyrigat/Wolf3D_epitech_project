@@ -27,6 +27,7 @@
     #define HAND_INV_SIZE 150
     #define EMPTY_HAND_INV 1000
     #define INV_COLOR sfColor_fromRGB(96, 96, 96)
+    #define INV_FONT "./assets/fonts/teko.ttf"
 
 enum type_loot_s {
     BONSAI,
@@ -77,10 +78,13 @@ typedef struct {
 
 typedef struct {
     sfRectangleShape *one;
+    sfText *t_one;
     weapon_t *w_one;
     sfRectangleShape *two;
+    sfText *t_two;
     weapon_t *w_two;
     sfRectangleShape *three;
+    sfText *t_three;
     weapon_t *w_three;
 } hand_inv_t;
 

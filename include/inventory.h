@@ -25,7 +25,7 @@
     #define NB_MAX_ITEM 16
     #define EMPTY_SLOT -1
     #define HAND_INV_SIZE 150
-    #define EMPTY_HAND_INV 1000
+    #define EMPTY_HAND_INV 975
     #define INV_COLOR sfColor_fromRGB(96, 96, 96)
     #define INV_FONT "./assets/fonts/teko.ttf"
 

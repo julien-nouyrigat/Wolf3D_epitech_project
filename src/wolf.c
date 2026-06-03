@@ -84,7 +84,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
         sfMusic_stop(win->menu.music);
         if (display_game_elements(win, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
-        if (display_hud(win, player) == EXIT_FAILURE)
+        if (display_hud(win, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
     if (win->is_param == true)
@@ -118,6 +118,7 @@ static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
 
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
+    exctract(map, player, player->inventory);
     verif_play_sound(player, map, win);
     check_keyboard_net(win, player, map);
     verif_footsteps(player, win);

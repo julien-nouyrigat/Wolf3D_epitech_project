@@ -10,7 +10,26 @@
 
 #include "wolf.h"
 
-int display_hud(window_t *win, player_t *player)
+static int display_money(window_t *win, player_t *player, map_t *map)
+{
+    char *lvl_money = calloc(sizeof(char), 14 + 1);
+    char *player_money = calloc(sizeof(char), 14 + 1);
+
+    if (!lvl_money || !player_money)
+        return EXIT_FAILURE;
+    sprintf(lvl_money, "%zu$ / %zu$", map->level->cur_money,
+        level_data[map->level->lvl_id].lvl_money);
+    sprintf(player_money, "%zu$", player->inventory->player_money);
+    sfText_setString(win->hud.lvl_money, lvl_money);
+    sfText_setString(win->hud.player_money, player_money);
+    sfRenderWindow_drawText(win->window, win->hud.lvl_money, NULL);
+    sfRenderWindow_drawText(win->window, win->hud.player_money, NULL);
+    free(lvl_money);
+    free(player_money);
+    return EXIT_SUCCESS;
+}
+
+int display_hud(window_t *win, player_t *player, map_t *map)
 {
     char *life = calloc(sizeof(char), LIFE_LEN + 1);
     char *stamina = calloc(sizeof(char), STAM_LEN + 1);
@@ -27,5 +46,5 @@ int display_hud(window_t *win, player_t *player)
     sfRenderWindow_drawSprite(win->window, win->hud.lightning, NULL);
     free(life);
     free(stamina);
-    return EXIT_SUCCESS;
+    return display_money(win, player, map);
 }

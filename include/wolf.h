@@ -75,6 +75,8 @@ int create_textures(window_t *win);
 void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 char *my_itoa(int nb);
 void create_hud(window_t *win);
+int display_hud(window_t *win, player_t *player, map_t *map);
+void sprint(player_t *player, map_t *map);
 int display_hud(window_t *win, player_t *player);
 void sprint(player_t *player, map_t *map, window_t *win);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
@@ -125,6 +127,8 @@ void init_player_comp(player_t **player);
 void init_hand_inv(player_t **player, window_t const *win);
 void display_hand_inv(window_t const *win, player_t const *player);
 void grab_object(player_t *player, map_t *map);
+void exctract(map_t *map, player_t *player, inventory_t *inv);
+void free_items_list(map_t *map);
 void init_visor(player_t **player, window_t *win);
 void init_weapons(window_t *win);
 

@@ -36,6 +36,7 @@
     #define DOWN_MAX -1500
     #define UP_DOWN_MVT 50
     #define PLAYER_SPAWN 31
+    #define START_WEIGHT 30
 
 typedef struct {
     float x0;

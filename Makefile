@@ -83,6 +83,8 @@ SRC = 		$(MAIN)										\
 			src/free/free_enemies_list.c				\
 			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
+			src/object/exctract.c						\
+			src/free/free_items_list.c 					\
 			src/initialization/init_visor.c				\
 			src/initialization/init_weapons.c			\
 
@@ -118,6 +120,8 @@ SRC_SERV = 	server/main.c								\
 			src/inventory/inventory.c					\
 			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
+			src/object/exctract.c 						\
+			src/free/free_items_list.c 					\
 			src/initialization/init_visor.c				\
 			src/initialization/init_weapons.c			\
 

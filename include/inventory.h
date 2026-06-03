@@ -28,6 +28,8 @@
     #define EMPTY_HAND_INV 975
     #define INV_COLOR sfColor_fromRGB(96, 96, 96)
     #define INV_FONT "./assets/fonts/teko.ttf"
+    #define NB_HANDS 3
+    #define OUTLINE 2
 
 enum type_loot_s {
     BONSAI,

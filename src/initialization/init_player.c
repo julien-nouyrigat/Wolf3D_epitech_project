@@ -44,6 +44,7 @@ void init_player_comp(player_t **player)
     (*player)->camera = (sfVector2f){0, 0};
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
+    (*player)->cursor = 0;
 }
 
 int init_player(player_t **player)

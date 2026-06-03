@@ -41,6 +41,7 @@
     #define NB_TAB_PARAM 4
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
     #define STAMINA_COLOR sfColor_fromRGB(234, 255, 33)
+    #define MONEY_COLOR sfColor_fromRGB(142, 142, 142)
     #define HUD_TEXT_SIZE 55
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
@@ -194,6 +195,8 @@ typedef struct {
 typedef struct {
     sfText *life;
     sfText *stamina;
+    sfText *lvl_money;
+    sfText *player_money;
     sfSprite *cross;
     sfSprite *lightning;
 } hud_t;

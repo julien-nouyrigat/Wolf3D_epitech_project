@@ -72,7 +72,7 @@ int create_textures(window_t *win);
 void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 char *my_itoa(int nb);
 void create_hud(window_t *win);
-int display_hud(window_t *win, player_t *player);
+int display_hud(window_t *win, player_t *player, map_t *map);
 void sprint(player_t *player, map_t *map);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);
@@ -120,5 +120,7 @@ void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
 void grab_object(player_t *player, map_t *map);
+void exctract(map_t *map, player_t *player, inventory_t *inv);
+void free_items_list(map_t *map);
 
 #endif /* WOLF_H_ */

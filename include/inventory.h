@@ -56,7 +56,7 @@ typedef struct {
 } item_data_t;
 
 static const item_data_t item_data[NB_ITEMS] = {
-    {10, 100, 200, "assets/items/Bonsai_Tree.png"},
+    {5, 100, 200, "assets/items/Bonsai_Tree.png"},
     {5, 60, 10, "assets/items/Bracelet.png"},
     {5, 60, 10, "assets/items/Pocket_Watch.png"},
     {5, 60, 10, "assets/items/Uranium_Petri_Dish.png"},
@@ -69,6 +69,8 @@ typedef struct {
     int *inventory;
     size_t player_money;
     size_t player_weight;
+    size_t player_max_weight;
+    bool penalty;
 } inventory_t;
 
 #endif /* INVENTORY_H_ */

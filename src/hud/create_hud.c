@@ -26,18 +26,28 @@ static void set_text_pos(window_t *win)
 {
     sfText_setPosition(win->hud.life, (sfVector2f){50, 7});
     sfText_setPosition(win->hud.stamina, (sfVector2f){50, 65});
+    sfText_setPosition(win->hud.lvl_money, (sfVector2f){800, 50});
+    sfText_setPosition(win->hud.player_money, (sfVector2f){1700, 300});
 }
 
 void create_hud(window_t *win)
 {
+    win->hud.lvl_money = sfText_create();
+    win->hud.player_money = sfText_create();
     win->hud.life = sfText_create();
     win->hud.stamina = sfText_create();
     sfText_setFont(win->hud.life, win->font);
     sfText_setFont(win->hud.stamina, win->font);
+    sfText_setFont(win->hud.lvl_money, win->font);
+    sfText_setFont(win->hud.player_money, win->font);
     sfText_setColor(win->hud.life, HEALTH_COLOR);
     sfText_setColor(win->hud.stamina, STAMINA_COLOR);
+    sfText_setColor(win->hud.lvl_money, MONEY_COLOR);
+    sfText_setColor(win->hud.player_money, MONEY_COLOR);
     sfText_setCharacterSize(win->hud.life, HUD_TEXT_SIZE);
     sfText_setCharacterSize(win->hud.stamina, HUD_TEXT_SIZE);
+    sfText_setCharacterSize(win->hud.lvl_money, 80);
+    sfText_setCharacterSize(win->hud.player_money, HUD_TEXT_SIZE);
     set_text_pos(win);
     create_and_set_icons(win);
 }

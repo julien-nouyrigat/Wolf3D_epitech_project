@@ -26,7 +26,8 @@ void exctract(map_t *map, player_t *player, inventory_t *inv)
         }
         if (map->level->cur_money > level_data[map->level->lvl_id].lvl_money){
             inv->player_money =
-                map->level->cur_money - level_data[map->level->lvl_id].lvl_money;
+                map->level->cur_money -
+                level_data[map->level->lvl_id].lvl_money;
             new_level(map, player);
             map->level->cur_money = 0;
         }

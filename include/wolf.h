@@ -76,8 +76,6 @@ void draw_floor(ray_t *ray, window_t *win, map_t *map, player_t *player);
 char *my_itoa(int nb);
 void create_hud(window_t *win);
 int display_hud(window_t *win, player_t *player, map_t *map);
-void sprint(player_t *player, map_t *map);
-int display_hud(window_t *win, player_t *player);
 void sprint(player_t *player, map_t *map, window_t *win);
 void stop_sprint(window_t *win, player_t *player, map_t *map);
 void stamina_regen(player_t *player);

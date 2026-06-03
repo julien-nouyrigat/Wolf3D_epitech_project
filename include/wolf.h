@@ -129,5 +129,10 @@ void exctract(map_t *map, player_t *player, inventory_t *inv);
 void free_items_list(map_t *map);
 void init_visor(player_t **player, window_t *win);
 void init_weapons(window_t *win);
+void inv_one(player_t *player, map_t __attribute_maybe_unused__ *map);
+void inv_two(player_t *player, map_t __attribute_maybe_unused__ *map);
+void inv_three(player_t *player, map_t __attribute_maybe_unused__ *map);
+void inv_sup(player_t *player, map_t __attribute_maybe_unused__ *map);
+void inv_inf(player_t *player, map_t __attribute_maybe_unused__ *map);
 
 #endif /* WOLF_H_ */

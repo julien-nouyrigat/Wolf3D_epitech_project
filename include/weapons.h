@@ -45,6 +45,7 @@ typedef struct {
     sfSprite *sprite;
     sfSprite *icon;
     size_t bullets;
+    bool is_possessed;
 } weapon_t;
 
 static const textures_t weapons_textures[NB_WEAPONS] = {

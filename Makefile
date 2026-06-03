@@ -24,6 +24,7 @@ SRC = 		$(MAIN)										\
 			src/generating/generating.c 				\
 			src/generating/create_map.c 				\
 			src/generating/free_tools.c 				\
+			src/manage_client.c							\
 			lib/str_to_wa.c 							\
 			lib/free_array.c							\
 			lib/my_itoa.c								\
@@ -58,7 +59,6 @@ SRC = 		$(MAIN)										\
 			src/enemies/display_entities.c				\
 			src/inventory/inventory.c 					\
 			src/initialization/init_client.c			\
-			src/manage_client.c							\
 			src/music/play_music_tiles.c 				\
 			src/initialization/init_music.c 			\
 			src/window/audio_param.c					\
@@ -81,9 +81,12 @@ SRC = 		$(MAIN)										\
 			src/object/init_items.c 					\
 			src/level_management/next_level.c			\
 			src/free/free_enemies_list.c				\
+			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
 			src/object/exctract.c						\
 			src/free/free_items_list.c 					\
+			src/initialization/init_visor.c				\
+			src/initialization/init_weapons.c			\
 
 
 SRC_SERV = 	server/main.c								\
@@ -110,13 +113,17 @@ SRC_SERV = 	server/main.c								\
 			src/enemies/sort_entities.c					\
 			src/enemies/handle_enderman.c				\
 			src/object/init_items.c 					\
+			src/manage_client.c							\
 			src/level_management/next_level.c			\
 			src/free/free_enemies_list.c				\
 			src/initialization/init_player.c			\
 			src/inventory/inventory.c					\
+			src/inventory/hand_inventory.c				\
 			src/object/get_object.c 					\
 			src/object/exctract.c 						\
 			src/free/free_items_list.c 					\
+			src/initialization/init_visor.c				\
+			src/initialization/init_weapons.c			\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

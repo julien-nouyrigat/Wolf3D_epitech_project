@@ -63,9 +63,12 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         return EXIT_FAILURE;
     if (player->is_in_inv)
         display_inventory(win, player);
+    if (!player->is_in_inv)
+        display_hand_inv(win, player);
     display_lamp(win, player);
     display_minimap(win, player, map);
     draw_gun(win, player, map);
+    sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }
 
@@ -94,26 +97,8 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
 
 static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
 {
-    manage_client_network(win, player, map);
-    if (win->is_game == true) {
-        if (sfKeyboard_isKeyPressed(sfKeyZ))
-            send_key_move(KEY_Z, win);
-        if (sfKeyboard_isKeyPressed(sfKeyS))
-            send_key_move(KEY_S, win);
-        if (sfKeyboard_isKeyPressed(sfKeyQ))
-            send_key_move(KEY_Q, win);
-        if (sfKeyboard_isKeyPressed(sfKeyD))
-            send_key_move(KEY_D, win);
-        if (sfKeyboard_isKeyPressed(sfKeyLeft)) {
-            rotate_left(player, map);
-            send_key_move(KEY_LEFT, win);
-        }
-        if (sfKeyboard_isKeyPressed(sfKeyRight)) {
-            rotate_right(player, map);
-            send_key_move(KEY_RIGHT, win);
-        }
-    } else
-        manage_keyboard(player, map, win);
+    manage_client_network(win, map);
+    manage_keyboard(player, map, win);
 }
 
 static int render_window(window_t *win, player_t *player, map_t *map)
@@ -131,7 +116,7 @@ static int render_window(window_t *win, player_t *player, map_t *map)
     if (manage_window(win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     sfRenderWindow_display(win->window);
-    manage_client_network(win, player, map);
+    manage_client_network(win, map);
     return EXIT_SUCCESS;
 }
 
@@ -154,21 +139,24 @@ static int game_loop(window_t *wolf_win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-static int init_all(window_t *wolf_win, map_t **map, player_t **player)
+static int init_all(window_t *win, map_t **map, player_t **player)
 {
-    wolf_win->client = NULL;
-    if (!wolf_win)
+    win->client = NULL;
+    if (!win)
         return EXIT_FAILURE;
     if (init_player(player) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, *player);
+        destroy_assets(win, *player);
         return EXIT_FAILURE;
     }
     if (init_map(map) == EXIT_FAILURE) {
-        destroy_assets(wolf_win, *player);
+        destroy_assets(win, *player);
         return EXIT_FAILURE;
     }
-    if (init_window(wolf_win) == EXIT_FAILURE)
+    if (init_window(win) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    init_weapons(win);
+    init_hand_inv(player, win);
+    init_visor(player, win);
     return EXIT_SUCCESS;
 }
 

@@ -92,6 +92,9 @@ typedef struct {
     sfClock *p_clock;
     float bobing;
     float *z_buffer;
+    hand_inv_t *hand_inv;
+    sfText *visor;
+    size_t cursor;
 } player_t;
 
 #endif /* PLAYER_H_ */

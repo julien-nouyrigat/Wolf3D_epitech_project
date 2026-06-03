@@ -123,7 +123,7 @@ void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
 void init_hand_inv(player_t **player, window_t const *win);
-void display_hand_inv(window_t const *win, player_t const *player);
+void display_hand_inv(window_t const *win, player_t *player);
 void grab_object(player_t *player, map_t *map);
 void exctract(map_t *map, player_t *player, inventory_t *inv);
 void free_items_list(map_t *map);
@@ -137,5 +137,6 @@ void inv_three(player_t *player, map_t __attribute_maybe_unused__ *map,
     __attribute_maybe_unused__ window_t *win);
 void inv_sup(player_t *player, map_t __attribute_maybe_unused__ *map);
 void inv_inf(player_t *player, map_t __attribute_maybe_unused__ *map);
+void draw_hand(window_t *win, player_t *player);
 
 #endif /* WOLF_H_ */

@@ -44,6 +44,12 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
+    if (win->event.type == sfEvtMouseWheelScrolled) {
+        if (win->event.mouseWheelScroll.delta > 0)
+            inv_sup(player, map);
+        else
+            inv_inf(player, map);
+    }
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);

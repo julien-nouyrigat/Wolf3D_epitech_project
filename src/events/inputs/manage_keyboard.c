@@ -20,6 +20,9 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyUp, &up_cam},
     {sfKeyDown, &down_cam},
     {sfKeyLShift, &sprint},
+    {sfKeyNum1, &inv_one},
+    {sfKeyNum2, &inv_two},
+    {sfKeyNum3, &inv_three},
     {sfKeyUnknown, NULL}
 };
 

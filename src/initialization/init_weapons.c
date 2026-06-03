@@ -36,6 +36,7 @@ static void create_weapon(window_t *win, size_t i)
     sfSprite_setTexture(win->weapons_tab[i]->icon, win->icons_texts[i], true);
     sfSprite_setScale(win->weapons_tab[i]->icon, get_scale(win, i));
     win->weapons_tab[i]->bullets = win->weapons_tab[i]->stats->charge;
+    win->weapons_tab[i]->is_possessed = false;
 }
 
 void init_weapons(window_t *win)

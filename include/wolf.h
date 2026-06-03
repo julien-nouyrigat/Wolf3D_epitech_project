@@ -25,6 +25,8 @@
     #define HALF_SEC 0.5
     #define FULL_SEC 0.0
 
+    #define VISOR_COLOR sfColor_fromRGB(192, 192, 192)
+
 typedef enum {
     KEY_Z,
     KEY_S,
@@ -120,8 +122,10 @@ int new_level(map_t *map, player_t *player);
 void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
-void init_hand_inv(player_t **player, window_t *win);
-void display_hand_inv(window_t *win, player_t *player);
+void init_hand_inv(player_t **player, window_t const *win);
+void display_hand_inv(window_t const *win, player_t const *player);
 void grab_object(player_t *player, map_t *map);
+void init_visor(player_t **player, window_t *win);
+void init_weapons(window_t *win);
 
 #endif /* WOLF_H_ */

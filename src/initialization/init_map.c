@@ -79,6 +79,7 @@ static int init_level(map_t **map)
 
 int init_map(map_t **map)
 {
+    srand(time(NULL));
     *map = calloc(sizeof(map_t), 1);
     if (!*map)
         return EXIT_FAILURE;
@@ -89,7 +90,6 @@ int init_map(map_t **map)
         free(*map);
         return EXIT_FAILURE;
     }
-    srand(time(NULL));
     (*map)->type = (rand() % NB_MAPS) + 1;
     (*map)->map_pos = (sfVector2i){0, 0};
     return EXIT_SUCCESS;

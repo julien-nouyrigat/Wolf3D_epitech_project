@@ -9,6 +9,28 @@
 
 #include "wolf.h"
 
+static int nb_money(map_t **map)
+{
+    int money = 0;
+    loot_t *tmp_loot = (*map)->level->loot;
+
+    for (; tmp_loot; tmp_loot = tmp_loot->next){
+        money += tmp_loot->item->price;
+    }
+    return money;
+}
+
+static int change_items(map_t **map, size_t max_money)
+{
+    free_items_list(*map);
+    (*map)->level->loot = NULL;
+    for (size_t i = 0; i <= max_money; i = nb_money(map)) {
+        if (create_new_item(map) == EXIT_FAILURE)
+            return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
 static int change_monsters(map_t *map)
 {
     free_enemies_list(map);
@@ -33,6 +55,10 @@ static void reinit_player(player_t *player)
 {
     init_player_comp(&player);
     player->stamina = player->max_stamina;
+    if (player->life + 50 > 100)
+        player->life = 100;
+    else
+        player->life += 50;
     sfClock_restart(player->p_clock);
 }
 
@@ -45,11 +71,13 @@ int new_level(map_t *map, player_t *player)
         lvl_id = map->level->lvl - 1;
     else
         lvl_id = MAX_LEVEL - 1;
+    map->level->lvl_id = lvl_id;
     if (change_map(map, lvl_id) == EXIT_FAILURE)
         return EXIT_FAILURE;
     map->level->nb_mobs = level_data[lvl_id].nb_mobs;
     if (change_monsters(map) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    change_items(&map, level_data[map->level->lvl_id].lvl_money * 1.5);
     reinit_player(player);
     return EXIT_SUCCESS;
 }

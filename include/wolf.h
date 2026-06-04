@@ -138,5 +138,8 @@ void inv_three(player_t *player, map_t __attribute_maybe_unused__ *map,
 void inv_sup(player_t *player, map_t __attribute_maybe_unused__ *map);
 void inv_inf(player_t *player, map_t __attribute_maybe_unused__ *map);
 void draw_hand(window_t *win, player_t *player);
+void manage_game_mouse(window_t *win, player_t *player, map_t *map);
+void shoot_weapon(window_t *win, player_t *player, map_t *map);
+void animate_hand(player_t *player);
 
 #endif /* WOLF_H_ */

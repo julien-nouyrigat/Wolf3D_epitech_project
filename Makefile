@@ -89,6 +89,8 @@ SRC = 		$(MAIN)										\
 			src/initialization/init_weapons.c			\
 			src/inventory/manage_hand_inventory.c		\
 			src/inventory/draw_hand.c					\
+			src/events/inputs/manage_game_mouse.c		\
+			src/window/shoot_weapon.c					\
 
 
 SRC_SERV = 	server/main.c								\
@@ -128,6 +130,8 @@ SRC_SERV = 	server/main.c								\
 			src/initialization/init_weapons.c			\
 			src/inventory/manage_hand_inventory.c		\
 			src/inventory/draw_hand.c					\
+			src/events/inputs/manage_game_mouse.c		\
+			src/window/shoot_weapon.c					\
 
 
 SRC_TESTS = tests/unit_tests.c 							\

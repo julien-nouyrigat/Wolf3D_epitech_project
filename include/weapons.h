@@ -53,6 +53,7 @@ typedef struct {
     bool is_possessed;
     sfClock *w_clock;
     sfClock *animation;
+    size_t frame;
 } weapon_t;
 
 static const textures_t weapons_textures[NB_WEAPONS] = {

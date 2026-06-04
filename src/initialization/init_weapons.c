@@ -25,6 +25,7 @@ static void create_components(window_t *win, size_t i)
     win->weapons_tab[i]->animation = sfClock_create();
     sfSprite_setScale(win->weapons_tab[i]->sprite, (sfVector2f){1.8, 1.8});
     sfSprite_setPosition(win->weapons_tab[i]->sprite, weapons_data[i].pos);
+    win->weapons_tab[i]->frame = 0;
 }
 
 static void create_weapon(window_t *win, size_t i)

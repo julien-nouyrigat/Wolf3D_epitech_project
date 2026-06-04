@@ -68,6 +68,7 @@ typedef struct {
     float real_dist;
     bool orientation;
     sfColor color;
+    sfTexture *wall_text;
 } ray_t;
 
 typedef struct {
@@ -93,8 +94,11 @@ typedef struct {
     float bobing;
     float *z_buffer;
     hand_inv_t *hand_inv;
+    weapon_t *in_hand;
     sfText *visor;
     int cursor;
+    bool shoots;
+    bool new_game;
 } player_t;
 
 #endif /* PLAYER_H_ */

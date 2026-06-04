@@ -44,12 +44,8 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
-    if (win->event.type == sfEvtMouseWheelScrolled) {
-        if (win->event.mouseWheelScroll.delta > 0)
-            inv_sup(player, map);
-        else
-            inv_inf(player, map);
-    }
+    if (win->is_game || win->is_single)
+        manage_game_mouse(win, player, map);
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);
@@ -59,7 +55,7 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
     manage_enemies(win, player, map);
-    enemy_attack(player, map);
+    enemy_attack(player, map, win);
     if (!win->ambiance_started) {
         sfMusic_play(win->ambiance);
         sfMusic_setLoop(win->ambiance, sfTrue);
@@ -75,6 +71,13 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         display_lamp(win, player);
     if (win->is_gun)
         draw_gun(win, player, map);
+    display_lamp(win, player);
+    if (player->life != 0){
+        display_hand_inv(win, player);
+        display_minimap(win, player, map);
+        //draw_gun(win, player, map);
+        draw_hand(win, player);
+    }
     sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }
@@ -173,7 +176,7 @@ int wolf(void)
     if (init_all(wolf_win, &map, &player) == EXIT_FAILURE)
         return EXIT_FAILURE;
     init_minimap(wolf_win);
-    load_save(player, map);
+    //load_save(player, map);
     if (game_loop(wolf_win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     save_in_file(player, map);

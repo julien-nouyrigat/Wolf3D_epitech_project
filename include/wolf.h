@@ -108,7 +108,7 @@ void handle_enderman(monster_t *mob, player_t *player, map_t *map);
 void shoot(window_t *win, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
-void enemy_attack(player_t *player, map_t *map);
+void enemy_attack(player_t *player, map_t *map, window_t *win);
 entities_t *sort_entities(entities_t *head);
 void add_player_entity(entities_t **head, player_t *player,
     window_t *win, size_t i);
@@ -123,7 +123,7 @@ void free_enemies_list(map_t *map);
 int **create_map(size_t nb_rooms);
 void init_player_comp(player_t **player);
 void init_hand_inv(player_t **player, window_t const *win);
-void display_hand_inv(window_t const *win, player_t const *player);
+void display_hand_inv(window_t const *win, player_t *player);
 void grab_object(player_t *player, map_t *map);
 void exctract(map_t *map, player_t *player, inventory_t *inv, window_t *win);
 void free_items_list(map_t *map);
@@ -139,5 +139,10 @@ void inv_sup(player_t *player, map_t __attribute_maybe_unused__ *map);
 void inv_inf(player_t *player, map_t __attribute_maybe_unused__ *map);
 void init_transition(window_t *win);
 void display_transition(window_t *win);
+void draw_hand(window_t *win, player_t *player);
+void manage_game_mouse(window_t *win, player_t *player, map_t *map);
+void shoot_weapon(window_t *win, player_t *player, map_t *map);
+void animate_hand(player_t *player);
+int new_game(map_t *map, player_t *player);
 
 #endif /* WOLF_H_ */

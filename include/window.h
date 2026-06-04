@@ -207,6 +207,8 @@ typedef struct {
     sfText *stamina;
     sfText *lvl_money;
     sfText *player_money;
+    sfText *dead_text;
+    sfText *go_back;
     sfSprite *cross;
     sfSprite *lightning;
 } hud_t;

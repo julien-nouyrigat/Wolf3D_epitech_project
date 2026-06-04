@@ -75,6 +75,7 @@ typedef struct monster_s {
     float order_dist;
     sfClock *mob_clock;
     sfMusic *sound_effect;
+    float last_attack;
 } monster_t;
 
 typedef struct enemy_s {
@@ -106,13 +107,13 @@ typedef struct {
 } sprite_proj_t;
 
 static const mob_data_t mob_data[NB_ENEMIES] = {
-    {CLOWN, LARGE_HEALTH, 100, INFINITE_RANGE, 2.5, 7.0, LARGE_LOOT},
-    {NUN, LARGE_HEALTH, 100, 15, 3.5, 3.0, LARGE_LOOT},
-    {HEADMAN, LARGE_HEALTH, 50, 15, 3.5, 3.0, LARGE_LOOT},
-    {WITCH, VERY_LARGE_HEALTH, 125, 15, 2.5, 4.0, LARGE_LOOT},
-    {CYCLOPS, VERY_LARGE_HEALTH, 100, 20, 1.5, 6.0, LARGE_LOOT},
-    {CHEF, MEDIUM_HEALTH, 10, 15, 2.5, 0.5, MEDIUM_LOOT},
-    {ENDERMAN, MEDIUM_HEALTH, 200, INFINITE_RANGE, 0, 45, SMALL_LOOT}
+    {CLOWN, LARGE_HEALTH, 100, 60, 2.5, 7.0, LARGE_LOOT},
+    {NUN, LARGE_HEALTH, 100, 60, 3.5, 3.0, LARGE_LOOT},
+    {HEADMAN, LARGE_HEALTH, 50, 60, 3.5, 3.0, LARGE_LOOT},
+    {WITCH, VERY_LARGE_HEALTH, 125, 60, 2.5, 4.0, LARGE_LOOT},
+    {CYCLOPS, VERY_LARGE_HEALTH, 100, 60, 1.5, 6.0, LARGE_LOOT},
+    {CHEF, MEDIUM_HEALTH, 10, 60, 2.5, 0.5, MEDIUM_LOOT},
+    {ENDERMAN, MEDIUM_HEALTH, 200, 60, 0, 45, SMALL_LOOT}
 };
 
 #endif /* ENEMIES_H_ */

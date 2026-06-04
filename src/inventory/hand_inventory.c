@@ -70,7 +70,7 @@ void init_hand_inv(player_t **player, window_t const *win)
     sfRectangleShape_setOutlineThickness((*player)->hand_inv->two, OUTLINE);
     (*player)->hand_inv->three = sfRectangleShape_create();
     sfRectangleShape_setOutlineThickness((*player)->hand_inv->three, OUTLINE);
-    (*player)->hand_inv->w_one = win->weapons_tab[GUN];
+    (*player)->hand_inv->w_one = win->weapons_tab[GUN];/////////////////////////
     (*player)->hand_inv->w_two = win->weapons_tab[SHOTGUN];
     (*player)->hand_inv->w_three = win->weapons_tab[PHOTON_BLASTER];
     set_rectangles(player, win);
@@ -85,25 +85,27 @@ static sfVector2f get_pos(window_t const *win, int offset)
     return pos;
 }
 
-static void set_player_cursor(player_t const *player)
+static void set_player_cursor(player_t *player)
 {
     if (player->cursor == 0) {
         sfRectangleShape_setOutlineColor(player->hand_inv->one, sfWhite);
-        sfRectangleShape_setOutlineColor(player->hand_inv->two,
-            sfTransparent);
+        sfRectangleShape_setOutlineColor(player->hand_inv->two, sfTransparent);
         sfRectangleShape_setOutlineColor(player->hand_inv->three,
             sfTransparent);
+        player->in_hand = player->hand_inv->w_one;
     }
     if (player->cursor == 1) {
         sfRectangleShape_setOutlineColor(player->hand_inv->one, sfTransparent);
         sfRectangleShape_setOutlineColor(player->hand_inv->two, sfWhite);
         sfRectangleShape_setOutlineColor(player->hand_inv->three,
             sfTransparent);
+        player->in_hand = player->hand_inv->w_two;
     }
     if (player->cursor == 2) {
         sfRectangleShape_setOutlineColor(player->hand_inv->one, sfTransparent);
         sfRectangleShape_setOutlineColor(player->hand_inv->two, sfTransparent);
         sfRectangleShape_setOutlineColor(player->hand_inv->three, sfWhite);
+        player->in_hand = player->hand_inv->w_three;
     }
 }
 
@@ -138,7 +140,7 @@ static void draw_hand_content(window_t const *win, player_t const *player)
     draw_last_hand(win, player);
 }
 
-void display_hand_inv(window_t const *win, player_t const *player)
+void display_hand_inv(window_t const *win, player_t *player)
 {
     set_player_cursor(player);
     sfRenderWindow_drawRectangleShape(win->window, player->hand_inv->one, NULL);

@@ -11,6 +11,9 @@
     #include "textures.h"
 
     #define ICON_SIZE 70
+    #define SIZE 200
+    #define POSITION (sfVector2f){1300, 700}
+    #define AREA (sfIntRect){0, 10, 200, 190}
 
 enum weapons {
     SWORD,
@@ -32,7 +35,7 @@ typedef struct {
 
 static const weapons_data_t weapons_data[NB_WEAPONS] = {
     {50, 0.5, 0, 15, 30},
-    {80, 1.0, 0.5, 15, 2000},
+    {80, 0.5, 0.5, 15, 2000},
     {300, 2.0, 1.5, 5, 200},
     {270, 3.0, 3.0, 5, 600},
     //{8, 1.0, 4.0, 20, 2000},
@@ -43,9 +46,13 @@ typedef struct {
     size_t type;
     weapons_data_t *stats;
     sfSprite *sprite;
+    sfIntRect area;
     sfSprite *icon;
     size_t bullets;
     bool is_possessed;
+    sfClock *w_clock;
+    sfClock *animation;
+    size_t frame;
 } weapon_t;
 
 static const textures_t weapons_textures[NB_WEAPONS] = {

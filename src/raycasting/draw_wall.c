@@ -29,10 +29,9 @@ sfVertex create_vertex(float pos_x, float pos_y, float text_x,
     return vertex;
 }
 
-static sfRenderStates get_wall_state(window_t *win, map_t *map)
+static sfRenderStates get_wall_state(ray_t *ray)
 {
-    sfRenderStates wall_state = {.texture =
-            win->textures[(map->type * TEXT_TYPES + WALL) - TEXT_TYPES - 1],
+    sfRenderStates wall_state = {.texture = ray->wall_text,
         .blendMode = sfBlendAlpha, .transform = sfTransform_Identity,
         .shader = NULL};
 
@@ -87,7 +86,7 @@ static quad_vert_t find_quad_vertex(ray_t *ray, window_t *win, map_t *map,
 void draw_wall(ray_t *ray, window_t *win, map_t *map, player_t *player)
 {
     quad_vert_t quad_vert = find_quad_vertex(ray, win, map, player);
-    sfRenderStates wall_state = get_wall_state(win, map);
+    sfRenderStates wall_state = get_wall_state(ray);
     sfVertexArray *wall_line = create_vertex_array(&quad_vert);
 
     sfRenderWindow_drawVertexArray(win->window, wall_line, &wall_state);

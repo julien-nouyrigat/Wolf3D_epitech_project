@@ -70,7 +70,7 @@ void init_hand_inv(player_t **player, window_t const *win)
     sfRectangleShape_setOutlineThickness((*player)->hand_inv->two, OUTLINE);
     (*player)->hand_inv->three = sfRectangleShape_create();
     sfRectangleShape_setOutlineThickness((*player)->hand_inv->three, OUTLINE);
-    (*player)->hand_inv->w_one = win->weapons_tab[GUN];//////////////////////////////
+    (*player)->hand_inv->w_one = win->weapons_tab[GUN];/////////////////////////
     (*player)->hand_inv->w_two = win->weapons_tab[SHOTGUN];
     (*player)->hand_inv->w_three = win->weapons_tab[PHOTON_BLASTER];
     set_rectangles(player, win);

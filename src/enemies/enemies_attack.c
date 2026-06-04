@@ -11,6 +11,20 @@
 
 #include "wolf.h"
 
+void dead(window_t *win, player_t *player, size_t damage, map_t *map)
+{
+    player->life = 0;
+    sfMusic_stop(win->footsteps);
+    if (win->event.type = sfEvtKeyPressed){
+        if (sfKeyboard_isKeyPressed(sfKeyA)){
+            win->is_single = false;
+            win->is_menu = true;
+            player->is_moving = false;
+            new_game(map, player);
+        }
+    }
+}
+
 void take_damage(window_t *win, player_t *player, size_t damage, map_t *map)
 {
     int life = player->life - damage;

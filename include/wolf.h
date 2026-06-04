@@ -108,7 +108,7 @@ void handle_enderman(monster_t *mob, player_t *player, map_t *map);
 void shoot(window_t *win, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
-void enemy_attack(player_t *player, map_t *map);
+void enemy_attack(player_t *player, map_t *map, window_t *win);
 entities_t *sort_entities(entities_t *head);
 void add_player_entity(entities_t **head, player_t *player,
     window_t *win, size_t i);
@@ -137,5 +137,6 @@ void inv_three(player_t *player, map_t __attribute_maybe_unused__ *map,
     __attribute_maybe_unused__ window_t *win);
 void inv_sup(player_t *player, map_t __attribute_maybe_unused__ *map);
 void inv_inf(player_t *player, map_t __attribute_maybe_unused__ *map);
+int new_game(map_t *map, player_t *player);
 
 #endif /* WOLF_H_ */

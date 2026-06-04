@@ -39,6 +39,12 @@
     #define SIZE_X_GUN (539 / COL_GUN)
     #define SIZE_Y_GUN (463 / LINE_GUN)
     #define IPS_BG (1.0 / 24)
+    #define COL_TRANS 8
+    #define LINE_TRANS 18
+    #define LAST_LINE_TRANS 5
+    #define SIZE_X_TRANS (2048 / COL_TRANS)
+    #define SIZE_Y_TRANS (2394 / LINE_TRANS)
+    #define IPS_TRANS (1.0 / 24)
     #define NB_TAB_MENU 5
     #define NB_TAB_PARAM 4
     #define HEALTH_COLOR sfColor_fromRGB(82, 252, 123)
@@ -48,7 +54,7 @@
     #define NB_RECT_AUDIO 4
     #define NB_TEXT_AUDIO 5
     #define AMBIANCE 50
-    #define RENDER_DISTANCE 100
+    #define RENDER_DISTANCE 20
     #define NB_RESOLUTION 6
     #define GRAY sfColor_fromRGB(143, 143, 143)
 
@@ -172,9 +178,11 @@ typedef struct {
     sfClock *clock;
     sfClock *broad_clock;
     sfClock *gun_clock;
+    sfClock *trans_clock;
     sfTime time;
     float elapsed_time_bg;
     float elapsed_time_gun;
+    float elapsed_time_trans;
 } win_clock_t;
 
 typedef struct {
@@ -211,7 +219,24 @@ typedef struct {
     sfTexture *t_player;
     sfSprite *s_player;
     sfRectangleShape *bg;
+    bool is_minimap;
+    sfSprite *s_tv;
+    sfTexture *t_tv;
 } minimap_t;
+
+typedef struct {
+    sfTexture *t_bg;
+    sfSprite *s_bg;
+} shop_t;
+
+typedef struct {
+    sfTexture *t_bg;
+    sfSprite *s_bg;
+    sfIntRect rect_bg;
+    int line;
+    int col;
+    bool is_play;
+} transition_t;
 
 typedef struct {
     sfRenderWindow *window;
@@ -249,6 +274,9 @@ typedef struct {
     weapon_t **weapons_tab;
     sfTexture **weapons_texts;
     sfTexture **icons_texts;
+    transition_t transition;
+    bool is_lamp;
+    bool is_gun;
 } window_t;
 
 #endif /* WINDOW_H_ */

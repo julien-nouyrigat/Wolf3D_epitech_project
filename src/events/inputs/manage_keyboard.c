@@ -23,8 +23,19 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyNum1, &inv_one},
     {sfKeyNum2, &inv_two},
     {sfKeyNum3, &inv_three},
+    {sfKeyTab, &display_minimap},
     {sfKeyUnknown, NULL}
 };
+
+static void manage_tabulation(player_t *player, window_t *win)
+{
+    if (win->event.type == sfEvtKeyReleased)
+        if (win->event.key.code == sfKeyTab) {
+            win->is_lamp = true;
+            win->is_gun = true;
+            player->mvt_speed = 3;
+        }
+}
 
 void dead_menu(window_t *win, player_t *player, map_t *map)
 {
@@ -58,4 +69,5 @@ void manage_keyboard(player_t *player, map_t *map, window_t *win)
         if (sfKeyboard_isKeyPressed(keyboard_input[i].code))
             keyboard_input[i].function(player, map, win);
     }
+    manage_tabulation(player, win);
 }

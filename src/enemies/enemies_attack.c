@@ -25,8 +25,8 @@ void take_damage(window_t *win, player_t *player, size_t damage)
     player->life -= damage;
 }
 
-void verif_cooldown(window_t *win, map_t *map, player_t *player,
-    enemy_t *enemies)
+void verif_cooldown(window_t *win, map_t __attribute_maybe_unused__ *map,
+    player_t *player, enemy_t *enemies)
 {
     sfTime time = sfClock_getElapsedTime(win->clock.broad_clock);
     float t1 = enemies->monster->last_attack;

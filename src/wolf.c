@@ -55,7 +55,7 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
     manage_enemies(win, player, map);
-    enemy_attack(player, map);
+    enemy_attack(player, map, win);
     if (!win->ambiance_started) {
         sfMusic_play(win->ambiance);
         sfMusic_setLoop(win->ambiance, sfTrue);

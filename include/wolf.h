@@ -108,7 +108,7 @@ void handle_enderman(monster_t *mob, player_t *player, map_t *map);
 void shoot(window_t *win, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
-void enemy_attack(player_t *player, map_t *map);
+void enemy_attack(player_t *player, map_t *map, window_t *win);
 entities_t *sort_entities(entities_t *head);
 void add_player_entity(entities_t **head, player_t *player,
     window_t *win, size_t i);
@@ -141,5 +141,6 @@ void draw_hand(window_t *win, player_t *player);
 void manage_game_mouse(window_t *win, player_t *player, map_t *map);
 void shoot_weapon(window_t *win, player_t *player, map_t *map);
 void animate_hand(player_t *player);
+int new_game(map_t *map, player_t *player);
 
 #endif /* WOLF_H_ */

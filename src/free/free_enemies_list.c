@@ -26,4 +26,5 @@ void free_enemies_list(map_t *map)
         free_monster(prec->monster);
         free(prec);
     }
+    map->level->enemies = NULL;
 }

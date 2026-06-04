@@ -25,4 +25,5 @@ void free_items_list(map_t *map)
         free_item(prec->item);
         free(prec);
     }
+    map->level->loot = NULL;
 }

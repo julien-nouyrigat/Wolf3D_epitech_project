@@ -27,6 +27,18 @@ void take_damage(window_t *win, player_t *player, size_t damage, map_t *map)
     player->life -= damage;
 }
 
+void verif_cooldown(window_t *win, map_t *map, player_t *player, enemy_t *enemies)
+{
+    sfTime time = sfClock_getElapsedTime(win->clock.broad_clock);
+    float t1 = enemies->monster->last_attack;
+    float t2 = time.microseconds / SECOND;
+
+    if (t2 - t1 < enemies->monster->cooldown && t1 != 0)
+        return;
+    enemies->monster->last_attack = t2;
+    take_damage(win, player, enemies->monster->damage, map);
+}
+
 void enemy_attack(player_t *player, map_t *map, window_t *win)
 {
     enemy_t *enemies = map->level->enemies;
@@ -38,7 +50,8 @@ void enemy_attack(player_t *player, map_t *map, window_t *win)
         dy = enemies->monster->position.y - player->position.y;
         if (dx > -60 && dx < 60 &&
             dy > -60 && dy < 60){
-            take_damage(win, player, enemies->monster->damage, map);
+            verif_cooldown(win, map, player, enemies);
+            return;
         }
     }
 }

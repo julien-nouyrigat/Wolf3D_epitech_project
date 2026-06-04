@@ -175,7 +175,7 @@ int wolf(void)
     if (init_all(wolf_win, &map, &player) == EXIT_FAILURE)
         return EXIT_FAILURE;
     init_minimap(wolf_win);
-    load_save(player, map);
+    //load_save(player, map);
     if (game_loop(wolf_win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     save_in_file(player, map);

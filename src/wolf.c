@@ -52,6 +52,21 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
     check_other_events(win, mp, player);
 }
 
+static void display_other_elements(window_t *win, player_t *player, map_t *map)
+{
+    if (!player->is_in_inv)
+        display_hand_inv(win, player);
+    if (win->is_lamp)
+        display_lamp(win, player);
+    if (win->is_gun)
+        draw_gun(win, player, map);
+    if (player->life != 0){
+        display_hand_inv(win, player);
+        //draw_gun(win, player, map);
+        draw_hand(win, player);
+    }
+}
+
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
     manage_enemies(win, player, map);
@@ -65,19 +80,7 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         return EXIT_FAILURE;
     if (player->is_in_inv)
         display_inventory(win, player);
-    if (!player->is_in_inv)
-        display_hand_inv(win, player);
-    if (win->is_lamp)
-        display_lamp(win, player);
-    if (win->is_gun)
-        draw_gun(win, player, map);
-    display_lamp(win, player);
-    if (player->life != 0){
-        display_hand_inv(win, player);
-        display_minimap(win, player, map);
-        //draw_gun(win, player, map);
-        draw_hand(win, player);
-    }
+    display_other_elements(win, player, map);
     sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }

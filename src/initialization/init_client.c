@@ -34,14 +34,14 @@ int connect_client(window_t *win, player_t *player)
         printf("La création du socket a échoué\n");
         return EXIT_FAILURE;
     }
-    inet_pton(AF_INET, LOCAL, &win->client->sa_in_tcp.sin_addr);
+    inet_pton(AF_INET, "10.68.252.179", &win->client->sa_in_tcp.sin_addr);
     if (connect(win->client->sock_tcp, (struct sockaddr *)
             &win->client->sa_in_tcp, sizeof(win->client->sa_in_tcp)) < 0)
         return EXIT_FAILURE;
     recv_infos(win, player);
     win->client->sa_in_udp.sin_family = AF_INET;
     win->client->sa_in_udp.sin_port = htons(PORT_UDP);
-    inet_pton(AF_INET, LOCAL, &win->client->sa_in_udp.sin_addr);
+    inet_pton(AF_INET, "10.68.252.179", &win->client->sa_in_udp.sin_addr);
     fcntl(win->client->sock_tcp, F_SETFL, O_NONBLOCK);
     fcntl(win->client->sock_udp, F_SETFL, O_NONBLOCK);
     printf("Le client est bien connecté\n");

@@ -44,7 +44,13 @@ void init_player_comp(player_t **player)
     (*player)->camera = (sfVector2f){0, 0};
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
+    (*player)->shoots = false;
+}
+
+static void init_hand(player_t **player)
+{
     (*player)->cursor = 0;
+    (*player)->in_hand = (*player)->hand_inv->w_one;
 }
 
 int init_player(player_t **player)
@@ -59,6 +65,7 @@ int init_player(player_t **player)
     }
     set_hitbox(player);
     init_player_comp(player);
+    init_hand(player);
     (*player)->mvt_speed = MOVEMENT_SPEED;
     (*player)->sprint = false;
     (*player)->is_moving = false;

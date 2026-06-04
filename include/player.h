@@ -93,8 +93,10 @@ typedef struct {
     float bobing;
     float *z_buffer;
     hand_inv_t *hand_inv;
+    weapon_t *in_hand;
     sfText *visor;
     int cursor;
+    bool shoots;
 } player_t;
 
 #endif /* PLAYER_H_ */

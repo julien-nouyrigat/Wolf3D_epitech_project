@@ -26,6 +26,7 @@ int add_monster_entity(enemy_t *mob, entities_t **head,
         pow(player->pos_f.x - mob->monster->position.x / TILE_SIZE, 2) +
         pow(player->pos_f.y - mob->monster->position.y / TILE_SIZE, 2));
     new->next = *head;
+    new->hitbox = &(mob->monster->hitbox);
     *head = new;
     return EXIT_SUCCESS;
 }
@@ -46,6 +47,7 @@ int add_items_entity(loot_t *loot, entities_t **head,
     new->p_dist = sqrt(
         pow(player->pos_f.x - loot->item->position.x / TILE_SIZE, 2) +
         pow(player->pos_f.y - loot->item->position.y / TILE_SIZE, 2));
+    new->hitbox = &(loot->item->hitbox);
     new->next = *head;
     *head = new;
     return EXIT_SUCCESS;
@@ -64,6 +66,7 @@ void add_player_entity(entities_t **head, player_t *player,
     new_player->p_dist = sqrt(
         pow(player->pos_f.x - win->client->other[i].pos_tile_x, 2) +
         pow(player->pos_f.y - win->client->other[i].pos_tile_y, 2));
+    new_player->hitbox = &(player->s_hitbox);
     new_player->next = *head;
     *head = new_player;
 }

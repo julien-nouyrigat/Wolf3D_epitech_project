@@ -103,6 +103,10 @@ static void get_sprite_3d_proj(entities_t *entity, player_t *player,
 
     if (transform.y / TILE_SIZE < 0.1f)
         return;
+    entity->hitbox->left = proj.start_x;
+    entity->hitbox->top = proj.start_y;
+    entity->hitbox->width = proj.end_x - proj.start_x;
+    entity->hitbox->height = proj.end_y - proj.start_y;
     proj.entity_text = entity->text;
     proj.dist = entity->p_dist;
     select_sprite_stripe(&proj, &transform, win, player);

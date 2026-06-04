@@ -5,6 +5,8 @@
 ** shoot
 */
 
+#include <math.h>
+
 #include "wolf.h"
 
 static bool is_wall(map_t *map)
@@ -14,30 +16,36 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool shoot_mob(enemy_t *tmp, window_t *win)
+static bool is_in_axis(window_t *win, monster_t *mob)
 {
-    sfTime time = sfClock_getElapsedTime(win->clock.gun_clock);
-    float sec = time.microseconds / SECOND;
-
-    if (sec >= GUN_COOLDOWN) {
-        tmp->monster->health -= GUN_DAMAGE;
-        sfMusic_play(win->hurt_sound);
-        sfClock_restart(win->clock.gun_clock);
+    if (win->size.x / 2 >= mob->hitbox.left &&
+        win->size.x / 2 <= mob->hitbox.left + mob->hitbox.width &&
+        win->size.y / 2 >= mob->hitbox.top &&
+        win->size.y / 2 <= mob->hitbox.top + mob->hitbox.height)
         return true;
-    }
     return false;
 }
 
-static bool is_mob(map_t *map, window_t *win)
+static bool is_in_range(enemy_t *tmp, player_t *player)
+{
+    float dx = fabsf(tmp->monster->position.x - player->position.x);
+    float dy = fabsf(tmp->monster->position.y - player->position.y);
+    float dist = sqrt(dx * dx + dy * dy);
+
+    if (dist <= (float)player->in_hand->stats->range)
+        return true;
+    return false;
+}
+
+static bool is_mob(map_t *map, window_t *win, player_t *player)
 {
     enemy_t *tmp = map->level->enemies;
 
     for (; tmp != NULL; tmp = tmp->next) {
-        if (map->map_pos.x >= ((int)tmp->monster->position.x / TILE_SIZE) - 1 &&
-            map->map_pos.x <= ((int)tmp->monster->position.x / TILE_SIZE) + 1 &&
-            map->map_pos.y >= ((int)tmp->monster->position.y / TILE_SIZE) - 1 &&
-            map->map_pos.y <= ((int)tmp->monster->position.y / TILE_SIZE) + 1) {
-            return shoot_mob(tmp, win);
+        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player)) {
+            tmp->monster->health -= player->in_hand->stats->damage;
+            sfMusic_play(win->hurt_sound);
+            return true;
         }
     }
     return false;
@@ -48,7 +56,7 @@ static void dda_loop(ray_t *ray, map_t *map,
     player_t __attribute_maybe_unused__ *player)
 {
     while (!is_wall(map)) {
-        if (is_mob(map, win)) {
+        if (is_mob(map, win, player)) {
             return;
         }
         if (ray->side_dist.x < ray->side_dist.y) {
@@ -100,10 +108,8 @@ static void verif_shoot(player_t *player, window_t *win, map_t *map)
     ray_t bullet = {0};
 
     bullet.screen_x = win->size.x / 2;
-    bullet.direction.x = player->direction.x + player->camera_plane.x *
-        player->camera.x;
-    bullet.direction.y = player->direction.y + player->camera_plane.y *
-        player->camera.x;
+    bullet.direction.x = player->direction.x;
+    bullet.direction.y = player->direction.y;
     init_dda(player, &bullet, map, win);
 }
 

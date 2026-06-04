@@ -52,11 +52,6 @@ void dead_menu(window_t *win, player_t *player, map_t *map)
 
 void manage_keyboard(player_t *player, map_t *map, window_t *win)
 {
-    if (win->event.type == sfEvtMouseButtonPressed)
-        if (sfMouse_isButtonPressed(sfMouseLeft) && !win->is_menu) {
-            win->game.shoot = true;
-            shoot(win, player, map);
-        }
     if (win->event.type == sfEvtKeyPressed) {
         set_inv(win, player, map);
         dead_menu(win, player, map);

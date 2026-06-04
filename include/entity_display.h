@@ -15,6 +15,7 @@ typedef struct entities_s {
     sfVector2f direction;
     sfTexture *text;
     float p_dist;
+    sfFloatRect *hitbox;
     struct entities_s *next;
 } entities_t;
 

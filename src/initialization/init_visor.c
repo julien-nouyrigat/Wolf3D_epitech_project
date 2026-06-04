@@ -9,11 +9,11 @@
 
 void init_visor(player_t **player, window_t *win)
 {
-    (*player)->visor = sfText_create();
-    sfText_setFont((*player)->visor, win->font);
-    sfText_setString((*player)->visor, ".");
-    sfText_setPosition((*player)->visor,
-        (sfVector2f){win->size.x / 2 - 5, win->size.y / 2 - 25});
-    sfText_setColor((*player)->visor, VISOR_COLOR);
-    sfText_setScale((*player)->visor, (sfVector2f){2, 2});
+    (*player)->visor = sfCircleShape_create();
+    sfCircleShape_setRadius((*player)->visor, R_VISOR);
+    sfCircleShape_setOrigin((*player)->visor,
+        (sfVector2f){R_VISOR / 2, R_VISOR / 2});
+    sfCircleShape_setFillColor((*player)->visor, VISOR_COLOR);
+    sfCircleShape_setPosition((*player)->visor,
+        (sfVector2f){win->size.x / 2, win->size.y / 2});
 }

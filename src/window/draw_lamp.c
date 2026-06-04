@@ -11,10 +11,8 @@ void display_lamp(window_t *win, player_t *player)
 {
     sfVector2f pos_light_of = {-240, -100};
     sfVector2f pos_lamp = {90, 676};
-    sfVector2f pos_dark = {-240, -100};
 
-    if (player->life != 0){
-        sfSprite_setPosition(win->game.dark, pos_dark);
+    if (!player->is_in_inv){
         sfRenderWindow_drawSprite(win->window, win->game.dark, NULL);
     } else {
         sfSprite_setPosition(win->game.light_of, pos_light_of);

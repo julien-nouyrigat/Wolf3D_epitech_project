@@ -98,6 +98,7 @@ typedef struct {
     sfText *visor;
     int cursor;
     bool shoots;
+    bool new_game;
 } player_t;
 
 #endif /* PLAYER_H_ */

@@ -11,23 +11,22 @@
 
 #include "wolf.h"
 
-void take_damage(window_t *win, player_t *player, size_t damage, map_t *map)
+void take_damage(window_t *win, player_t *player, size_t damage)
 {
     int life = player->life - damage;
 
     if (life <= 0){
         player->life = 0;
-        win->is_single = false;
-        win->is_menu = true;
-        player->is_moving = false;
+        player->new_game = true;
+        player->mvt_speed = 0;
         sfMusic_stop(win->footsteps);
-        new_game(map, player);
         return;
     }
     player->life -= damage;
 }
 
-void verif_cooldown(window_t *win, map_t *map, player_t *player, enemy_t *enemies)
+void verif_cooldown(window_t *win, map_t *map, player_t *player,
+    enemy_t *enemies)
 {
     sfTime time = sfClock_getElapsedTime(win->clock.broad_clock);
     float t1 = enemies->monster->last_attack;
@@ -36,7 +35,7 @@ void verif_cooldown(window_t *win, map_t *map, player_t *player, enemy_t *enemie
     if (t2 - t1 < enemies->monster->cooldown && t1 != 0)
         return;
     enemies->monster->last_attack = t2;
-    take_damage(win, player, enemies->monster->damage, map);
+    take_damage(win, player, enemies->monster->damage);
 }
 
 void enemy_attack(player_t *player, map_t *map, window_t *win)

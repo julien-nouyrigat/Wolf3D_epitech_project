@@ -63,14 +63,13 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
     }
     if (dda_algorithm(player, map, win) == EXIT_FAILURE)
         return EXIT_FAILURE;
-    if (player->is_in_inv)
-        display_inventory(win, player);
-    if (!player->is_in_inv)
-        display_hand_inv(win, player);
     display_lamp(win, player);
-    display_minimap(win, player, map);
-    //draw_gun(win, player, map);
-    draw_hand(win, player);
+    if (player->life != 0){
+        display_hand_inv(win, player);
+        display_minimap(win, player, map);
+        //draw_gun(win, player, map);
+        draw_hand(win, player);
+    }
     sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }

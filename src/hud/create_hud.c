@@ -22,12 +22,26 @@ static void create_and_set_icons(window_t *win)
     sfSprite_setPosition(win->hud.lightning, (sfVector2f){5, 80});
 }
 
+static void create_dead_text(window_t *win)
+{
+    win->hud.go_back = sfText_create();
+    win->hud.dead_text = sfText_create();
+    sfText_setFont(win->hud.go_back, win->font);
+    sfText_setFont(win->hud.dead_text, win->font);
+    sfText_setColor(win->hud.go_back, sfWhite);
+    sfText_setColor(win->hud.dead_text, sfRed);
+    sfText_setCharacterSize(win->hud.dead_text, 200);
+    sfText_setCharacterSize(win->hud.go_back, HUD_TEXT_SIZE);
+}
+
 static void set_text_pos(window_t *win)
 {
     sfText_setPosition(win->hud.life, (sfVector2f){50, 7});
     sfText_setPosition(win->hud.stamina, (sfVector2f){50, 65});
     sfText_setPosition(win->hud.lvl_money, (sfVector2f){800, 50});
     sfText_setPosition(win->hud.player_money, (sfVector2f){1700, 300});
+    sfText_setPosition(win->hud.dead_text, (sfVector2f){650, 400});
+    sfText_setPosition(win->hud.go_back, (sfVector2f){680, 600});
 }
 
 void create_hud(window_t *win)
@@ -48,6 +62,7 @@ void create_hud(window_t *win)
     sfText_setCharacterSize(win->hud.stamina, HUD_TEXT_SIZE);
     sfText_setCharacterSize(win->hud.lvl_money, 80);
     sfText_setCharacterSize(win->hud.player_money, HUD_TEXT_SIZE);
+    create_dead_text(win);
     set_text_pos(win);
     create_and_set_icons(win);
 }

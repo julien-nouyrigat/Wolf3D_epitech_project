@@ -26,6 +26,19 @@ const struct keyboard_fpt_s keyboard_input [] = {
     {sfKeyUnknown, NULL}
 };
 
+void dead_menu(window_t *win, player_t *player, map_t *map)
+{
+    if (!player->new_game)
+        return;
+    if (win->event.type == sfEvtKeyPressed &&
+        win->event.key.code == sfKeyA) {
+        win->is_single = false;
+        win->is_menu = true;
+        new_game(map, player);
+        player->new_game = false;
+    }
+}
+
 void manage_keyboard(player_t *player, map_t *map, window_t *win)
 {
     if (win->event.type == sfEvtMouseButtonPressed)
@@ -35,6 +48,7 @@ void manage_keyboard(player_t *player, map_t *map, window_t *win)
         }
     if (win->event.type == sfEvtKeyPressed) {
         set_inv(win, player, map);
+        dead_menu(win, player, map);
         if (sfKeyboard_isKeyPressed(sfKeyL))
             new_level(map, player);
         if (sfKeyboard_isKeyPressed(sfKeyE))

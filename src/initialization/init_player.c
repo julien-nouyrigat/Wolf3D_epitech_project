@@ -45,6 +45,7 @@ void init_player_comp(player_t **player)
     (*player)->delta_x = 0;
     (*player)->delta_y = 0;
     (*player)->shoots = false;
+    (*player)->new_game = false;
 }
 
 static void init_hand(player_t **player)

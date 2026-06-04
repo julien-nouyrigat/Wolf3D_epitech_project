@@ -58,6 +58,10 @@ static void reinit_player(player_t *player)
     player->life = LIFE_START;
     player->max_stamina = STAM_START;
     player->mvt_speed = MOVEMENT_SPEED;
+    player->inventory->penalty = false;
+    player->inventory->player_weight = 0;
+    player->inventory->player_money = 0;
+    player->inventory->player_max_weight = 30;
     sfClock_restart(player->p_clock);
 }
 

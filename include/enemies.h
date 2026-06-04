@@ -75,6 +75,7 @@ typedef struct monster_s {
     float order_dist;
     sfClock *mob_clock;
     sfMusic *sound_effect;
+    float last_attack;
 } monster_t;
 
 typedef struct enemy_s {

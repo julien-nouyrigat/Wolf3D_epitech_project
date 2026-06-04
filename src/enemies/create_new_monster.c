@@ -49,6 +49,7 @@ static void fill_mob_data(enemy_t **mob, map_t **map)
     (*mob)->monster->position = get_monster_pos(map);
     (*mob)->monster->direction = (sfVector2f){0, 0};
     (*mob)->monster->sprite = sfSprite_create();
+    (*mob)->monster->last_attack = 0;
     sfSprite_setTexture((*mob)->monster->sprite,
         (*map)->level->mob_texts[(*mob)->type], true);
     (*mob)->monster->mob_clock = sfClock_create();

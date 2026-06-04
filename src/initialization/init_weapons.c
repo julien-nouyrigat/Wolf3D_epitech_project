@@ -20,11 +20,13 @@ static sfVector2f get_scale(window_t *win, size_t i)
 
 static void create_components(window_t *win, size_t i)
 {
-    win->weapons_tab[i]->area = weapons_data[i].area;
+    win->weapons_tab[i]->area = AREA;
+    sfSprite_setTextureRect(win->weapons_tab[i]->sprite,
+            win->weapons_tab[i]->area);
     win->weapons_tab[i]->w_clock = sfClock_create();
     win->weapons_tab[i]->animation = sfClock_create();
     sfSprite_setScale(win->weapons_tab[i]->sprite, (sfVector2f){1.8, 1.8});
-    sfSprite_setPosition(win->weapons_tab[i]->sprite, weapons_data[i].pos);
+    sfSprite_setPosition(win->weapons_tab[i]->sprite, POSITION);
     win->weapons_tab[i]->frame = 0;
 }
 
@@ -43,7 +45,7 @@ static void create_weapon(window_t *win, size_t i)
     sfSprite_setTexture(win->weapons_tab[i]->sprite, win->weapons_texts[i],
         true);
     win->weapons_tab[i]->icon = sfSprite_create();
-    sfSprite_setTexture(win->weapons_tab[i]->icon, win->icons_texts[i], true);
+    sfSprite_setTexture(win->weapons_tab[i]->icon, win->icons_texts[i], false);
     sfSprite_setScale(win->weapons_tab[i]->icon, get_scale(win, i));
     win->weapons_tab[i]->bullets = win->weapons_tab[i]->stats->charge;
     win->weapons_tab[i]->is_possessed = false;

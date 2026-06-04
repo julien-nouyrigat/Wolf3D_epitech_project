@@ -9,10 +9,8 @@
 
 static void reset_state(player_t *player)
 {
-    player->in_hand->area.left =
-        weapons_data[player->in_hand->type].area.left;
-    player->in_hand->area.top =
-        weapons_data[player->in_hand->type].area.top;
+    player->in_hand->area.left = AREA.left;
+    player->in_hand->area.top = AREA.top;
     player->shoots = false;
 }
 
@@ -28,12 +26,8 @@ void animate_hand(player_t *player)
     row = player->in_hand->frame / 3;
     if (anim.microseconds / SECOND >= 0.025) {
         sfClock_restart(player->in_hand->animation);
-        player->in_hand->area.left =
-            weapons_data[player->in_hand->type].area.left + col *
-            weapons_data[player->in_hand->type].d_left;
-        player->in_hand->area.top =
-            weapons_data[player->in_hand->type].area.top + row *
-            weapons_data[player->in_hand->type].d_top;
+        player->in_hand->area.left = AREA.left + col * SIZE;
+        player->in_hand->area.top = AREA.top + row * SIZE;
         player->in_hand->frame += 1;
         if (player->in_hand->frame > 8) {
             reset_state(player);

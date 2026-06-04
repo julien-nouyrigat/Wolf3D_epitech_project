@@ -75,5 +75,8 @@ int init_param(window_t *win)
     init_controls(win);
     init_back(win);
     init_title(win);
+    win->param.is_audio = false;
+    win->param.is_controls = false;
+    win->param.is_graphics = false;
     return EXIT_SUCCESS;
 }

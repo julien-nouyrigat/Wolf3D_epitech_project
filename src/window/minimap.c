@@ -34,23 +34,23 @@ static void set_bounds(int *bounds, player_t *player)
         bounds[3] = MAP_SIZE - 1;
 }
 
-static void draw_tile(window_t *win, map_t *map, int x, int y)
+static void draw_tile(window_t *win, map_t *map, sfVector2i *pos_int)
 {
-    sfVector2f pos = {x * TILE_SIZE, y * TILE_SIZE};
+    sfVector2f pos = {pos_int->x * TILE_SIZE, pos_int->y * TILE_SIZE};
 
     sfRectangleShape_setPosition(win->minimap.wall, pos);
-    if (map->int_map[y][x] == 1) {
+    if (map->int_map[pos_int->y][pos_int->x] == 1) {
         sfRectangleShape_setFillColor(win->minimap.wall, sfColor_fromRGB(0, 50,
                 10));
         sfRenderWindow_drawRectangleShape(win->window, win->minimap.wall, NULL);
-    } else if (map->int_map[y][x] == 3) {
+    } else if (map->int_map[pos_int->y][pos_int->x] == 3) {
         return;
     } else {
         sfRectangleShape_setFillColor(win->minimap.wall, sfColor_fromRGB(0, 120,
                 30));
         sfRenderWindow_drawRectangleShape(win->window, win->minimap.wall, NULL);
     }
-    if (x == 31 && y == 31) {
+    if (pos_int->x == 31 && pos_int->y == 31) {
         sfRectangleShape_setFillColor(win->minimap.wall,
             sfColor_fromRGB(102, 255, 255));
         sfRenderWindow_drawRectangleShape(win->window, win->minimap.wall, NULL);
@@ -61,7 +61,7 @@ static void draw_tiles(window_t *win, map_t *map, int *bounds)
 {
     for (int y = bounds[3]; y >= bounds[2]; y--) {
         for (int x = bounds[1]; x >= bounds[0]; x--) {
-            draw_tile(win, map, x, y);
+            draw_tile(win, map, &(sfVector2i){x, y});
         }
     }
 }
@@ -83,7 +83,7 @@ static void draw_player_2d(window_t *win, player_t *player)
     sfRenderWindow_drawSprite(win->window, win->minimap.s_player, NULL);
 }
 
-void display_minimap(window_t *win, player_t *player, map_t *map)
+void display_minimap(player_t *player, map_t *map, window_t *win)
 {
     const sfView *default_view = sfRenderWindow_getDefaultView(win->window);
 
@@ -92,4 +92,9 @@ void display_minimap(window_t *win, player_t *player, map_t *map)
     draw_minimap(win, player, map);
     draw_player_2d(win, player);
     sfRenderWindow_setView(win->window, default_view);
+    sfRenderWindow_drawSprite(win->window, win->minimap.s_tv, NULL);
+    win->is_lamp = false;
+    win->is_gun = false;
+    player->mvt_speed = 1;
+    player->sprint = false;
 }

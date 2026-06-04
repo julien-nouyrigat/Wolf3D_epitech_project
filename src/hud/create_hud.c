@@ -26,8 +26,8 @@ static void set_text_pos(window_t *win)
 {
     sfText_setPosition(win->hud.life, (sfVector2f){50, 7});
     sfText_setPosition(win->hud.stamina, (sfVector2f){50, 65});
-    sfText_setPosition(win->hud.lvl_money, (sfVector2f){800, 50});
-    sfText_setPosition(win->hud.player_money, (sfVector2f){1700, 300});
+    sfText_setPosition(win->hud.lvl_money, (sfVector2f){900, 50});
+    sfText_setPosition(win->hud.player_money, (sfVector2f){1700, 70});
 }
 
 void create_hud(window_t *win)

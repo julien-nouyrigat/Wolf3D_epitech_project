@@ -59,6 +59,8 @@ static void move(player_t *player, map_t *map, sfVector2f *movement_dir,
 {
     sfFloatRect mov_dir_verif;
 
+    if (player->life == 0)
+        return;
     mov_dir_verif.height = get_verif(player->position.x, movement_dir->x,
         player);
     mov_dir_verif.width = get_verif(player->position.y, movement_dir->y,

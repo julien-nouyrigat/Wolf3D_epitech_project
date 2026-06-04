@@ -18,6 +18,8 @@ void display_lamp(window_t *win, player_t *player)
         sfSprite_setPosition(win->game.light_of, pos_light_of);
         sfRenderWindow_drawSprite(win->window, win->game.light_of, NULL);
     }
-    sfSprite_setPosition(win->game.lamp, pos_lamp);
-    sfRenderWindow_drawSprite(win->window, win->game.lamp, NULL);
+    if (player->life != 0){
+        sfSprite_setPosition(win->game.lamp, pos_lamp);
+        sfRenderWindow_drawSprite(win->window, win->game.lamp, NULL);
+    }
 }

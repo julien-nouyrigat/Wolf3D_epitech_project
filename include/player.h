@@ -100,6 +100,7 @@ typedef struct {
     int cursor;
     bool shoots;
     sfFloatRect s_hitbox;
+    bool new_game;
 } player_t;
 
 #endif /* PLAYER_H_ */

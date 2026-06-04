@@ -15,6 +15,8 @@ void rotate_left(player_t *player, map_t *map,
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;
 
+    if (player->life == 0)
+        return;
     (void)map;
     player->direction.x = player->direction.x * cos(ROTATION_SPEED) -
         player->direction.y * sin(ROTATION_SPEED);
@@ -32,6 +34,8 @@ void rotate_right(player_t *player, map_t *map,
     float old_dir_x = player->direction.x;
     float old_plane_x = player->camera_plane.x;
 
+    if (player->life == 0)
+        return;
     (void)map;
     player->direction.x = player->direction.x * cos(- ROTATION_SPEED) -
         player->direction.y * sin(- ROTATION_SPEED);
@@ -46,6 +50,8 @@ void rotate_right(player_t *player, map_t *map,
 void up_cam(player_t *player, map_t *map,
     __attribute_maybe_unused__ window_t *win)
 {
+    if (player->life == 0)
+        return;
     (void)map;
     player->y_camera += UP_DOWN_MVT;
     if (player->y_camera > UP_MAX)
@@ -55,6 +61,8 @@ void up_cam(player_t *player, map_t *map,
 void down_cam(player_t *player, map_t *map,
     __attribute_maybe_unused__ window_t *win)
 {
+    if (player->life == 0)
+        return;
     (void)map;
     player->y_camera -= UP_DOWN_MVT;
     if (player->y_camera < DOWN_MAX)

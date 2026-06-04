@@ -13,7 +13,17 @@
 
 #include "wolf.h"
 
-void exctract(map_t *map, player_t *player, inventory_t *inv)
+static void change_level(map_t *map, player_t *player, window_t *win)
+{
+    win->transition.is_play = true;
+    if (!win->transition.is_play) {
+        display_transition(win);
+    }
+    new_level(map, player);
+    map->level->cur_money = 0;
+}
+
+void exctract(map_t *map, player_t *player, inventory_t *inv, window_t *win)
 {
     if (map->int_map[(int)player->pos_f.y][(int)player->pos_f.x] == 9){
         map->level->cur_money += inv->player_money;
@@ -21,15 +31,13 @@ void exctract(map_t *map, player_t *player, inventory_t *inv)
         inv->player_weight = 0;
         player->mvt_speed = MOVEMENT_SPEED;
         if (map->level->cur_money == level_data[map->level->lvl_id].lvl_money){
-            new_level(map, player);
-            map->level->cur_money = 0;
+            change_level(map, player, win);
         }
         if (map->level->cur_money > level_data[map->level->lvl_id].lvl_money){
             inv->player_money =
                 map->level->cur_money -
                 level_data[map->level->lvl_id].lvl_money;
-            new_level(map, player);
-            map->level->cur_money = 0;
+            change_level(map, player, win);
         }
     }
 }

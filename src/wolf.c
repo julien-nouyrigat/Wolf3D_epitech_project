@@ -52,6 +52,21 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
     check_other_events(win, mp, player);
 }
 
+static void display_other_elements(window_t *win, player_t *player, map_t *map)
+{
+    if (!player->is_in_inv)
+        display_hand_inv(win, player);
+    if (win->is_lamp)
+        display_lamp(win, player);
+    if (win->is_gun)
+        draw_gun(win, player, map);
+    if (player->life != 0){
+        display_hand_inv(win, player);
+        //draw_gun(win, player, map);
+        draw_hand(win, player);
+    }
+}
+
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
     manage_enemies(win, player, map);
@@ -65,12 +80,8 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         return EXIT_FAILURE;
     if (player->is_in_inv)
         display_inventory(win, player);
-    if (!player->is_in_inv)
-        display_hand_inv(win, player);
-    display_lamp(win, player);
-    display_minimap(win, player, map);
-    draw_hand(win, player);
-    sfRenderWindow_drawCircleShape(win->window, player->visor, NULL);
+    display_other_elements(win, player, map);
+    sfRenderWindow_drawText(win->window, player->visor, NULL);
     return EXIT_SUCCESS;
 }
 
@@ -97,26 +108,23 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
     return EXIT_SUCCESS;
 }
 
-static void check_keyboard_net(window_t *win, player_t *player, map_t *map)
-{
-    manage_client_network(win, map);
-    manage_keyboard(player, map, win);
-}
-
 static int render_window(window_t *win, player_t *player, map_t *map)
 {
-    exctract(map, player, player->inventory);
+    exctract(map, player, player->inventory, win);
     verif_play_sound(player, map, win);
-    check_keyboard_net(win, player, map);
     verif_footsteps(player, win);
     player->is_moving = false;
     stamina_regen(player);
     sfRenderWindow_clear(win->window, win->bg_color);
     win->clock.time = sfClock_restart(win->clock.clock);
+    sfClock_restart(win->clock.trans_clock);
+    win->clock.elapsed_time_trans += win->clock.time.microseconds /
+        SECOND;
     win->clock.elapsed_time_bg += win->clock.time.microseconds /
         SECOND;
     if (manage_window(win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
+    manage_keyboard(player, map, win);
     sfRenderWindow_display(win->window);
     manage_client_network(win, map);
     return EXIT_SUCCESS;

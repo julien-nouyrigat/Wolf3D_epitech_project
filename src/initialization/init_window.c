@@ -20,6 +20,7 @@ static void init_assets(window_t *wolf_win)
 static void init_win_func(window_t *wolf_win)
 {
     init_brackground_menu(wolf_win);
+    init_transition(wolf_win);
     init_menu(wolf_win);
     init_lamp(wolf_win);
     init_music(wolf_win);
@@ -28,6 +29,8 @@ static void init_win_func(window_t *wolf_win)
     init_assets(wolf_win);
     init_footstep(wolf_win);
     init_gun(wolf_win);
+    wolf_win->is_gun = true;
+    wolf_win->is_lamp = true;
 }
 
 static int create_window(window_t *wolf_win)
@@ -56,6 +59,8 @@ int init_window(window_t *wolf_win)
     wolf_win->is_clickable = true;
     wolf_win->clock.clock = sfClock_create();
     wolf_win->clock.broad_clock = sfClock_create();
+    wolf_win->clock.trans_clock = sfClock_create();
+    wolf_win->clock.elapsed_time_trans = 0.0f;
     wolf_win->clock.elapsed_time_bg = 0.0f;
     wolf_win->font = sfFont_createFromFile("./assets/fonts/teko.ttf");
     init_win_func(wolf_win);

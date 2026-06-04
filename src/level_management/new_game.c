@@ -54,7 +54,7 @@ static int change_map(map_t *map, size_t lvl_id)
 static void reinit_player(player_t *player)
 {
     init_player_comp(&player);
-    player->stamina = STAM_START; 
+    player->stamina = STAM_START;
     player->life = LIFE_START;
     player->max_stamina = STAM_START;
     player->mvt_speed = MOVEMENT_SPEED;

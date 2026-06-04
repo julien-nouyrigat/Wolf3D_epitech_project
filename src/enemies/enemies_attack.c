@@ -11,7 +11,7 @@
 
 #include "wolf.h"
 
-void take_damage(window_t *win, player_t *player, size_t damage)
+void take_damage(window_t *win, player_t *player, size_t damage, map_t *map)
 {
     int life = player->life - damage;
 
@@ -21,6 +21,7 @@ void take_damage(window_t *win, player_t *player, size_t damage)
         win->is_menu = true;
         player->is_moving = false;
         sfMusic_stop(win->footsteps);
+        new_game(map, player);
         return;
     }
     player->life -= damage;
@@ -37,7 +38,7 @@ void enemy_attack(player_t *player, map_t *map, window_t *win)
         dy = enemies->monster->position.y - player->position.y;
         if (dx > -60 && dx < 60 &&
             dy > -60 && dy < 60){
-            take_damage(win, player, enemies->monster->damage);
+            take_damage(win, player, enemies->monster->damage, map);
         }
     }
 }

@@ -16,12 +16,12 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool is_in_axis(window_t *win, sfFloatRect *hitbox)
+static bool is_in_axis(window_t *win, monster_t *mob)
 {
-    if (win->size.x / 2 >= hitbox->left &&
-        win->size.x / 2 <= hitbox->left + hitbox->width &&
-        win->size.y / 2 >= hitbox->top &&
-        win->size.y / 2 <= hitbox->top + hitbox->height)
+    if (win->size.x / 2 >= mob->hitbox.left &&
+        win->size.x / 2 <= mob->hitbox.left + mob->hitbox.width &&
+        win->size.y / 2 >= mob->hitbox.top &&
+        win->size.y / 2 <= mob->hitbox.top + mob->hitbox.height)
         return true;
     return false;
 }
@@ -40,11 +40,9 @@ static bool is_in_range(enemy_t *tmp, player_t *player)
 static bool is_mob(map_t *map, window_t *win, player_t *player)
 {
     enemy_t *tmp = map->level->enemies;
-    sfFloatRect hitbox;
 
     for (; tmp != NULL; tmp = tmp->next) {
-        hitbox = sfSprite_getGlobalBounds(tmp->monster->sprite);
-        if (is_in_axis(win, &hitbox) && is_in_range(tmp, player)) {
+        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player)) {
             tmp->monster->health -= player->in_hand->stats->damage;
             sfMusic_play(win->hurt_sound);
             return true;
@@ -110,10 +108,8 @@ static void verif_shoot(player_t *player, window_t *win, map_t *map)
     ray_t bullet = {0};
 
     bullet.screen_x = win->size.x / 2;
-    bullet.direction.x = player->direction.x + player->camera_plane.x *
-        player->camera.x;
-    bullet.direction.y = player->direction.y + player->camera_plane.y *
-        player->camera.x;
+    bullet.direction.x = player->direction.x;
+    bullet.direction.y = player->direction.y;
     init_dda(player, &bullet, map, win);
 }
 

@@ -22,7 +22,8 @@ void init_lamp(window_t *win)
     sfSprite_setTexture(win->game.dark, win->game.t_dark, sfTrue);
     size = sfTexture_getSize(win->game.t_dark);
     sfSprite_setOrigin(win->game.dark, (sfVector2f){size.x / 2, size.y / 2});
-    sfSprite_setPosition(win->game.dark, (sfVector2f){win->size.x / 2, win->size.y / 2});
+    sfSprite_setPosition(win->game.dark,
+        (sfVector2f){win->size.x / 2, win->size.y / 2});
     win->game.light_of = sfSprite_create();
     win->game.t_light_of =
         sfTexture_createFromFile("./assets/image/behind_inv.png", NULL);

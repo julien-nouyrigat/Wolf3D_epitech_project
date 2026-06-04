@@ -99,6 +99,7 @@ typedef struct {
     sfCircleShape *visor;
     int cursor;
     bool shoots;
+    sfFloatRect s_hitbox;
 } player_t;
 
 #endif /* PLAYER_H_ */

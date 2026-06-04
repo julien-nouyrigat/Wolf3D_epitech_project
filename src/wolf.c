@@ -69,7 +69,6 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         display_hand_inv(win, player);
     display_lamp(win, player);
     display_minimap(win, player, map);
-    //draw_gun(win, player, map);
     draw_hand(win, player);
     sfRenderWindow_drawCircleShape(win->window, player->visor, NULL);
     return EXIT_SUCCESS;

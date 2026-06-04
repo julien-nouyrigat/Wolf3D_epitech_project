@@ -46,6 +46,7 @@ typedef struct item_s {
     sfVector2f position;
     sfVector2f direction;
     sfTexture *textures;
+    sfFloatRect hitbox;
     bool is_grab;
     float order_dist;
 } item_t;

@@ -41,5 +41,5 @@ void shoot_weapon(window_t *win, player_t *player, map_t *map)
 {
     player->in_hand->bullets -= 1;
     player->in_hand->frame = 0;
-    //shoot();
+    shoot(win, player, map);
 }

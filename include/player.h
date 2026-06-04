@@ -37,6 +37,7 @@
     #define UP_DOWN_MVT 50
     #define PLAYER_SPAWN 31
     #define START_WEIGHT 30
+    #define R_VISOR 3.f
 
 typedef struct {
     float x0;
@@ -95,7 +96,7 @@ typedef struct {
     float *z_buffer;
     hand_inv_t *hand_inv;
     weapon_t *in_hand;
-    sfText *visor;
+    sfCircleShape *visor;
     int cursor;
     bool shoots;
 } player_t;

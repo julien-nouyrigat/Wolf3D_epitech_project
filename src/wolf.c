@@ -148,6 +148,8 @@ static int render_window(window_t *win, player_t *player, map_t *map)
     if (manage_window(win, player, map) == EXIT_FAILURE)
         return EXIT_FAILURE;
     manage_keyboard(player, map, win);
+    win->is_lamp = true;
+    win->is_gun = true;
     manage_controller(player, map, win);
     sfRenderWindow_display(win->window);
     manage_client_network(win, map);

@@ -145,6 +145,7 @@ SRC_SERV = 	server/main.c								\
 			src/window/minimap.c						\
 			src/shop/boutique.c							\
 			src/shop/apply_bonus.c						\
+			src/enemies/enemies_attack.c				\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

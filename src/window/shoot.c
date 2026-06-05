@@ -16,7 +16,7 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool is_in_axis(window_t *win, monster_t *mob)
+bool is_in_axis(window_t *win, monster_t *mob)
 {
     if (win->size.x / 2 >= mob->hitbox.left &&
         win->size.x / 2 <= mob->hitbox.left + mob->hitbox.width &&
@@ -42,7 +42,8 @@ static bool is_mob(map_t *map, window_t *win, player_t *player)
     enemy_t *tmp = map->level->enemies;
 
     for (; tmp != NULL; tmp = tmp->next) {
-        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player)) {
+        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player) &&
+            tmp->monster->health > 0) {
             tmp->monster->health -= player->in_hand->stats->damage;
             sfMusic_play(win->hurt_sound);
             return true;

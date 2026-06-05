@@ -104,7 +104,8 @@ void display_minimap(player_t *player, map_t *map, window_t *win);
 void init_gun(window_t *win);
 void draw_gun(window_t *win, player_t *player, map_t *map);
 void manage_enemies(window_t *win, player_t *player, map_t *map);
-void handle_enderman(monster_t *mob, player_t *player, map_t *map);
+void handle_enderman(monster_t *mob, player_t *player,
+    map_t __attribute_maybe_unused__ *map, window_t *win);
 void shoot(window_t *win, player_t *player, map_t *map);
 void save_in_file(player_t *player, map_t *map);
 void load_save(player_t *player, map_t *map);
@@ -150,5 +151,7 @@ void check_joystick_arrows(player_t *player, map_t *map,
     window_t __attribute_maybe_unused__ *win);
 bool can_shoot(player_t *player);
 void handle_shop_click(window_t *win, player_t *p, int m_x, int m_y);
+bool is_in_axis(window_t *win, monster_t *mob);
+void take_damage(window_t *win, player_t *player, size_t damage);
 
 #endif /* WOLF_H_ */

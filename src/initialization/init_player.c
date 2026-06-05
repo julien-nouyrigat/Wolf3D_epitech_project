@@ -54,6 +54,12 @@ static void init_hand(player_t **player)
     (*player)->in_hand = (*player)->hand_inv->w_one;
 }
 
+static void init_clocks(player_t **player)
+{
+    (*player)->p_clock = sfClock_create();
+    (*player)->enderman = sfClock_create();
+}
+
 int init_player(player_t **player)
 {
     *player = calloc(sizeof(player_t), 1);
@@ -72,7 +78,7 @@ int init_player(player_t **player)
     (*player)->is_moving = false;
     (*player)->bobing = 0;
     init_life_and_stamina(player);
-    (*player)->p_clock = sfClock_create();
+    init_clocks(player);
     (*player)->inventory = init_inventory();
     (*player)->is_in_inv = false;
     return EXIT_SUCCESS;

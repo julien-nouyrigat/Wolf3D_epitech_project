@@ -33,7 +33,6 @@ static void manage_tabulation(player_t *player, window_t *win)
         if (win->event.key.code == sfKeyTab) {
             win->is_lamp = true;
             win->is_gun = true;
-            player->mvt_speed = 3;
         }
 }
 

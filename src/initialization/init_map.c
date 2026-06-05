@@ -55,7 +55,7 @@ static int init_entities(map_t **map)
             return EXIT_FAILURE;
         }
     }
-    init_items(map, level_data[0].lvl_money * 100.5);
+    init_items(map, level_data[0].lvl_money * 1.5);
     return EXIT_SUCCESS;
 }
 

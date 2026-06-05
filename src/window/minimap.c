@@ -95,6 +95,5 @@ void display_minimap(player_t *player, map_t *map, window_t *win)
     sfRenderWindow_drawSprite(win->window, win->minimap.s_tv, NULL);
     win->is_lamp = false;
     win->is_gun = false;
-    player->mvt_speed = 1;
     player->sprint = false;
 }

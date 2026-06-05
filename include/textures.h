@@ -9,11 +9,12 @@
     #define TEXTURES_H_
 
     #define FILE_TEXT(file) sfTexture_createFromFile(file, NULL)
-    #define TEXT_TYPES 4
+    #define TEXT_TYPES 5
     #define NB_MAPS 3
     #define TOTAL_TEXTURES (END_TEXTS - TEXT_TYPES)
     #define MAP_WALL 1
     #define MAP_WALL1 4
+    #define MAP_EX 5
 
 enum types_of_maps {
     CASTLE = 1,
@@ -24,18 +25,22 @@ enum types_of_maps {
 enum text_enum {
     WALL,
     WALL1,
+    EX,
     FLOOR,
     CEILING,
     CASTLE_WALL,
     CASTLE_WALL1,
+    CASTLE_EX,
     CASTLE_FLOOR,
     CASTLE_CEILLING,
     LAB_WALL,
     LAB_WALL1,
+    LAB_EX,
     LAB_FLOOR,
     LAB_CEILLING,
     MANOR_WALL,
     MANOR_WALL1,
+    MANOR_EX,
     MANOR_FLOOR,
     MANOR_CEILLING,
     HEALTH_ICON,
@@ -50,14 +55,17 @@ typedef struct textures_s {
 static const textures_t textures[TOTAL_TEXTURES] = {
     {"./assets/rooms/castle_wall.jpg"},
     {"./assets/rooms/castle_wall1.png"},
+    {"assets/rooms/castle_wall_extract.png"},
     {"./assets/rooms/castle_floor.jpg"},
     {"./assets/rooms/castle_ceilling.png"},
     {"./assets/rooms/lab_wall.jpg"},
     {"./assets/rooms/lab_wall1.png"},
+    {"assets/rooms/lab_wall_extract.png"},
     {"./assets/rooms/lab_floor.jpg"},
     {"./assets/rooms/lab_ceilling.jpg"},
     {"./assets/rooms/manor_wall.jpg"},
     {"./assets/rooms/manor_wall1.png"},
+    {"assets/rooms/manor_wall_extract.png"},
     {"./assets/rooms/manor_floor.png"},
     {"./assets/rooms/manor_ceilling.jpg"},
     {"./assets/image/health_cross.png"},

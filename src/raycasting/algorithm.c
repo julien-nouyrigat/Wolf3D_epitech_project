@@ -42,8 +42,14 @@ static bool is_wall(map_t *map, ray_t *ray, window_t *win)
         ray->wall_text = win->textures[(map->type * TEXT_TYPES + WALL) -
             TEXT_TYPES - 1];
         return true;
-    } else if (tile == MAP_WALL1) {
+    } 
+    if (tile == MAP_WALL1) {
         ray->wall_text = win->textures[(map->type * TEXT_TYPES + WALL1) -
+            TEXT_TYPES];
+        return true;
+    }
+    if (tile == MAP_EX) {
+        ray->wall_text = win->textures[(map->type * TEXT_TYPES + EX) -
             TEXT_TYPES];
         return true;
     }

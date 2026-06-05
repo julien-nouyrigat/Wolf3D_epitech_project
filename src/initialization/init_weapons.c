@@ -20,13 +20,16 @@ static sfVector2f get_scale(window_t *win, size_t i)
 
 static void create_components(window_t *win, size_t i)
 {
+    sfVector2u size = sfTexture_getSize(win->weapons_texts[i]);
+
     win->weapons_tab[i]->area = AREA;
     sfSprite_setTextureRect(win->weapons_tab[i]->sprite,
         win->weapons_tab[i]->area);
     win->weapons_tab[i]->w_clock = sfClock_create();
     win->weapons_tab[i]->animation = sfClock_create();
     sfSprite_setScale(win->weapons_tab[i]->sprite, (sfVector2f){1.8, 1.8});
-    sfSprite_setPosition(win->weapons_tab[i]->sprite, POSITION);
+    sfSprite_setPosition(win->weapons_tab[i]->sprite,
+        (sfVector2f){1300, win->size.y - 330});
     win->weapons_tab[i]->frame = 0;
 }
 

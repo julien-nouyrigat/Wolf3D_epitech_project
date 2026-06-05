@@ -43,6 +43,8 @@ void dead_menu(window_t *win, player_t *player, map_t *map)
         return;
     if (win->event.type == sfEvtKeyPressed &&
         win->event.key.code == sfKeyA) {
+        sfMusic_stop(win->footsteps);
+        sfMusic_play(win->menu.music);
         win->is_single = false;
         win->is_menu = true;
         new_game(map, player);

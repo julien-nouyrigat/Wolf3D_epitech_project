@@ -55,8 +55,6 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
 static void display_other_elements(window_t *win, player_t *player,
     map_t __attribute_maybe_unused__ *map)
 {
-    if (!player->is_in_inv)
-        display_hand_inv(win, player);
     if (win->is_lamp)
         display_lamp(win, player);
     if (player->life != 0){
@@ -67,6 +65,7 @@ static void display_other_elements(window_t *win, player_t *player,
 
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
+    manage_mouse_look(win, player);
     manage_enemies(win, player, map);
     enemy_attack(player, map, win);
     if (!win->ambiance_started) {

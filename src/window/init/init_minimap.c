@@ -29,7 +29,8 @@ static void init_tv(window_t *win)
         "./assets/image/tv_map.png", NULL);
     sfSprite_setTexture(win->minimap.s_tv, win->minimap.t_tv, sfTrue);
     sfSprite_setScale(win->minimap.s_tv, (sfVector2f){2.35, 2.2});
-    sfSprite_setPosition(win->minimap.s_tv, (sfVector2f){400, 45});
+    sfSprite_setPosition(win->minimap.s_tv,
+        (sfVector2f){win->size.x / 4.9, win->size.y / 24});
 }
 
 static void init_rect_player(window_t *win)

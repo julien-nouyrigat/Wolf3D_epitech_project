@@ -39,7 +39,11 @@ static void draw_tile(window_t *win, map_t *map, sfVector2i *pos_int)
     sfVector2f pos = {pos_int->x * TILE_SIZE, pos_int->y * TILE_SIZE};
 
     sfRectangleShape_setPosition(win->minimap.wall, pos);
-    if (map->int_map[pos_int->y][pos_int->x] == 1) {
+    if (map->int_map[pos_int->y][pos_int->x] < 100 && 
+        map->int_map[pos_int->y][pos_int->x] != 3 &&
+        map->int_map[pos_int->y][pos_int->x] != 0 &&
+        map->int_map[pos_int->y][pos_int->x] != 2 &&
+        map->int_map[pos_int->y][pos_int->x] != 9) {
         sfRectangleShape_setFillColor(win->minimap.wall, sfColor_fromRGB(0, 50,
                 10));
         sfRenderWindow_drawRectangleShape(win->window, win->minimap.wall, NULL);

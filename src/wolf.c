@@ -13,6 +13,7 @@ const struct evt_pfs_s events[] = {
     {sfEvtClosed, &close_window},
     {sfEvtResized, &resize_window},
     {sfEvtKeyReleased, &stop_sprint},
+    {sfEvtJoystickButtonReleased, &stop_sprint},
     {END, NULL}
 };
 
@@ -44,8 +45,10 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
     }
-    if (win->is_game || win->is_single)
+    if (win->is_game || win->is_single) {
         manage_game_mouse(win, player, map);
+        check_joystick_arrows(player, map, win);
+    }
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
             close_window(win, player, map);

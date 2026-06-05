@@ -146,5 +146,8 @@ void animate_hand(player_t *player);
 int new_game(map_t *map, player_t *player);
 void manage_controller(player_t *player, map_t *map, window_t *win);
 void manage_mouse_look(window_t *win, player_t *player);
+void check_joystick_arrows(player_t *player, map_t *map,
+    window_t __attribute_maybe_unused__ *win);
+bool can_shoot(player_t *player);
 
 #endif /* WOLF_H_ */

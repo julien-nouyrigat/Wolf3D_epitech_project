@@ -139,7 +139,8 @@ SRC_SERV = 	server/main.c								\
 			src/level_management/new_game.c 			\
 			src/window/shoot.c							\
 			src/events/inputs/manage_controller.c		\
-
+			src/player_movements/sprint.c				\
+			src/window/minimap.c						\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

@@ -29,7 +29,8 @@ void sprint(player_t *player, __attribute_maybe_unused__ map_t *map,
 void stop_sprint(window_t *win, player_t *player,
     __attribute_maybe_unused__ map_t *map)
 {
-    if (win->event.key.code == sfKeyLShift) {
+    if (win->event.key.code == sfKeyLShift ||
+        win->event.joystickButton.button == 11) {
         player->sprint = false;
     }
 }

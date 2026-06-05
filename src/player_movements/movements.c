@@ -35,16 +35,18 @@ static void change_pos(map_t *map, player_t *player, sfFloatRect *mov_dir_verif,
     sfVector2f movement_dir = {mov_dir_verif->left, mov_dir_verif->top};
     sfVector2f verif = {mov_dir_verif->height, mov_dir_verif->width};
     sfVector2f norm = normalize(&movement_dir);
+    int x = map->int_map[(int)(player->position.y / TILE_SIZE)]
+        [(int)verif.x];
+    int y = map->int_map[(int)verif.y]
+        [(int)(player->position.x / TILE_SIZE)];
 
-    if (map->int_map[(int)(player->position.y / TILE_SIZE)]
-        [(int)verif.x] != WALL) {
+    if (x != MAP_WALL && x != MAP_WALL1 && x != MAP_WALL2 && x != MAP_EX) {
         player->position.x += norm.x *
             (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.x = player->position.x / TILE_SIZE;
         player->is_moving = true;
     }
-    if (map->int_map[(int)verif.y]
-        [(int)(player->position.x / TILE_SIZE)] != WALL) {
+    if (y != MAP_WALL && y != MAP_WALL1 && y != MAP_WALL2 && y != MAP_EX) {
         player->position.y += norm.y *
             (player->mvt_speed + SPRINT * player->sprint);
         player->pos_f.y = player->position.y / TILE_SIZE;

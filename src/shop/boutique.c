@@ -151,6 +151,7 @@ static void try_buy_item(shop_t *shop, player_t *player, int i)
         sfText_setString(shop->spent_text, str);
         shop->items[i].is_bought = true;
         apply_shop_bonus(player, &shop->items[i]);
+        player->inventory->player_money -= shop->items[i].price;
     }
 }
 

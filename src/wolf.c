@@ -29,7 +29,6 @@ void check_other_events(window_t *win, sfVector2i *mp, player_t *player)
             connect_client(win, player);
             win->is_menu = false;
             win->is_lobby = true;
-            win->is_clickable = false;
         }
     }
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
@@ -63,10 +62,13 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
             win->transition.is_play = true;
             win->transition.next_state = TRANSITION_TO_GAME;
         }
+        if (win->event.key.code == sfKeyEqual)
+            player->inventory->player_money += 10;
     }
     if (win->is_game || win->is_single) {
         manage_game_mouse(win, player, map);
         check_joystick_arrows(player, map, win);
+        win->is_clickable = false;
     }
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable)
         if (sfFloatRect_contains(&win->menu.tab[4].bound, mp->x, mp->y))
@@ -87,8 +89,6 @@ static void display_other_elements(window_t *win, player_t *player,
         display_shop(win->window, win->shop);
         display_cursor(win);
     }
-    if (win->is_param)
-        display_param(win);
 }
 
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
@@ -128,6 +128,8 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
         if (display_hud(win, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
+    if (win->is_param)
+        display_param(win);
     return EXIT_SUCCESS;
 }
 

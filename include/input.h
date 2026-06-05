@@ -17,4 +17,9 @@ typedef struct keyboard_fpt_s {
     function_t function;
 } keyboard_fpt_t;
 
+typedef struct joystick_fpt_s {
+    int code;
+    function_t function;
+} joystick_fpt_t;
+
 #endif /* INPUT_H_ */

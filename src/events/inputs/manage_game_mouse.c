@@ -7,7 +7,7 @@
 
 #include "wolf.h"
 
-static bool can_shoot(player_t *player)
+bool can_shoot(player_t *player)
 {
     sfTime cooldown = sfClock_getElapsedTime(player->in_hand->w_clock);
 

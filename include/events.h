@@ -9,6 +9,7 @@
     #define EVENTS_H_
 
     #define END 84
+    #define DEAD_ZONE 15.0
 
 typedef void (evt_fct_t)(window_t *win, player_t *player, map_t *map);
 

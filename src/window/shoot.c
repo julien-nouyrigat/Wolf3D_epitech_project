@@ -16,7 +16,7 @@ static bool is_wall(map_t *map)
     return false;
 }
 
-static bool is_in_axis(window_t *win, monster_t *mob)
+bool is_in_axis(window_t *win, monster_t *mob)
 {
     if (win->size.x / 2 >= mob->hitbox.left &&
         win->size.x / 2 <= mob->hitbox.left + mob->hitbox.width &&

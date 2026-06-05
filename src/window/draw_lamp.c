@@ -10,7 +10,7 @@
 void display_lamp(window_t *win, player_t *player)
 {
     sfVector2f pos_light_of = {-240, -100};
-    sfVector2f pos_lamp = {90, 676};
+    sfVector2f pos_lamp = {win->size.x / 21, win->size.y / 1.6};
 
     if (player->life != 0){
         sfRenderWindow_drawSprite(win->window, win->game.dark, NULL);

@@ -86,7 +86,8 @@ static void manage_tab(window_t *win)
         display_graphics(win);
 }
 
-void display_param(window_t *win)
+void display_param(__attribute_maybe_unused__ player_t *player,
+    __attribute_maybe_unused__ map_t *map, window_t *win)
 {
     sfVector2i pos_mouse = sfMouse_getPositionRenderWindow(win->window);
 

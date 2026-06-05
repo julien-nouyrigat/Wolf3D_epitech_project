@@ -102,7 +102,7 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
             return EXIT_FAILURE;
     }
     if (win->is_param == true)
-        display_param(win);
+        display_param(player, map, win);
     return EXIT_SUCCESS;
 }
 

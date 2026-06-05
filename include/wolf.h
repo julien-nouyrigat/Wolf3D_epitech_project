@@ -90,7 +90,8 @@ inventory_t *init_inventory(void);
 void manage_client_network(window_t *win, map_t *map);
 void send_position_to_serv(player_t *player, window_t *win);
 int init_param(window_t *win);
-void display_param(window_t *win);
+void display_param(__attribute_maybe_unused__ player_t *player,
+    __attribute_maybe_unused__ map_t *map, window_t *win);
 void verif_play_sound(player_t *player, map_t *map, window_t *win);
 void init_music(window_t *win);
 void display_audio(window_t *win);

@@ -42,7 +42,8 @@ static bool is_mob(map_t *map, window_t *win, player_t *player)
     enemy_t *tmp = map->level->enemies;
 
     for (; tmp != NULL; tmp = tmp->next) {
-        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player)) {
+        if (is_in_axis(win, tmp->monster) && is_in_range(tmp, player) &&
+            tmp->monster->health > 0) {
             tmp->monster->health -= player->in_hand->stats->damage;
             sfMusic_play(win->hurt_sound);
             return true;

@@ -36,6 +36,18 @@ void check_other_events(window_t *win, sfVector2i *mp, player_t *player)
             win->is_param = true;
         }
     }
+    if (win->event.type == sfEvtMouseButtonPressed) {
+        if (win->event.mouseButton.button == sfMouseLeft && win->is_shop)
+            handle_shop_click(win, player, win->event.mouseButton.x,
+                win->event.mouseButton.y);
+    }
+}
+
+static void manage_boutique(window_t *win)
+{
+    win->is_shop = !win->is_shop;
+    if (win->is_shop)
+        generate_shop_items(win->shop);
 }
 
 static void manage_events(window_t *win, player_t *player, map_t *map,
@@ -44,6 +56,14 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
     for (size_t i = 0; events[i].type != END; i++) {
         if (win->event.type == events[i].type)
             events[i].function(win, player, map);
+    }
+    if (win->event.type == sfEvtKeyPressed) {
+        if (win->event.key.code == sfKeyB) {
+            manage_boutique(win);
+        }
+        if (win->event.key.code == sfKeyEscape) {
+            win->is_param = !win->is_param;
+        }
     }
     if (win->is_game || win->is_single) {
         manage_game_mouse(win, player, map);
@@ -64,11 +84,17 @@ static void display_other_elements(window_t *win, player_t *player,
         display_hand_inv(win, player);
         draw_hand(win, player);
     }
+    if (win->is_shop && win->shop != NULL) {
+        display_shop(win->window, win->shop);
+        display_cursor(win);
+    }
+    if (win->is_param)
+        display_param(win);
 }
 
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
-    manage_mouse_look(win, player);
+    ///manage_mouse_look(win, player);
     manage_enemies(win, player, map);
     enemy_attack(player, map, win);
     if (!win->ambiance_started) {
@@ -96,15 +122,12 @@ static int manage_window(window_t *win, player_t *player, map_t *map)
         }
     }
     if (win->is_single == true) {
-        win->is_param = false;
         sfMusic_stop(win->menu.music);
         if (display_game_elements(win, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
         if (display_hud(win, player, map) == EXIT_FAILURE)
             return EXIT_FAILURE;
     }
-    if (win->is_param == true)
-        display_param(win);
     return EXIT_SUCCESS;
 }
 
@@ -170,6 +193,8 @@ static int init_all(window_t *win, map_t **map, player_t **player)
     init_weapons(win);
     init_hand_inv(player, win);
     init_visor(player, win);
+    win->shop = init_shop();
+    win->is_shop = false;
     return EXIT_SUCCESS;
 }
 

@@ -23,6 +23,7 @@
 
     #include "music.h"
     #include "weapons.h"
+    #include "boutique.h"
 
     #define FRAMES_LIMIT 60
     #define WIN_WIDTH 1920
@@ -227,11 +228,6 @@ typedef struct {
 typedef struct {
     sfTexture *t_bg;
     sfSprite *s_bg;
-} shop_t;
-
-typedef struct {
-    sfTexture *t_bg;
-    sfSprite *s_bg;
     sfIntRect rect_bg;
     int line;
     int col;
@@ -277,6 +273,8 @@ typedef struct {
     transition_t transition;
     bool is_lamp;
     bool is_gun;
+    shop_t *shop;
+    bool is_shop;
 } window_t;
 
 #endif /* WINDOW_H_ */

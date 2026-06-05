@@ -94,6 +94,8 @@ SRC = 		$(MAIN)										\
 			src/window/shoot_weapon.c					\
 			src/level_management/new_game.c 			\
 			src/events/inputs/manage_controller.c		\
+			src/shop/boutique.c							\
+			src/shop/apply_bonus.c						\
 
 
 SRC_SERV = 	server/main.c								\
@@ -141,6 +143,8 @@ SRC_SERV = 	server/main.c								\
 			src/events/inputs/manage_controller.c		\
 			src/player_movements/sprint.c				\
 			src/window/minimap.c						\
+			src/shop/boutique.c							\
+			src/shop/apply_bonus.c						\
 			src/enemies/enemies_attack.c				\
 
 SRC_TESTS = tests/unit_tests.c 							\

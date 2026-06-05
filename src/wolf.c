@@ -93,7 +93,8 @@ static void display_other_elements(window_t *win, player_t *player,
 
 static int display_game_elements(window_t *win, player_t *player, map_t *map)
 {
-    manage_mouse_look(win, player);
+    if (!sfJoystick_isConnected(0))
+        manage_mouse_look(win, player);
     manage_enemies(win, player, map);
     enemy_attack(player, map, win);
     if (!win->ambiance_started) {

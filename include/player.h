@@ -101,6 +101,7 @@ typedef struct {
     bool shoots;
     sfFloatRect s_hitbox;
     bool new_game;
+    sfClock *enderman;
 } player_t;
 
 #endif /* PLAYER_H_ */

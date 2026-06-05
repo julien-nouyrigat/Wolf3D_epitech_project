@@ -47,7 +47,7 @@ void enemy_attack(player_t *player, map_t *map, window_t *win)
     for (; enemies; enemies = enemies->next){
         if (enemies->type == ENDERMAN)
             continue;
-        if (enemies->monster->health == 0)
+        if (enemies->monster->health <= 0)
             continue;
         dx = enemies->monster->position.x - player->position.x;
         dy = enemies->monster->position.y - player->position.y;

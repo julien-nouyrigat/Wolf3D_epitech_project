@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CC := epiclang
+CC := gcc
 
 CFLAGS = -Wall -Wextra
 
@@ -146,6 +146,7 @@ SRC_SERV = 	server/main.c								\
 			src/shop/boutique.c							\
 			src/shop/apply_bonus.c						\
 			src/enemies/enemies_attack.c				\
+			src/music/play_music_tiles.c 				\
 
 SRC_TESTS = tests/unit_tests.c 							\
 			$(filter-out $(MAIN), $(SRC))

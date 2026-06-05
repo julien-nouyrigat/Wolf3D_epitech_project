@@ -34,14 +34,6 @@ void set_inv(window_t *win, player_t *player, map_t *map)
 {
     (void)player;
     (void)map;
-    if (sfKeyboard_isKeyPressed(sfKeyEscape)) {
-        if (win->is_param) {
-            win->is_param = false;
-            return;
-        }
-        if (!win->is_param)
-            win->is_param = true;
-    }
 }
 
 void display_inventory(window_t *win, player_t *player)

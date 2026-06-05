@@ -48,6 +48,7 @@ void dead_menu(window_t *win, player_t *player, map_t *map)
         win->is_menu = true;
         new_game(map, player);
         player->new_game = false;
+        win->is_clickable = true;
     }
 }
 

@@ -40,7 +40,7 @@ static const int WEAPON_PRICES[NB_WEAPONS] = {
 };
 
 static const int BONUS_PRICES[NB_BONUS] = {
-    25, 50, 75, 100, 30, 150, 200, 50
+    25, 50, 7, 10, 10, 10, 20, 50
 };
 
 static const sfVector2f WEAPON_SCALES[NB_WEAPONS] = {
@@ -103,6 +103,7 @@ void apply_regen_100(player_t *player);
 void apply_stamina_20(player_t *player);
 void apply_life_20(player_t *player);
 void apply_nothing(player_t __attribute_maybe_unused__ *player);
+void apply_strenght(player_t *player);
 
 static const bonus_effect_t BONUS_FUNCTIONS[NB_BONUS] = {
     &apply_regen_25,
@@ -111,7 +112,7 @@ static const bonus_effect_t BONUS_FUNCTIONS[NB_BONUS] = {
     &apply_regen_100,
     &apply_stamina_20,
     &apply_life_20,
-    &apply_nothing,
+    &apply_strenght,
     &apply_nothing
 };
 

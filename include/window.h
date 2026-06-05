@@ -225,6 +225,12 @@ typedef struct {
     sfTexture *t_tv;
 } minimap_t;
 
+typedef enum {
+    NONE,
+    TRANSITION_TO_SHOP,
+    TRANSITION_TO_GAME
+} transition_state_t;
+
 typedef struct {
     sfTexture *t_bg;
     sfSprite *s_bg;
@@ -232,6 +238,7 @@ typedef struct {
     int line;
     int col;
     bool is_play;
+    transition_state_t next_state;
 } transition_t;
 
 typedef struct {

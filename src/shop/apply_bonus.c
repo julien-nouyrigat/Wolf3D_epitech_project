@@ -37,6 +37,11 @@ void apply_life_20(player_t *player)
     player->max_life += 20;
 }
 
+void apply_strenght(player_t *player)
+{
+    player->inventory->player_weight += 30;
+}
+
 void apply_nothing(player_t __attribute_maybe_unused__ *player)
 {
 }

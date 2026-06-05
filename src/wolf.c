@@ -22,12 +22,14 @@ void check_other_events(window_t *win, sfVector2i *mp, player_t *player)
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
         if (sfFloatRect_contains(&win->menu.tab[2].bound, mp->x, mp->y)) {
             win->is_menu = false;
+            win->is_clickable = false;
             win->is_single = true;
         }
         if (sfFloatRect_contains(&win->menu.tab[1].bound, mp->x, mp->y)) {
             connect_client(win, player);
             win->is_menu = false;
             win->is_lobby = true;
+            win->is_clickable = false;
         }
     }
     if (win->event.type == sfEvtMouseButtonPressed && win->is_clickable) {
@@ -43,13 +45,6 @@ void check_other_events(window_t *win, sfVector2i *mp, player_t *player)
     }
 }
 
-static void manage_boutique(window_t *win)
-{
-    win->is_shop = !win->is_shop;
-    if (win->is_shop)
-        generate_shop_items(win->shop);
-}
-
 static void manage_events(window_t *win, player_t *player, map_t *map,
     sfVector2i *mp)
 {
@@ -58,11 +53,15 @@ static void manage_events(window_t *win, player_t *player, map_t *map,
             events[i].function(win, player, map);
     }
     if (win->event.type == sfEvtKeyPressed) {
-        if (win->event.key.code == sfKeyB) {
-            manage_boutique(win);
-        }
         if (win->event.key.code == sfKeyEscape) {
             win->is_param = !win->is_param;
+        }
+        if ((win->event.key.code == sfKeyEnter || win->event.key.code == sfKeyReturn) && win->is_shop) {
+            win->is_shop = false;
+            win->shop->is_open = false;
+            new_level(map, player);
+            win->transition.is_play = true;
+            win->transition.next_state = TRANSITION_TO_GAME;
         }
     }
     if (win->is_game || win->is_single) {
@@ -84,7 +83,7 @@ static void display_other_elements(window_t *win, player_t *player,
         display_hand_inv(win, player);
         draw_hand(win, player);
     }
-    if (win->is_shop && win->shop != NULL) {
+    if (win->is_shop) {
         display_shop(win->window, win->shop);
         display_cursor(win);
     }
@@ -108,6 +107,7 @@ static int display_game_elements(window_t *win, player_t *player, map_t *map)
         display_inventory(win, player);
     display_other_elements(win, player, map);
     sfRenderWindow_drawCircleShape(win->window, player->visor, NULL);
+    display_transition(win);
     return EXIT_SUCCESS;
 }
 

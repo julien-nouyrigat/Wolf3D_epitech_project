@@ -15,11 +15,9 @@
 
 static void change_level(map_t *map, player_t *player, window_t *win)
 {
+    generate_shop_items(win->shop);
     win->transition.is_play = true;
-    if (!win->transition.is_play) {
-        display_transition(win);
-    }
-    new_level(map, player);
+    win->transition.next_state = TRANSITION_TO_SHOP;
     map->level->cur_money = 0;
 }
 
